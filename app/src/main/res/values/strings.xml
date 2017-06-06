@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">StyleAppLayouts</string>
+    <string name="telf">Teléfono</string>
+    <string name="address">Dirección</string>
+    <string name="city">Distrito</string>
+    <string name="email">E-mail</string>
+    <string name="share">¡Síguenos en nuestras redes sociales!</string>
+
+    <string name="menu_opcion1">Principal</string>
+    <string name="menu_opcion2">Mi perfil</string>
+    <string name="menu_opcion3">Mis servicios</string>
+    <string name="menu_opcion4">Mis promociones</string>
+    <string name="menu_opcion5">Compartir</string>
+    <string name="menu_opcion6">Ajustes</string>
+
+    <string name="fragment1_TextView">Opción 1</string>
+    <string name="fragment2_TextView">Opción 2</string>
+    <string name="fragment3_TextView">Opción 3</string>
+    <string name="fragment4_TextView">Opción 4</string>
+    <string name="fragment5_TextView">Opción 5</string>
+    <string name="fragment6_TextView">Opción 6</string>
+
+    <string name="app_settings">Ajustes</string>
+</resources>

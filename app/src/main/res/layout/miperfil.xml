@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/pimage"
+            android:src="@drawable/user"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="3"
+            android:scaleType="fitCenter"
+            android:padding="32dp"
+            />
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:text="Eduardo Angulo"
+            android:textAppearance="?android:textAppearanceLarge" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:paddingLeft="32dp"
+            android:paddingRight="32dp"
+            android:text="@string/telf"
+            android:textAppearance="?android:textAppearanceLarge"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:paddingLeft="32dp"
+            android:paddingRight="32dp"
+            android:text="7777"
+            android:gravity="center_vertical"
+            android:textAppearance="?android:textAppearanceMedium" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="8dp"
+            android:layout_weight="1"
+            android:paddingLeft="32dp"
+            android:paddingRight="32dp"
+            android:text="@string/address"
+            android:gravity="center_vertical"
+            android:textAppearance="?android:textAppearanceLarge"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:paddingLeft="32dp"
+            android:paddingRight="32dp"
+            android:text="Jr Cuszco 77"
+            android:gravity="center_vertical"
+            android:textAppearance="?android:textAppearanceMedium" />
+        <TextView
+
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="8dp"
+            android:layout_weight="1"
+            android:paddingLeft="32dp"
+            android:paddingRight="32dp"
+            android:text="@string/city"
+            android:gravity="center_vertical"
+            android:textAppearance="?android:textAppearanceLarge"
+            android:textStyle="bold" />
+
+        <TextView
+
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:paddingLeft="32dp"
+            android:paddingRight="32dp"
+            android:text="La Molina"
+            android:gravity="center_vertical"
+            android:textAppearance="?android:textAppearanceMedium" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="8dp"
+            android:layout_weight="1"
+            android:paddingLeft="32dp"
+            android:paddingRight="32dp"
+            android:text="@string/email"
+            android:gravity="center_vertical"
+            android:textAppearance="?android:textAppearanceLarge"
+            android:textStyle="bold" />
+
+        <TextView
+
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginBottom="30dp"
+            android:layout_weight="1"
+            android:paddingLeft="32dp"
+            android:paddingRight="32dp"
+            android:text="eduardp888@gmail.com"
+            android:gravity="center_vertical"
+            android:textAppearance="?android:textAppearanceMedium" />
+
+    </LinearLayout>
+
+</FrameLayout>
