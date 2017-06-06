@@ -9,15 +9,16 @@
     >
 
     <ImageView
-        android:id="@+id/pimage"
-        android:layout_height="56dp"
+        android:id="@+id/basicImg"
+        android:src="@mipmap/cover1"
+        android:layout_height="80dp"
         android:layout_width="0dp"
         android:scaleType="fitCenter"
         android:layout_weight="1"
         />
 
     <TextView
-        android:id="@+id/specialtyText"
+        android:id="@+id/basicText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
