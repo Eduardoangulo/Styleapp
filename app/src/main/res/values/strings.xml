@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">StyleAppLayouts</string>
+    <string name="app_name">StyleApp</string>
     <string name="telf">Teléfono</string>
     <string name="address">Dirección</string>
     <string name="city">Distrito</string>

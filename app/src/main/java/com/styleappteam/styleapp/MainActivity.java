@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
         appbar = (Toolbar)findViewById(R.id.appbar);
         setSupportActionBar(appbar);
 
-        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_courses);
+        getSupportActionBar().setHomeAsUpIndicator(R.mipmap.ic_menu);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         drawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
@@ -87,14 +87,14 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
     }
-
+/*
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
-
+*/
     //Este método sirve para ocultar el contenido del fragment inicial y direccionarlo al archivo fragment1.xml, es cuestión de comodidad para usar el fragment
     public void OcultarFragment1(){
         FrameLayout frame = (FrameLayout)findViewById(R.id.frame_inicial);

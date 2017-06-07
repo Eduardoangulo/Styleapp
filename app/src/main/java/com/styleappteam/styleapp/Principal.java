@@ -29,7 +29,7 @@ public class Principal extends Fragment {
 
         service_adapter adapter1=new service_adapter(getActivity(), R.layout.basic_list);
         for(int i=0;i<40;i++)
-            adapter1.add(new Service("Corte de cabello", R.mipmap.cover1));
+            adapter1.add(new Service("Corte de cabello", R.drawable.ic_web_grades));
 
         rootView.setAdapter(adapter1);
         rootView.setOnItemClickListener(new AdapterView.OnItemClickListener(){

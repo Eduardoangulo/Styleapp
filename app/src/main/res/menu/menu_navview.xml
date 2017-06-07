@@ -3,27 +3,27 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/menu_seccion_1"
-            android:icon="@drawable/ic_schedule"
+            android:icon="@mipmap/ic_principal"
             android:title="@string/menu_opcion1"/>
         <item
             android:id="@+id/menu_seccion_2"
-            android:icon="@drawable/ic_notas"
+            android:icon="@mipmap/ic_perfil"
             android:title="@string/menu_opcion2"/>
         <item
             android:id="@+id/menu_seccion_3"
-            android:icon="@drawable/ic_courses"
+            android:icon="@mipmap/ic_notification"
             android:title="@string/menu_opcion3"/>
         <item
             android:id="@+id/menu_seccion_4"
-            android:icon="@drawable/ic_events"
+            android:icon="@mipmap/ic_notification"
             android:title="@string/menu_opcion4"/>
         <item
             android:id="@+id/menu_seccion_5"
-            android:icon="@drawable/ic_web_grades"
+            android:icon="@mipmap/ic_share"
             android:title="@string/menu_opcion5"/>
         <item
             android:id="@+id/menu_seccion_6"
-            android:icon="@drawable/ic_share"
+            android:icon="@mipmap/ic_settings"
             android:title="@string/menu_opcion6"/>
     </group>
 
