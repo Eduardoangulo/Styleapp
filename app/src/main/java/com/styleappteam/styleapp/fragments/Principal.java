@@ -1,5 +1,7 @@
-package com.styleappteam.styleapp;
+package com.styleappteam.styleapp.fragments;
+import com.styleappteam.styleapp.*;
 import com.styleappteam.styleapp.classes.*;
+import com.styleappteam.styleapp.WorkersList;
 
 /**
  * Created by eduardo on 1/5/17.
@@ -29,13 +31,13 @@ public class Principal extends Fragment {
 
         service_adapter adapter1=new service_adapter(getActivity(), R.layout.basic_list);
         for(int i=0;i<40;i++)
-            adapter1.add(new Service("Corte de cabello", R.drawable.ic_web_grades));
+            adapter1.add(new Service("Corte de cabello","Realizado", R.drawable.corte_mujer));
 
         rootView.setAdapter(adapter1);
         rootView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
 
             public void onItemClick(AdapterView<?> parent, View view, int position, long id)  {
-                //startActivity(new Intent(Principal.this, workersList.class));
+                startActivity(new Intent(getActivity(), WorkersList.class));
             }
         });
         return view;

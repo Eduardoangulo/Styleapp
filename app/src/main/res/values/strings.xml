@@ -20,5 +20,9 @@
     <string name="fragment5_TextView">Opción 5</string>
     <string name="fragment6_TextView">Opción 6</string>
 
+    <string name="servicio_1">Corte cabello - Mujer</string>
+    <string name="servicio_2">Corte cabello - Hombre</string>
+    <string name="servicio_3">Teñido de cabello</string>
+
     <string name="app_settings">Ajustes</string>
 </resources>

@@ -13,6 +13,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.styleappteam.styleapp.R;
 
+import org.w3c.dom.Text;
+
 
  /* Created by Luis on 05/05/2017.
  */
@@ -31,10 +33,13 @@ public class service_adapter extends ArrayAdapter<Service> {
         }
         Service currentService = getItem(position);
 
-        TextView servicet = (TextView) listItemView.findViewById(R.id.basicText);
+        TextView servicet = (TextView) listItemView.findViewById(R.id.serviceName);
+        TextView service_status = (TextView)listItemView.findViewById(R.id.status);
         ImageView img = (ImageView) listItemView.findViewById(R.id.basicImg);
 
+
         servicet.setText(currentService.getServiceName());
+        service_status.setText(currentService.getState());
         img.setImageResource(currentService.getImgsrc());
 
         return listItemView;

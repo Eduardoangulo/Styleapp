@@ -1,4 +1,4 @@
-package com.styleappteam.styleapp;
+package com.styleappteam.styleapp.fragments;
 
 /**
  * Created by eduardo on 1/5/17.
@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.styleappteam.styleapp.*;
 import com.styleappteam.styleapp.classes.Service;
 import com.styleappteam.styleapp.classes.service_adapter;
 
@@ -27,9 +28,9 @@ public class Misservicios extends Fragment {
         View view= inflater.inflate(R.layout.misservicios, container, false);
         ListView rootView= (ListView) view.findViewById(R.id.list);
 
-        service_adapter adapter1=new service_adapter(getActivity(), R.layout.basic_list);
+        service_adapter adapter1=new service_adapter(getActivity(), R.layout.myservices_list);
         for(int i=0;i<40;i++)
-            adapter1.add(new Service("Corte de cabello", R.drawable.ic_web_grades));
+            adapter1.add(new Service("Corte de cabello","Cancelado", R.drawable.corte_hombre));
 
         rootView.setAdapter(adapter1);
         return view;

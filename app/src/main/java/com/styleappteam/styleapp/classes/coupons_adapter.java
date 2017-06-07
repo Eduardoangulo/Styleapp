@@ -31,7 +31,7 @@ public class coupons_adapter extends ArrayAdapter<Coupon> {
         }
         Coupon currentCoupon = getItem(position);
 
-        TextView couponN = (TextView) listItemView.findViewById(R.id.basicText);
+        TextView couponN = (TextView) listItemView.findViewById(R.id.serviceName);
         ImageView img = (ImageView) listItemView.findViewById(R.id.basicImg);
 
         couponN.setText(currentCoupon.getCouponName());

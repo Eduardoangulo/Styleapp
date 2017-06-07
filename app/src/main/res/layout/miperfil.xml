@@ -37,7 +37,7 @@
             android:paddingLeft="32dp"
             android:paddingRight="32dp"
             android:text="@string/telf"
-            android:textAppearance="?android:textAppearanceLarge"
+            android:textAppearance="?android:textAppearanceMedium"
             android:textStyle="bold" />
 
         <TextView
@@ -59,7 +59,7 @@
             android:paddingRight="32dp"
             android:text="@string/address"
             android:gravity="center_vertical"
-            android:textAppearance="?android:textAppearanceLarge"
+            android:textAppearance="?android:textAppearanceMedium"
             android:textStyle="bold" />
 
         <TextView
@@ -81,7 +81,7 @@
             android:paddingRight="32dp"
             android:text="@string/city"
             android:gravity="center_vertical"
-            android:textAppearance="?android:textAppearanceLarge"
+            android:textAppearance="?android:textAppearanceMedium"
             android:textStyle="bold" />
 
         <TextView
@@ -104,7 +104,7 @@
             android:paddingRight="32dp"
             android:text="@string/email"
             android:gravity="center_vertical"
-            android:textAppearance="?android:textAppearanceLarge"
+            android:textAppearance="?android:textAppearanceMedium"
             android:textStyle="bold" />
 
         <TextView
@@ -115,7 +115,7 @@
             android:layout_weight="1"
             android:paddingLeft="32dp"
             android:paddingRight="32dp"
-            android:text="eduardp888@gmail.com"
+            android:text="eduardo888@gmail.com"
             android:gravity="center_vertical"
             android:textAppearance="?android:textAppearanceMedium" />
 

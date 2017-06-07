@@ -23,16 +23,17 @@
     <!-- Resto de la interfaz de usuario -->
     <FrameLayout
         android:id="@+id/content_frame"
+        android:background="#ffffff"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <FrameLayout
+            android:background="#ffffff"
             android:visibility="visible"
             android:id="@+id/frame_inicial"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <include layout="@layout/principal" />
         </FrameLayout>
-
     </FrameLayout>
 
 </LinearLayout>

@@ -1,4 +1,5 @@
-package com.styleappteam.styleapp;
+package com.styleappteam.styleapp.fragments;
+import com.styleappteam.styleapp.*;
 import com.styleappteam.styleapp.classes.*;
 
 /**
@@ -30,7 +31,7 @@ public class Promociones extends Fragment {
 
         coupons_adapter adapter1=new coupons_adapter(getActivity(), R.layout.basic_list);
         for(int i=0;i<40;i++)
-            adapter1.add(new Coupon("50% Descuento", R.drawable.ic_web_grades));
+            adapter1.add(new Coupon("Cortes de hombre", R.drawable.percent_50));
 
         rootView.setAdapter(adapter1);
         return view;
