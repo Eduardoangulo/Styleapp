@@ -29,6 +29,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
 import com.google.android.gms.location.places.ui.PlaceSelectionListener;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 public class MapActivity extends AppCompatActivity implements  OnMapReadyCallback, GoogleMap.OnCameraChangeListener, PlaceSelectionListener{
@@ -38,6 +39,8 @@ public class MapActivity extends AppCompatActivity implements  OnMapReadyCallbac
     private int PLACE_AUTOCOMPLETE_REQUEST_CODE = 1;
     private int PLACE_PICKER_REQUEST = 1;
     private GoogleMap mapa;
+    private Marker marker_global;
+    private boolean markerexists =false;
     private static final String TAG = MapActivity.class.getName();
 
     private String direccion_elegida;
@@ -59,8 +62,7 @@ public class MapActivity extends AppCompatActivity implements  OnMapReadyCallbac
             rlp.setMargins(0, 0, 10, 10);
 
             // Retrieve the PlaceAutocompleteFragment.
-             autocompleteFragment = (PlaceAutocompleteFragment) getFragmentManager().findFragmentById(R.id.autocomplete_fragment);
-
+            autocompleteFragment = (PlaceAutocompleteFragment) getFragmentManager().findFragmentById(R.id.autocomplete_fragment);
             autocompleteFragment.setOnPlaceSelectedListener(this);
         }
         catch(Exception e)
@@ -73,12 +75,13 @@ public class MapActivity extends AppCompatActivity implements  OnMapReadyCallbac
     @Override
     public void onPlaceSelected(Place place) {
         // TODO: Get info about the selected place.
-        Log.i(TAG, "Place: " + place.getName());
+        if(markerexists)
+        {
+            marker_global.remove();
+        }
         autocompleteFragment.setText(place.getAddress()); //Se muestra direccion elegida
-
         addMarkerToMap(place.getLatLng());//Se marca en el mapa el lugar elegido
         mapa.animateCamera(CameraUpdateFactory.newLatLngZoom(place.getLatLng(), INITIAL_ZOOM_LEVEL));
-
         direccion_elegida=place.getAddress().toString(); // Se almacena la direccion
     }
 
@@ -140,12 +143,14 @@ public class MapActivity extends AppCompatActivity implements  OnMapReadyCallbac
             });
         } else {
             // Show rationale and request permission.
+            Toast.makeText(this, "Necesita habilitar los permisos de su ubicación", Toast.LENGTH_LONG).show();
         }
 
     }
     public void addMarkerToMap(LatLng latLng) {
-        mapa.addMarker(new MarkerOptions().position(latLng).title("title").snippet("snippet"));
+        marker_global =mapa.addMarker(new MarkerOptions().position(latLng).title("title").snippet("snippet"));
                 //.icon(BitmapDescriptorFactory.fromResource(R.drawable.icon_burro))
+        markerexists=true;
     }
 
     @Override
