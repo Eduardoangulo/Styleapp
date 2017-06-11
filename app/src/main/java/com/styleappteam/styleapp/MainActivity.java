@@ -16,6 +16,8 @@ import android.widget.AdapterView;
 import android.widget.FrameLayout;
 import android.widget.ListView;
 
+import com.facebook.AccessToken;
+import com.facebook.login.LoginManager;
 import com.styleappteam.styleapp.classes.Service;
 import com.styleappteam.styleapp.classes.service_adapter;
 import com.styleappteam.styleapp.fragments.Ajustes;
@@ -36,7 +38,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        if(AccessToken.getCurrentAccessToken()==null){
+            goLoginScreen();
+        }
         appbar = (Toolbar)findViewById(R.id.appbar);
         setSupportActionBar(appbar);
 
@@ -87,6 +91,11 @@ public class MainActivity extends AppCompatActivity {
                                 fragment = new Ajustes();
                                 fragmentTransaction = true;
                                 break;
+                            case R.id.menu_seccion_7:
+                                OcultarFragment1();
+                                LoginManager.getInstance().logOut();
+                                goLoginScreen();
+                                break;
                         }
 
                         if(fragmentTransaction) {
@@ -104,14 +113,21 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
     }
-/*
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
+
+    private void goLoginScreen() {
+        Intent intent= new Intent(this, LoginActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
     }
-*/
+
+    /*
+        @Override
+        public boolean onCreateOptionsMenu(Menu menu) {
+            // Inflate the menu; this adds items to the action bar if it is present.
+            getMenuInflater().inflate(R.menu.menu_main, menu);
+            return true;
+        }
+    */
     //Este método sirve para ocultar el contenido del fragment inicial y direccionarlo al archivo fragment1.xml, es cuestión de comodidad para usar el fragment
     public void OcultarFragment1(){
         FrameLayout frame = (FrameLayout)findViewById(R.id.frame_inicial);

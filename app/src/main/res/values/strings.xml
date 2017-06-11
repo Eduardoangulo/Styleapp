@@ -12,6 +12,7 @@
     <string name="menu_opcion4">Mis promociones</string>
     <string name="menu_opcion5">Compartir</string>
     <string name="menu_opcion6">Ajustes</string>
+    <string name="menu_opcion7">Cerrar Sesion</string>
 
     <string name="fragment1_TextView">Opción 1</string>
     <string name="fragment2_TextView">Opción 2</string>
@@ -21,11 +22,27 @@
     <string name="fragment6_TextView">Opción 6</string>
 
     <string name="facebook_app_id">1386848254714675</string>
+
     <string name="servicio_1">Corte cabello - Mujer</string>
     <string name="servicio_2">Corte cabello - Hombre</string>
     <string name="servicio_3">Teñido de cabello</string>
     <string name="activar_notificaciones">Activar Notificaciones</string>
     <string name="app_not_found">La aplicación no esta instalada</string>
     <string name="app_settings">Ajustes</string>
+
+    <string name="selected_place">Last Selected Place:</string>
     <string name="google_maps_key">googleapikey</string>
+    <string name="place_details">
+    <![CDATA[
+        <b>%1$s</b>
+        <br/>
+        <i>Place Id: %2$s</i>
+        <br/>
+        Address: %3$s
+        <br/>
+        Phone: %4$s
+        <br/>
+        Website: %5$s
+    ]]>
+    </string>
 </resources>
