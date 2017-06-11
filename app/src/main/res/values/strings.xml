@@ -24,5 +24,7 @@
     <string name="servicio_2">Corte cabello - Hombre</string>
     <string name="servicio_3">Teñido de cabello</string>
     <string name="activar_notificaciones">Activar Notificaciones</string>
+    <string name="app_not_found">La aplicación no esta instalada</string>
     <string name="app_settings">Ajustes</string>
+    <string name="google_maps_key">AIzaSyCyw7o0zuut9HnGPgs7Aq7kPXEVhwulFFE</string>
 </resources>

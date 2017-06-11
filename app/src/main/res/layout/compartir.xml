@@ -22,35 +22,35 @@
             android:gravity="center_vertical|center"
             >
             <ImageView
-                android:id="@+id/image1"
+                android:id="@+id/instagram"
                 android:src="@drawable/instagram"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
-                android:layout_toRightOf="@+id/image2"
-                android:layout_alignTop="@+id/image2"
+                android:layout_toRightOf="@+id/haircut"
+                android:layout_alignTop="@+id/haircut"
                 android:scaleType="fitCenter"
                 />
             <ImageView
-                android:id="@+id/image2"
+                android:id="@+id/haircut"
                 android:src="@drawable/haircut_icon"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_margin="24dp"
-                android:layout_below="@+id/image4"
+                android:layout_below="@+id/twitter"
                 android:layout_centerInParent="true"
                 android:scaleType="fitCenter"
                 />
             <ImageView
-                android:id="@+id/image3"
+                android:id="@+id/facebook"
                 android:src="@drawable/facebook"
                 android:layout_width="60dp"
-                android:layout_toLeftOf="@+id/image2"
-                android:layout_alignTop="@+id/image2"
+                android:layout_toLeftOf="@+id/haircut"
+                android:layout_alignTop="@+id/haircut"
                 android:layout_height="60dp"
                 android:scaleType="fitCenter"
                 />
             <ImageView
-                android:id="@+id/image4"
+                android:id="@+id/twitter"
                 android:src="@drawable/twitter"
                 android:layout_width="60dp"
                 android:layout_centerHorizontal="true"
@@ -59,11 +59,11 @@
                 android:scaleType="fitCenter"
                 />
             <ImageView
-                android:id="@+id/image5"
+                android:id="@+id/snapchat"
                 android:src="@drawable/snapchat"
                 android:layout_width="60dp"
-                android:layout_below="@+id/image2"
-                android:layout_alignLeft="@+id/image2"
+                android:layout_below="@+id/haircut"
+                android:layout_alignLeft="@+id/haircut"
                 android:layout_height="60dp"
                 android:scaleType="fitCenter"
                 />
