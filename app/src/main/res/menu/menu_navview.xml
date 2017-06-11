@@ -25,6 +25,10 @@
             android:id="@+id/menu_seccion_6"
             android:icon="@mipmap/ic_settings"
             android:title="@string/menu_opcion6"/>
+        <item
+            android:id="@+id/menu_seccion_7"
+            android:icon="@mipmap/ic_settings"
+            android:title="@string/menu_opcion7"/>
     </group>
 
 </menu>
