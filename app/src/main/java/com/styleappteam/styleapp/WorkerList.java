@@ -1,6 +1,7 @@
 package com.styleappteam.styleapp;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
@@ -18,12 +19,19 @@ public class WorkerList extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.workers);
-       ListView rootView= (ListView) findViewById(R.id.list);
+        ListView rootView= (ListView) findViewById(R.id.list);
 
         worker_adapter adapter1=new worker_adapter(this, R.layout.worker_list);
         for(int i=0;i<40;i++)
             adapter1.add(new worker("Eduardo Angulo", R.drawable.stars, R.drawable.user));
 
         rootView.setAdapter(adapter1);
+
+        FloatingActionButton myFab = (FloatingActionButton) findViewById(R.id.fab_maps);
+        myFab.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                startActivity(new Intent(WorkerList.this, MapActivity.class));
+            }
+        });
     }
 }
