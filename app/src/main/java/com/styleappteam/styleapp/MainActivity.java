@@ -1,6 +1,7 @@
 package com.styleappteam.styleapp;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -93,6 +94,10 @@ public class MainActivity extends AppCompatActivity {
                                 break;
                             case R.id.menu_seccion_7:
                                 OcultarFragment1();
+                                sendReport();
+                                break;
+                            case R.id.menu_seccion_8:
+                                OcultarFragment1();
                                 LoginManager.getInstance().logOut();
                                 goLoginScreen();
                                 break;
@@ -113,11 +118,21 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
     }
-
+    private void sendReport(){
+        Intent intent = new Intent(Intent.ACTION_SENDTO);
+        intent.setData(Uri.parse("mailto:")); // only email apps should handle this
+        intent.putExtra(Intent.EXTRA_EMAIL, new String[]{getResources().getString(R.string.StyleAppEmail)});
+        intent.putExtra(Intent.EXTRA_SUBJECT, getResources().getString(R.string.reportSubjet));
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivity(intent);
+        }
+    }
+    //regresar al login despues de cerrar sesion o si no habias iniciado sesion.
     private void goLoginScreen() {
         Intent intent= new Intent(this, LoginActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION|Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
+        overridePendingTransition(0,0);
     }
 
     /*
