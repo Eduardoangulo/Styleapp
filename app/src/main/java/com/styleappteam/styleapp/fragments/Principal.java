@@ -34,7 +34,7 @@ public class Principal extends Fragment {
             adapter1.add(new Service("Corte de cabello","Realizado", R.drawable.corte_mujer));
 
         rootView.setAdapter(adapter1);
-      rootView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+        rootView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
 
             public void onItemClick(AdapterView<?> parent, View view, int position, long id)  {
                 startActivity(new Intent(getActivity(), WorkerList.class));
