@@ -5,13 +5,16 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
+
 import com.facebook.AccessToken;
-import com.facebook.Profile;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
 import com.facebook.login.widget.ProfilePictureView;
 import com.styleappteam.styleapp.*;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class Miperfil extends Fragment {
 
@@ -29,23 +32,44 @@ public class Miperfil extends Fragment {
         if (AccessToken.getCurrentAccessToken() == null) {
             goLoginScreen();
         } else {
-                Profile profile = Profile.getCurrentProfile();
+            RequestData();
+                /*Profile profile = Profile.getCurrentProfile();
                 if (profile != null) {
                    displayProfileInfo(profile, view);
 
                 } else {
                     Profile.fetchProfileForCurrentAccessToken();
-                }
+                }*/
         }
         return view;
     }
-    private void displayProfileInfo(Profile profile, View view) {
-        String name = profile.getName();
-        String photoUrl = profile.getProfilePictureUri(100, 100).toString();
-        TextView nameTextView= (TextView) view.findViewById(R.id.profileName);
-        nameTextView.setText(name);
-        ProfilePictureView profilePictureView= (ProfilePictureView) view.findViewById(R.id.ProfilePicture);
-        profilePictureView.setProfileId(profile.getId());
+
+    private void RequestData() {
+        GraphRequest request = GraphRequest.newMeRequest(AccessToken.getCurrentAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
+            @Override
+            public void onCompleted(JSONObject object,GraphResponse response) {
+                final JSONObject json = response.getJSONObject();
+                displayProfileInfo(json, getView());
+            }
+        });
+        Bundle parameters = new Bundle();
+        parameters.putString("fields", "id,name,link,email,picture");
+        request.setParameters(parameters);
+        request.executeAsync();
+    }
+    private void displayProfileInfo(JSONObject json, View view) {
+        try {
+            if(json != null){
+                TextView nameTextView= (TextView) view.findViewById(R.id.profileName);
+                TextView emailTextView= (TextView) view.findViewById(R.id.profileEmail);
+                nameTextView.setText(json.getString("name"));
+                emailTextView.setText(json.getString("email"));
+                ProfilePictureView profilePictureView= (ProfilePictureView) view.findViewById(R.id.ProfilePicture);
+                profilePictureView.setProfileId(json.getString("id"));
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
     private void goLoginScreen() {
         Intent intent= new Intent(getActivity(), LoginActivity.class);

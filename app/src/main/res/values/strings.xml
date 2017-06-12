@@ -12,7 +12,11 @@
     <string name="menu_opcion4">Mis promociones</string>
     <string name="menu_opcion5">Compartir</string>
     <string name="menu_opcion6">Ajustes</string>
-    <string name="menu_opcion7">Cerrar Sesion</string>
+    <string name="menu_opcion8">Cerrar Sesion</string>
+    <string name="menu_opcion7">Reportar un problema</string>
+
+    <string name="StyleAppEmail">luisechenique114@gmail.com</string>
+    <string name="reportSubjet">Queja StyleApp</string>
 
     <string name="fragment1_TextView">Opción 1</string>
     <string name="fragment2_TextView">Opción 2</string>

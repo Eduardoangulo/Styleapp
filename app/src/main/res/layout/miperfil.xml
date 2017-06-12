@@ -36,7 +36,6 @@
             android:textSize="20sp"
             android:gravity="center"
             android:layout_weight="1"
-            android:text="Eduardo Angulo"
             android:textAppearance="?android:textAppearanceLarge" />
 
         <TextView
@@ -127,7 +126,6 @@
             android:layout_weight="1"
             android:paddingLeft="32dp"
             android:paddingRight="32dp"
-            android:text="eduardo888@gmail.com"
             android:gravity="center_vertical"
             android:textAppearance="?android:textAppearanceMedium" />
 
