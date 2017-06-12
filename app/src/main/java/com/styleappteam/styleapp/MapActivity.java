@@ -29,8 +29,10 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
 import com.google.android.gms.location.places.ui.PlaceSelectionListener;
-import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+
+import static com.styleappteam.styleapp.VariablesGlobales.marker_global;
+import static com.styleappteam.styleapp.VariablesGlobales.place_global;
 
 public class MapActivity extends AppCompatActivity implements  OnMapReadyCallback, GoogleMap.OnCameraChangeListener, PlaceSelectionListener{
 
@@ -39,11 +41,8 @@ public class MapActivity extends AppCompatActivity implements  OnMapReadyCallbac
     private int PLACE_AUTOCOMPLETE_REQUEST_CODE = 1;
     private int PLACE_PICKER_REQUEST = 1;
     private GoogleMap mapa;
-    private Marker marker_global;
-    private boolean markerexists =false;
+   // private boolean markerexists =false;
     private static final String TAG = MapActivity.class.getName();
-
-    private String direccion_elegida;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,14 +74,16 @@ public class MapActivity extends AppCompatActivity implements  OnMapReadyCallbac
     @Override
     public void onPlaceSelected(Place place) {
         // TODO: Get info about the selected place.
-        if(markerexists)
+        if(marker_global!=null)
         {
             marker_global.remove();
         }
-        autocompleteFragment.setText(place.getAddress()); //Se muestra direccion elegida
-        addMarkerToMap(place.getLatLng());//Se marca en el mapa el lugar elegido
-        mapa.animateCamera(CameraUpdateFactory.newLatLngZoom(place.getLatLng(), INITIAL_ZOOM_LEVEL));
-        direccion_elegida=place.getAddress().toString(); // Se almacena la direccion
+        place_global=place;
+        autocompleteFragment.setText(place_global.getAddress()); //Se muestra direccion elegida
+        addMarkerToMap(place_global.getLatLng());//Se marca en el mapa el lugar elegido
+        mapa.animateCamera(CameraUpdateFactory.newLatLngZoom(place_global.getLatLng(), INITIAL_ZOOM_LEVEL));
+
+        //place_global.getAddress().toString(); // Se almacena la direccion
     }
 
     @Override
@@ -98,7 +99,7 @@ public class MapActivity extends AppCompatActivity implements  OnMapReadyCallbac
                 Place place = PlaceAutocomplete.getPlace(this, data);
                 System.out.println(place.getName());
 
-                String toastMsg = String.format("Place: %s", place.getAddress());
+                String toastMsg = String.format("Dirección seleccionada: %s", place.getAddress());
                 Toast.makeText(this, toastMsg, Toast.LENGTH_LONG).show();
                 onPlaceSelected(place);
 
@@ -150,7 +151,7 @@ public class MapActivity extends AppCompatActivity implements  OnMapReadyCallbac
     public void addMarkerToMap(LatLng latLng) {
         marker_global =mapa.addMarker(new MarkerOptions().position(latLng).title("title").snippet("snippet"));
                 //.icon(BitmapDescriptorFactory.fromResource(R.drawable.icon_burro))
-        markerexists=true;
+        //markerexists=true;
     }
 
     @Override
@@ -158,6 +159,21 @@ public class MapActivity extends AppCompatActivity implements  OnMapReadyCallbac
         // Update the search criteria for this geoQuery and the circle on the map
         LatLng center = cameraPosition.target;
 
+    }
+    @Override
+    public void onBackPressed()
+    {
+        if(marker_global!=null)
+        {
+            Toast.makeText(this,"La ubicación actual es: "+place_global.getAddress(), Toast.LENGTH_LONG).show();
+
+        }
+        else
+        {
+            Toast.makeText(this,"No se tiene información de la dirección",Toast.LENGTH_LONG).show();
+        }
+
+        super.onBackPressed();  // optional depending on your needs
     }
 
 }
