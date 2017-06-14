@@ -13,6 +13,18 @@
             android:layout_marginTop="30dp"
             android:padding="16dp"
             android:layout_marginBottom="30dp" />
+
+        <TextView
+            android:text="Sign Up"
+            android:id="@+id/signup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/login_button"
+            android:layout_centerHorizontal="true"
+            android:padding="8dp"
+            android:background="@color/com_facebook_blue"
+            android:textColor="@color/com_facebook_send_button_text_color"
+            />
 </RelativeLayout>
 
 
