@@ -12,6 +12,7 @@ import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.login.widget.ProfilePictureView;
 import com.styleappteam.styleapp.*;
+import com.styleappteam.styleapp.activities.LoginActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
