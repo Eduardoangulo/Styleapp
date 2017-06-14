@@ -30,6 +30,8 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import static com.styleappteam.styleapp.VariablesGlobales.URL_desarrollo;
+
 public class Principal extends Fragment {
 
     public Principal() {
@@ -53,7 +55,7 @@ public class Principal extends Fragment {
                 startActivity(new Intent(getActivity(), WorkerList.class));
             }
         });
-        retrofitLoad("http://styleapphome.prodequa.com/api/types/");
+        retrofitLoad(URL_desarrollo);
         return view;
     }
     private void retrofitLoad(String url){

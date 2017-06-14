@@ -10,4 +10,5 @@ import com.google.android.gms.maps.model.Marker;
 public class VariablesGlobales {
     public static Marker marker_global;
     public static Place place_global;
+    public static String URL_desarrollo = "http://styleapphome.prodequa.com/api/";
 }
