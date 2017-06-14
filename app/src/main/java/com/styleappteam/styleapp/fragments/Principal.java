@@ -75,9 +75,9 @@ public class Principal extends Fragment {
     private void obtenerDatos() {
         Log.i(TAG, "obtener datos");
         type_serviceAPI service = retrofit.create(type_serviceAPI.class);
-        Call<ArrayList<type_service>> pokemonRespuestaCall = service.obtenerlistaTipos();
+        Call<ArrayList<type_service>> typeCall = service.obtenerlistaTipos();
 
-        pokemonRespuestaCall.enqueue(new Callback<ArrayList<type_service>>() {
+        typeCall.enqueue(new Callback<ArrayList<type_service>>() {
             @Override
             public void onResponse(Call<ArrayList<type_service>> call, Response<ArrayList<type_service>> response) {
                 if (response.isSuccessful()) {
