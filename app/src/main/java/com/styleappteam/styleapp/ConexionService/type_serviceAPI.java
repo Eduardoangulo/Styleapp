@@ -10,6 +10,6 @@ import retrofit2.http.GET;
  */
 
 public interface type_serviceAPI {
-    @GET("?id=5")
+    @GET("types")
     Call<ArrayList<type_service>> obtenerlistaTipos();
 }
