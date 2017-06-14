@@ -1,4 +1,4 @@
-package com.styleappteam.styleapp;
+package com.styleappteam.styleapp.activities;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -10,6 +10,7 @@ import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
+import com.styleappteam.styleapp.R;
 
 import java.util.Arrays;
 

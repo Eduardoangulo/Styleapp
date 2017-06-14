@@ -1,7 +1,8 @@
 package com.styleappteam.styleapp.fragments;
+import com.styleappteam.styleapp.ConexionService.api_connection;
 import com.styleappteam.styleapp.ConexionService.type_serviceAPI;
 import com.styleappteam.styleapp.classes.*;
-import com.styleappteam.styleapp.WorkerList;
+import com.styleappteam.styleapp.activities.WorkerList;
 import com.styleappteam.styleapp.R;
 
 /**
@@ -38,7 +39,7 @@ public class Principal extends Fragment {
         // Required empty public constructor
     }
 
-    private Retrofit retrofit;
+    //private Retrofit retrofit;
     private ArrayList<type_service> tipos_servicio=null;
     private final String TAG= "SERVICIOS";
     private typeAdapter adapter1;
@@ -55,10 +56,13 @@ public class Principal extends Fragment {
                 startActivity(new Intent(getActivity(), WorkerList.class));
             }
         });
-        retrofitLoad(URL_desarrollo);
+        api_connection conexion= new api_connection(getContext(), TAG, URL_desarrollo);
+        conexion.retrofitLoad();
+        obtenerDatos(conexion.getRetrofit());
+       // retrofitLoad(URL_desarrollo);
         return view;
     }
-    private void retrofitLoad(String url){
+   /* private void retrofitLoad(String url){
         Log.i(TAG, "Entro a retrofit");
         if(isOnline()){
             Log.i(TAG, "Hay internet");
@@ -73,8 +77,8 @@ public class Principal extends Fragment {
             Toast.makeText(getContext(), getResources().getString(R.string.noInternet), Toast.LENGTH_SHORT).show();
         }
 
-    }
-    private void obtenerDatos() {
+    }*/
+    private void obtenerDatos(Retrofit retrofit) {
         Log.i(TAG, "obtener datos");
         type_serviceAPI service = retrofit.create(type_serviceAPI.class);
         Call<ArrayList<type_service>> typeCall = service.obtenerlistaTipos();
@@ -97,7 +101,6 @@ public class Principal extends Fragment {
                     Log.e(TAG, " onResponse: " + response.errorBody());
                 }
             }
-
             @Override
             public void onFailure(Call<ArrayList<type_service>> call, Throwable t) {
                 Log.e(TAG, " onFailure: " + t.getMessage());
@@ -105,10 +108,10 @@ public class Principal extends Fragment {
             }
         });
     }
-    private boolean isOnline() {
+  /*  private boolean isOnline() {
         ConnectivityManager cm =
                 (ConnectivityManager) getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
         return activeNetwork != null && activeNetwork.isConnected();
-    }
+    }*/
 }

@@ -1,4 +1,4 @@
-package com.styleappteam.styleapp;
+package com.styleappteam.styleapp.activities;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -15,6 +15,7 @@ import android.widget.FrameLayout;
 
 import com.facebook.AccessToken;
 import com.facebook.login.LoginManager;
+import com.styleappteam.styleapp.R;
 import com.styleappteam.styleapp.fragments.Ajustes;
 import com.styleappteam.styleapp.fragments.Compartir;
 import com.styleappteam.styleapp.fragments.Miperfil;

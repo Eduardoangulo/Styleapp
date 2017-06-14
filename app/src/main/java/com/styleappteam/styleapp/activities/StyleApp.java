@@ -1,4 +1,4 @@
-package com.styleappteam.styleapp;
+package com.styleappteam.styleapp.activities;
 
 import android.app.Application;
 
