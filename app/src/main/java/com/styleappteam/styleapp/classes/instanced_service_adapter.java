@@ -19,9 +19,9 @@ import org.w3c.dom.Text;
  /* Created by Luis on 05/05/2017.
  */
 
-public class service_adapter extends ArrayAdapter<Service> {
+public class instanced_service_adapter extends ArrayAdapter<instancedService> {
     private int r;
-    public service_adapter(Activity context, int resource){
+    public instanced_service_adapter(Activity context, int resource){
         super(context, resource);
         r=resource;
     }
@@ -31,7 +31,7 @@ public class service_adapter extends ArrayAdapter<Service> {
         if (listItemView == null) {
             listItemView = LayoutInflater.from(getContext()).inflate(r, parent, false);
         }
-        Service currentService = getItem(position);
+        instancedService currentService = getItem(position);
 
         TextView servicet = (TextView) listItemView.findViewById(R.id.serviceName);
         TextView service_status = (TextView)listItemView.findViewById(R.id.status);

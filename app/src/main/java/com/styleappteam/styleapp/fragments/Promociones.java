@@ -13,9 +13,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
-import com.styleappteam.styleapp.classes.Service;
-import com.styleappteam.styleapp.classes.service_adapter;
-
 public class Promociones extends Fragment {
 
     public Promociones() {

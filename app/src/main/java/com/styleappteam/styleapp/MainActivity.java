@@ -9,18 +9,12 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.FrameLayout;
-import android.widget.ListView;
 
 import com.facebook.AccessToken;
 import com.facebook.login.LoginManager;
-import com.styleappteam.styleapp.classes.Service;
-import com.styleappteam.styleapp.classes.service_adapter;
 import com.styleappteam.styleapp.fragments.Ajustes;
 import com.styleappteam.styleapp.fragments.Compartir;
 import com.styleappteam.styleapp.fragments.Miperfil;
