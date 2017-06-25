@@ -1,9 +1,5 @@
 package com.styleappteam.styleapp.classes;
 
-/**
- * Created by Luis on 06/06/2017.
- */
-
 import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,15 +7,16 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.styleappteam.styleapp.R;
 
-
- /* Created by Luis on 05/05/2017.
+/**
+ * Created by Luis on 09/06/2017.
  */
 
-public class coupons_adapter extends ArrayAdapter<Coupon> {
+public class Worker_Adapter extends ArrayAdapter<Worker> {
     private int r;
-    public coupons_adapter(Activity context, int resource){
+    public Worker_Adapter(Activity context, int resource){
         super(context, resource);
         r=resource;
     }
@@ -29,13 +26,16 @@ public class coupons_adapter extends ArrayAdapter<Coupon> {
         if (listItemView == null) {
             listItemView = LayoutInflater.from(getContext()).inflate(r, parent, false);
         }
-        Coupon currentCoupon = getItem(position);
+        Worker currentWorker = getItem(position);
 
-        TextView couponN = (TextView) listItemView.findViewById(R.id.serviceName);
-        ImageView img = (ImageView) listItemView.findViewById(R.id.basicImg);
+        TextView workerName = (TextView) listItemView.findViewById(R.id.workerName);
+        ImageView stars = (ImageView) listItemView.findViewById(R.id.stars);
+        ImageView img = (ImageView) listItemView.findViewById(R.id.worker_image);
 
-        couponN.setText(currentCoupon.getCouponName());
-        img.setImageResource(currentCoupon.getImgsrc());
+
+        workerName.setText(currentWorker.getName());
+        stars.setImageResource(currentWorker.getValoration());
+        img.setImageResource(currentWorker.getImg());
 
         return listItemView;
 

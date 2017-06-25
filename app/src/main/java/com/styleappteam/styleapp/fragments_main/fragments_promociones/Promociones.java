@@ -1,8 +1,12 @@
-package com.styleappteam.styleapp.fragments;
+package com.styleappteam.styleapp.fragments_main.fragments_promociones;
+import com.styleappteam.styleapp.*;
+import com.styleappteam.styleapp.classes.classes_promociones.Coupon;
+import com.styleappteam.styleapp.classes.classes_promociones.Coupons_Adapter;
 
 /**
  * Created by eduardo on 1/5/17.
  */
+
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -10,13 +14,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
-import com.styleappteam.styleapp.*;
-import com.styleappteam.styleapp.classes.instancedService;
-import com.styleappteam.styleapp.classes.instanced_service_adapter;
+public class Promociones extends Fragment {
 
-public class Misservicios extends Fragment {
-
-    public Misservicios() {
+    public Promociones() {
         // Required empty public constructor
     }
 
@@ -24,15 +24,14 @@ public class Misservicios extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view= inflater.inflate(R.layout.misservicios, container, false);
+        View view= inflater.inflate(R.layout.promociones, container, false);
         ListView rootView= (ListView) view.findViewById(R.id.list);
 
-        instanced_service_adapter adapter1=new instanced_service_adapter(getActivity(), R.layout.myservices_list);
+        Coupons_Adapter adapter1=new Coupons_Adapter(getActivity(), R.layout.basic_list);
         for(int i=0;i<40;i++)
-            adapter1.add(new instancedService("Corte de cabello","Cancelado", R.drawable.corte_hombre));
+            adapter1.add(new Coupon("Cortes de hombre", R.drawable.percent_50));
 
         rootView.setAdapter(adapter1);
         return view;
     }
-
 }

@@ -1,4 +1,4 @@
-package com.styleappteam.styleapp.ConexionService;
+package com.styleappteam.styleapp.connection_service;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
@@ -8,27 +8,21 @@ import android.widget.Toast;
 
 import com.styleappteam.styleapp.R;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-
-import static android.content.ContentValues.TAG;
-import static java.security.AccessController.getContext;
 
 /**
  * Created by Luis on 14/06/2017.
  */
 
-public class api_connection {
+public class API_Connection {
 
     private Context context;
     private Retrofit retrofit;
     private String url;
     private final String TAG;
 
-    public api_connection(Context context,final String TAG, String url){
+    public API_Connection(Context context, final String TAG, String url){
         this.context=context;
         this.url=url;
         this.TAG=TAG;

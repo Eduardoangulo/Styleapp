@@ -16,12 +16,12 @@ import android.widget.FrameLayout;
 import com.facebook.AccessToken;
 import com.facebook.login.LoginManager;
 import com.styleappteam.styleapp.R;
-import com.styleappteam.styleapp.fragments.Ajustes;
-import com.styleappteam.styleapp.fragments.Compartir;
-import com.styleappteam.styleapp.fragments.Miperfil;
-import com.styleappteam.styleapp.fragments.Misservicios;
-import com.styleappteam.styleapp.fragments.Principal;
-import com.styleappteam.styleapp.fragments.Promociones;
+import com.styleappteam.styleapp.fragments_main.fragments_ajustes.Ajustes;
+import com.styleappteam.styleapp.fragments_main.fragments_compartir.Compartir;
+import com.styleappteam.styleapp.fragments_main.fragments_perfil.Miperfil;
+import com.styleappteam.styleapp.fragments_main.fragments_mis_servicios.Misservicios;
+import com.styleappteam.styleapp.fragments_main.fragments_principal.Principal;
+import com.styleappteam.styleapp.fragments_main.fragments_promociones.Promociones;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -130,14 +130,6 @@ public class MainActivity extends AppCompatActivity {
         overridePendingTransition(0,0);
     }
 
-    /*
-        @Override
-        public boolean onCreateOptionsMenu(Menu menu) {
-            // Inflate the menu; this adds items to the action bar if it is present.
-            getMenuInflater().inflate(R.menu.menu_main, menu);
-            return true;
-        }
-    */
     //Este método sirve para ocultar el contenido del fragment inicial y direccionarlo al archivo fragment1.xml, es cuestión de comodidad para usar el fragment
     public void OcultarFragment1(){
         FrameLayout frame = (FrameLayout)findViewById(R.id.frame_inicial);
@@ -155,4 +147,5 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
 }

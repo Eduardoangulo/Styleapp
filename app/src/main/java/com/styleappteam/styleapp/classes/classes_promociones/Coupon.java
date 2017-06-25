@@ -1,4 +1,4 @@
-package com.styleappteam.styleapp.classes;
+package com.styleappteam.styleapp.classes.classes_promociones;
 
 /**
  * Created by Luis on 06/06/2017.

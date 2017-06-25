@@ -4,11 +4,11 @@ package com.styleappteam.styleapp.classes;
  * Created by Luis on 09/06/2017.
  */
 
-public class worker {
+public class Worker {
     private String name;
     private int valoration;
     private int img;
-    public worker(String name, int valoration, int img){
+    public Worker(String name, int valoration, int img){
         this.name=name;
         this.valoration=valoration;
         this.img=img;

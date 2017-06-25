@@ -1,4 +1,4 @@
-package com.styleappteam.styleapp.classes;
+package com.styleappteam.styleapp.classes.classes_promociones;
 
 /**
  * Created by Luis on 06/06/2017.
@@ -13,15 +13,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.styleappteam.styleapp.R;
 
-import org.w3c.dom.Text;
-
 
  /* Created by Luis on 05/05/2017.
  */
 
-public class instanced_service_adapter extends ArrayAdapter<instancedService> {
+public class Coupons_Adapter extends ArrayAdapter<Coupon> {
     private int r;
-    public instanced_service_adapter(Activity context, int resource){
+    public Coupons_Adapter(Activity context, int resource){
         super(context, resource);
         r=resource;
     }
@@ -31,16 +29,13 @@ public class instanced_service_adapter extends ArrayAdapter<instancedService> {
         if (listItemView == null) {
             listItemView = LayoutInflater.from(getContext()).inflate(r, parent, false);
         }
-        instancedService currentService = getItem(position);
+        Coupon currentCoupon = getItem(position);
 
-        TextView servicet = (TextView) listItemView.findViewById(R.id.serviceName);
-        TextView service_status = (TextView)listItemView.findViewById(R.id.status);
+        TextView couponN = (TextView) listItemView.findViewById(R.id.serviceName);
         ImageView img = (ImageView) listItemView.findViewById(R.id.basicImg);
 
-
-        servicet.setText(currentService.getServiceName());
-        service_status.setText(currentService.getState());
-        img.setImageResource(currentService.getImgsrc());
+        couponN.setText(currentCoupon.getCouponName());
+        img.setImageResource(currentCoupon.getImgsrc());
 
         return listItemView;
 

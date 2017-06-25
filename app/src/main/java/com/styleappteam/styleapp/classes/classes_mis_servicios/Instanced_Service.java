@@ -1,15 +1,15 @@
-package com.styleappteam.styleapp.classes;
+package com.styleappteam.styleapp.classes.classes_mis_servicios;
 
 /**
  * Created by Luis on 14/06/2017.
  */
 
-public class instancedService {
+public class Instanced_Service {
     private String serviceName;
     private int imgsrc;
     private String state;
 
-    public instancedService(String serviceName, String state, int imgsrc){
+    public Instanced_Service(String serviceName, String state, int imgsrc){
         this.serviceName=serviceName;
         this.imgsrc=imgsrc;
         this.state=state;
