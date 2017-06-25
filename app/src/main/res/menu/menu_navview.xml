@@ -3,35 +3,35 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/menu_seccion_1"
-            android:icon="@mipmap/ic_principal"
+            android:icon="@drawable/ic_principal"
             android:title="@string/menu_opcion1"/>
         <item
             android:id="@+id/menu_seccion_2"
-            android:icon="@mipmap/ic_perfil"
+            android:icon="@drawable/ic_perfil"
             android:title="@string/menu_opcion2"/>
         <item
             android:id="@+id/menu_seccion_3"
-            android:icon="@mipmap/ic_notification"
+            android:icon="@drawable/ic_notification"
             android:title="@string/menu_opcion3"/>
         <item
             android:id="@+id/menu_seccion_4"
-            android:icon="@mipmap/ic_promo"
+            android:icon="@drawable/ic_promo"
             android:title="@string/menu_opcion4"/>
         <item
             android:id="@+id/menu_seccion_5"
-            android:icon="@mipmap/ic_share"
+            android:icon="@drawable/ic_share"
             android:title="@string/menu_opcion5"/>
         <item
             android:id="@+id/menu_seccion_6"
-            android:icon="@mipmap/ic_settings"
+            android:icon="@drawable/ic_settings"
             android:title="@string/menu_opcion6"/>
         <item
             android:id="@+id/menu_seccion_7"
-            android:icon="@mipmap/ic_warning"
+            android:icon="@drawable/ic_warning"
             android:title="@string/menu_opcion7"/>
         <item
             android:id="@+id/menu_seccion_8"
-            android:icon="@mipmap/ic_exit"
+            android:icon="@drawable/ic_exit"
             android:title="@string/menu_opcion8"/>
 
     </group>

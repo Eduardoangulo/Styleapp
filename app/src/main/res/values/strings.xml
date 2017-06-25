@@ -37,6 +37,15 @@
     <string name="app_not_found">La aplicación no está instalada</string>
     <string name="app_settings">Ajustes</string>
 
+    <!--Culqi-->
+    <string name="button_token">Crear Token</string>
+    <string name="hint_card_number">Número de tarjeta</string>
+    <string name="hint_month">Mes</string>
+    <string name="hint_year">Año</string>
+    <string name="hint_cvv">CVV</string>
+    <string name="hint_email">Correo electrónico</string>
+
+
     <string name="selected_place">Último lugar elegido: </string>
     <string name="google_maps_key">googleapikey</string>
     <string name="place_details">

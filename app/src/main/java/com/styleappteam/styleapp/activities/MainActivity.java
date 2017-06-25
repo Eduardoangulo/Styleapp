@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
         appbar = (Toolbar)findViewById(R.id.appbar);
         setSupportActionBar(appbar);
 
-        getSupportActionBar().setHomeAsUpIndicator(R.mipmap.ic_menu);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_menu);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         drawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);

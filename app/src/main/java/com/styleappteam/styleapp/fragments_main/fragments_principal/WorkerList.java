@@ -1,5 +1,6 @@
 package com.styleappteam.styleapp.fragments_main.fragments_principal;
-import android.app.Fragment;
+
+import android.support.v4.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -20,7 +21,7 @@ import static com.styleappteam.styleapp.VariablesGlobales.place_global;
  * Created by Luis on 06/06/2017.
  */
 
-public class WorkerList extends android.support.v4.app.Fragment {
+public class WorkerList extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -37,6 +38,17 @@ public class WorkerList extends android.support.v4.app.Fragment {
 
             public void onItemClick(AdapterView<?> parent, View view, int position, long id)  {
 
+                if(place_global==null){
+                    view.setClickable(false);
+                }
+                else{
+                    Fragment fragment = new Pago();
+                    getActivity().getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.content_frame, fragment)
+                            .addToBackStack(null)
+                            .commit();
+                }
+
             }
         });
 
@@ -50,11 +62,11 @@ public class WorkerList extends android.support.v4.app.Fragment {
 
         if(place_global!=null)
         {
-            Toast.makeText(getActivity(),"La ubicación actual es: "+ place_global.getAddress(), Toast.LENGTH_LONG).show();
+            Toast.makeText(getActivity(),"La ubicación actual es: "+ place_global.getAddress(), Toast.LENGTH_SHORT).show();
         }
         else
         {
-            Toast.makeText(getActivity(),"No se tiene información de la dirección",Toast.LENGTH_LONG).show();
+            Toast.makeText(getActivity(),"No se tiene información de la dirección",Toast.LENGTH_SHORT).show();
         }
         return view;
     }
