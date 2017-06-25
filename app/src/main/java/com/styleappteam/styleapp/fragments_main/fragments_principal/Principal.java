@@ -26,6 +26,8 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 
 import static com.styleappteam.styleapp.VariablesGlobales.URL_desarrollo;
+import static com.styleappteam.styleapp.VariablesGlobales.TAG;
+import static com.styleappteam.styleapp.VariablesGlobales.conexion;
 
 public class Principal extends Fragment {
 
@@ -33,7 +35,6 @@ public class Principal extends Fragment {
         // Required empty public constructor
     }
     private ArrayList<Type_Service> tipos_servicio=null;
-    private final String TAG= "SERVICIOS";
     private Type_Adapter adapter1;
     @Override
     public View onCreateView(LayoutInflater inflater, final ViewGroup container,
@@ -52,9 +53,17 @@ public class Principal extends Fragment {
                         .commit();
             }
         });
-        API_Connection conexion= new API_Connection(getContext(), TAG, URL_desarrollo);
+        //API_Connection conexion= new API_Connection(getContext(), TAG, URL_desarrollo);
         conexion.retrofitLoad();
-        obtenerDatos(conexion.getRetrofit());
+        if(conexion.getRetrofit()!=null){
+            Log.i(TAG, "Principal: Hay internet");
+            obtenerDatos(conexion.getRetrofit());
+        }else
+        {
+            Log.e(TAG, "Principal: se fue el internet");
+        }
+
+
 
         return view;
     }

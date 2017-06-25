@@ -9,6 +9,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -16,13 +17,16 @@ import android.widget.FrameLayout;
 import com.facebook.AccessToken;
 import com.facebook.login.LoginManager;
 import com.styleappteam.styleapp.R;
+import com.styleappteam.styleapp.connection_service.API_Connection;
 import com.styleappteam.styleapp.fragments_main.fragments_ajustes.Ajustes;
 import com.styleappteam.styleapp.fragments_main.fragments_compartir.Compartir;
 import com.styleappteam.styleapp.fragments_main.fragments_perfil.Miperfil;
 import com.styleappteam.styleapp.fragments_main.fragments_mis_servicios.Misservicios;
 import com.styleappteam.styleapp.fragments_main.fragments_principal.Principal;
 import com.styleappteam.styleapp.fragments_main.fragments_promociones.Promociones;
-
+import static com.styleappteam.styleapp.VariablesGlobales.TAG;
+import static com.styleappteam.styleapp.VariablesGlobales.URL_desarrollo;
+import static com.styleappteam.styleapp.VariablesGlobales.conexion;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -34,9 +38,16 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         if(AccessToken.getCurrentAccessToken()==null){
+            Log.i(TAG, "Token: "+AccessToken.getCurrentAccessToken());
             goLoginScreen();
+            finish();
         }
+        conexion= new API_Connection(getApplicationContext(), TAG, URL_desarrollo);
+        //conexion.retrofitLoad();
+        Log.i(TAG, "Token: "+AccessToken.getCurrentAccessToken());
+
         appbar = (Toolbar)findViewById(R.id.appbar);
         setSupportActionBar(appbar);
 

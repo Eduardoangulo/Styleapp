@@ -56,7 +56,6 @@
             android:layout_weight="1"
             android:paddingLeft="32dp"
             android:paddingRight="32dp"
-            android:text="7777"
             android:gravity="center_vertical"
             android:textAppearance="?android:textAppearanceMedium" />
 
@@ -79,7 +78,6 @@
             android:layout_weight="1"
             android:paddingLeft="32dp"
             android:paddingRight="32dp"
-            android:text="Jr Cuszco 77"
             android:gravity="center_vertical"
             android:textAppearance="?android:textAppearanceMedium" />
         <TextView
@@ -102,7 +100,6 @@
             android:layout_weight="1"
             android:paddingLeft="32dp"
             android:paddingRight="32dp"
-            android:text="La Molina"
             android:gravity="center_vertical"
             android:textAppearance="?android:textAppearanceMedium" />
 

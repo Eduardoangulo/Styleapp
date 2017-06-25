@@ -5,6 +5,10 @@
     <string name="city">Distrito</string>
     <string name="email">E-mail</string>
     <string name="share">¡Síguenos en nuestras redes sociales!</string>
+    <string name="usuario">usuario</string>
+    <string name="password">contraseña</string>
+    <string name="OlvContra"><u>¿No recuerda su contraseña?</u></string>
+    <string name="iniciarSesion">ingresar</string>
 
     <string name="menu_opcion1">Principal</string>
     <string name="menu_opcion2">Mi perfil</string>

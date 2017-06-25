@@ -1,30 +1,106 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/salonspa"
     android:layout_height="match_parent"
+    android:paddingRight="32dp"
+    android:paddingLeft="32dp"
+    android:paddingTop="32dp"
+    android:paddingBottom="32dp"
     tools:context="com.styleappteam.styleapp.activities.LoginActivity">
-        <com.facebook.login.widget.LoginButton
-            android:id="@+id/login_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_marginTop="30dp"
-            android:padding="16dp"
-            android:layout_marginBottom="30dp" />
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_marginTop="40dp"
+            android:paddingLeft="48dp"
+            android:paddingRight="48dp"
+            android:paddingBottom="64dp"
+            android:paddingTop="64dp"
+            android:background="@drawable/layout_bg">
+            <TextView
+                android:id="@+id/userLogin"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:textSize="16sp"
+                android:text="@string/usuario"
+                android:textAllCaps="true"
+                />
 
-        <TextView
-            android:text="Sign Up"
-            android:id="@+id/signup"
+            <EditText
+                android:id="@+id/edtxtUser"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="18dp"
+                android:ems="10"
+                android:hint="@string/usuario"
+                android:inputType="textPersonName" />
+
+            <TextView
+                android:id="@+id/userPass"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:textSize="16sp"
+                android:text="@string/password"
+                android:textAllCaps="true"
+                />
+            <EditText
+                android:id="@+id/edtxtPass"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:textSize="16sp"
+                android:hint="@string/password"
+                android:inputType="textPassword"
+                android:layout_marginBottom="18dp"/>
+
+            <TextView
+                android:id="@+id/ingresarLogin"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:textSize="16sp"
+                android:text="@string/iniciarSesion"
+                android:background="@color/colorPrimary"
+                android:textStyle="bold"
+                android:textColor="#FFFF"
+                android:gravity="center"
+                android:padding="8dp"
+                android:textAllCaps="true"
+                android:layout_marginBottom="18dp"/>
+
+            <com.facebook.login.widget.LoginButton
+                android:id="@+id/login_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                android:layout_marginBottom="18dp"/>
+
+            <TextView
+                android:id="@+id/forgotPass"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:text="@string/OlvContra"
+                />
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/imageView"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/login_button"
-            android:layout_centerHorizontal="true"
-            android:padding="8dp"
-            android:background="@color/com_facebook_blue"
-            android:textColor="@color/com_facebook_send_button_text_color"
-            />
-</RelativeLayout>
+            android:layout_height="100dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/haircut_icon" />
+
+    </FrameLayout>
+
+</LinearLayout>
 
 
