@@ -52,31 +52,6 @@
             android:gravity="left"
             android:scaleType="fitStart"
             />
-        <!--<LinearLayout
-            android:id="@+id/button_payment_layout"
-            android:layout_width="match_parent"
-            android:orientation="vertical"
-            android:visibility="gone"
-            android:layout_height="wrap_content">
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:padding="2dp"
-                android:layout_marginTop="2dp"
-                android:layout_marginBottom="2dp"
-                android:background="@color/com_facebook_blue">
-            </View>
-            <Button
-                android:layout_margin="5dp"
-                android:layout_width="wrap_content"
-                android:layout_height="25dp"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:textColor="#FFFFFF"
-                android:textStyle="bold"
-                android:background="@color/colorPrimary"
-                android:text="Pagar"/>
-        </LinearLayout>-->
 
     </LinearLayout>
 
