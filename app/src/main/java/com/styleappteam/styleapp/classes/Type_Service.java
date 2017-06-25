@@ -4,7 +4,7 @@ package com.styleappteam.styleapp.classes;
  * Created by Luis on 14/06/2017.
  */
 
-public class type_service {
+public class Type_Service {
     private int id;
     private String name;
     private String slug;
@@ -13,7 +13,7 @@ public class type_service {
     private String created_at;
     private String updated_at;
 
-    public type_service(){
+    public Type_Service(){
 
     }
     public int getId() {

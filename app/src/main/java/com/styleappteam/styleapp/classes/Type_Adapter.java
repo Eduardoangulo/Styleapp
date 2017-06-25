@@ -14,9 +14,9 @@ import com.styleappteam.styleapp.R;
  * Created by Luis on 14/06/2017.
  */
 
-public class typeAdapter extends ArrayAdapter<type_service> {
+public class Type_Adapter extends ArrayAdapter<Type_Service> {
 private int r;
-public typeAdapter(Activity context, int resource){
+public Type_Adapter(Activity context, int resource){
         super(context, resource);
         r=resource;
         }
@@ -26,7 +26,7 @@ public View getView(int position, View convertView, ViewGroup parent) {
         if (listItemView == null) {
             listItemView = LayoutInflater.from(getContext()).inflate(r, parent, false);
             }
-            type_service currentService = getItem(position);
+            Type_Service currentService = getItem(position);
 
             TextView servicet = (TextView) listItemView.findViewById(R.id.serviceName);
             ImageView img = (ImageView) listItemView.findViewById(R.id.basicImg);

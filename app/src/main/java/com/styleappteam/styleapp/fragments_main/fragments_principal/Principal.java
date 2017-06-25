@@ -1,17 +1,13 @@
-package com.styleappteam.styleapp.fragments;
-import com.styleappteam.styleapp.ConexionService.api_connection;
-import com.styleappteam.styleapp.ConexionService.type_serviceAPI;
+package com.styleappteam.styleapp.fragments_main.fragments_principal;
+import com.styleappteam.styleapp.connection_service.API_Connection;
+import com.styleappteam.styleapp.connection_service.Type_Service_API;
 import com.styleappteam.styleapp.classes.*;
-import com.styleappteam.styleapp.activities.WorkerList;
 import com.styleappteam.styleapp.R;
 
 /**
  * Created by eduardo on 1/5/17.
  */
 
-import android.content.Context;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -20,7 +16,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.AdapterView;
-import android.content.Intent;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -29,7 +24,6 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 import static com.styleappteam.styleapp.VariablesGlobales.URL_desarrollo;
 
@@ -38,24 +32,27 @@ public class Principal extends Fragment {
     public Principal() {
         // Required empty public constructor
     }
-    private ArrayList<type_service> tipos_servicio=null;
+    private ArrayList<Type_Service> tipos_servicio=null;
     private final String TAG= "SERVICIOS";
-    private typeAdapter adapter1;
+    private Type_Adapter adapter1;
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view= inflater.inflate(R.layout.principal, container, false);
         ListView rootView= (ListView) view.findViewById(R.id.list);
-        adapter1=new typeAdapter(getActivity(), R.layout.basic_list);
+        adapter1=new Type_Adapter(getActivity(), R.layout.basic_list);
         rootView.setAdapter(adapter1);
         rootView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             public void onItemClick(AdapterView<?> parent, View view, int position, long id)  {
-                startActivity(new Intent(getActivity(), WorkerList.class));
+                Fragment fragment = new WorkerList();
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.content_frame, fragment)
+                        .addToBackStack(null)
+                        .commit();
             }
         });
-        api_connection conexion= new api_connection(getContext(), TAG, URL_desarrollo);
-
+        API_Connection conexion= new API_Connection(getContext(), TAG, URL_desarrollo);
         conexion.retrofitLoad();
         obtenerDatos(conexion.getRetrofit());
 
@@ -63,12 +60,12 @@ public class Principal extends Fragment {
     }
     private void obtenerDatos(Retrofit retrofit) {
         Log.i(TAG, "obtener datos");
-        type_serviceAPI service = retrofit.create(type_serviceAPI.class);
-        Call<ArrayList<type_service>> typeCall = service.obtenerlistaTipos();
+        Type_Service_API service = retrofit.create(Type_Service_API.class);
+        Call<ArrayList<Type_Service>> typeCall = service.obtenerlistaTipos();
 
-        typeCall.enqueue(new Callback<ArrayList<type_service>>() {
+        typeCall.enqueue(new Callback<ArrayList<Type_Service>>() {
             @Override
-            public void onResponse(Call<ArrayList<type_service>> call, Response<ArrayList<type_service>> response) {
+            public void onResponse(Call<ArrayList<Type_Service>> call, Response<ArrayList<Type_Service>> response) {
                 if (response.isSuccessful()) {
                     //aca asigna lo cojido al array
                     Log.i(TAG, "Cargo la API");
@@ -85,10 +82,11 @@ public class Principal extends Fragment {
                 }
             }
             @Override
-            public void onFailure(Call<ArrayList<type_service>> call, Throwable t) {
+            public void onFailure(Call<ArrayList<Type_Service>> call, Throwable t) {
                 Log.e(TAG, " onFailure: " + t.getMessage());
                 Toast.makeText(getContext(), getResources().getString(R.string.connection_error), Toast.LENGTH_SHORT).show();
             }
         });
     }
+
 }

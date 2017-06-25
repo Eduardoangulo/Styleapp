@@ -32,7 +32,7 @@
       </intent-filter>
     </activity>
     <activity
-        android:name=".activities.WorkerList"
+        android:name=".fragments_main.fragments_principal.WorkerList"
         android:label="@string/app_name"
         android:screenOrientation="portrait"
         android:theme="@style/AppTheme">
