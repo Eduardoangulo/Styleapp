@@ -15,7 +15,7 @@
             android:title="@string/menu_opcion3"/>
         <item
             android:id="@+id/menu_seccion_4"
-            android:icon="@mipmap/ic_notification"
+            android:icon="@mipmap/ic_promo"
             android:title="@string/menu_opcion4"/>
         <item
             android:id="@+id/menu_seccion_5"
@@ -31,7 +31,7 @@
             android:title="@string/menu_opcion7"/>
         <item
             android:id="@+id/menu_seccion_8"
-            android:icon="@mipmap/ic_exitapp"
+            android:icon="@mipmap/ic_exit"
             android:title="@string/menu_opcion8"/>
 
     </group>
