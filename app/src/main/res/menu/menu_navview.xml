@@ -27,11 +27,11 @@
             android:title="@string/menu_opcion6"/>
         <item
             android:id="@+id/menu_seccion_7"
-            android:icon="@mipmap/ic_settings"
+            android:icon="@mipmap/ic_warning"
             android:title="@string/menu_opcion7"/>
         <item
             android:id="@+id/menu_seccion_8"
-            android:icon="@mipmap/ic_settings"
+            android:icon="@mipmap/ic_exitapp"
             android:title="@string/menu_opcion8"/>
 
     </group>

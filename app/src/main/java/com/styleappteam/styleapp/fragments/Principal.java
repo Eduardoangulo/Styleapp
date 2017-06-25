@@ -38,8 +38,6 @@ public class Principal extends Fragment {
     public Principal() {
         // Required empty public constructor
     }
-
-    //private Retrofit retrofit;
     private ArrayList<type_service> tipos_servicio=null;
     private final String TAG= "SERVICIOS";
     private typeAdapter adapter1;
@@ -57,27 +55,12 @@ public class Principal extends Fragment {
             }
         });
         api_connection conexion= new api_connection(getContext(), TAG, URL_desarrollo);
+
         conexion.retrofitLoad();
         obtenerDatos(conexion.getRetrofit());
-       // retrofitLoad(URL_desarrollo);
+
         return view;
     }
-   /* private void retrofitLoad(String url){
-        Log.i(TAG, "Entro a retrofit");
-        if(isOnline()){
-            Log.i(TAG, "Hay internet");
-            retrofit = new Retrofit.Builder()
-                    .baseUrl(url)
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .build();
-            Log.i(TAG, "creo retrofit");
-            obtenerDatos();
-        }
-        else{
-            Toast.makeText(getContext(), getResources().getString(R.string.noInternet), Toast.LENGTH_SHORT).show();
-        }
-
-    }*/
     private void obtenerDatos(Retrofit retrofit) {
         Log.i(TAG, "obtener datos");
         type_serviceAPI service = retrofit.create(type_serviceAPI.class);
@@ -108,10 +91,4 @@ public class Principal extends Fragment {
             }
         });
     }
-  /*  private boolean isOnline() {
-        ConnectivityManager cm =
-                (ConnectivityManager) getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
-        return activeNetwork != null && activeNetwork.isConnected();
-    }*/
 }
