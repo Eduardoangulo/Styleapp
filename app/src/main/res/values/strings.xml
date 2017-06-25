@@ -12,7 +12,7 @@
     <string name="menu_opcion4">Mis promociones</string>
     <string name="menu_opcion5">Compartir</string>
     <string name="menu_opcion6">Ajustes</string>
-    <string name="menu_opcion8">Cerrar Sesion</string>
+    <string name="menu_opcion8">Cerrar sesión</string>
     <string name="menu_opcion7">Reportar un problema</string>
 
     <string name="StyleAppEmail">luisechenique114@gmail.com</string>
@@ -33,10 +33,10 @@
     <string name="servicio_2">Corte cabello - Hombre</string>
     <string name="servicio_3">Teñido de cabello</string>
     <string name="activar_notificaciones">Activar Notificaciones</string>
-    <string name="app_not_found">La aplicación no esta instalada</string>
+    <string name="app_not_found">La aplicación no está instalada</string>
     <string name="app_settings">Ajustes</string>
 
-    <string name="selected_place">Last Selected Place:</string>
+    <string name="selected_place">Último lugar elegido: </string>
     <string name="google_maps_key">AIzaSyCdwYvxhnRm0t-4VA-NJ0H5RcQ5InIkkhc</string>
     <string name="place_details">
     <![CDATA[
