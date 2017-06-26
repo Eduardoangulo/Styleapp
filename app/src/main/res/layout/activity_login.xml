@@ -5,14 +5,15 @@
     android:orientation="vertical"
     android:background="@drawable/salonspa"
     android:layout_height="match_parent"
+    android:gravity="center_vertical"
     android:paddingRight="32dp"
     android:paddingLeft="32dp"
-    android:paddingTop="32dp"
-    android:paddingBottom="32dp"
+
     tools:context="com.styleappteam.styleapp.activities.LoginActivity">
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        >
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -102,5 +103,6 @@
     </FrameLayout>
 
 </LinearLayout>
+
 
 
