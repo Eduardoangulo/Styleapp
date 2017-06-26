@@ -66,12 +66,11 @@
 
         <ImageView
             android:id="@+id/colordist"
-            android:src="@drawable/dist"
+            android:src="@drawable/ic_rojo"
             android:paddingLeft="8dp"
-            android:paddingRight="8dp"
-            android:layout_height="30dp"
+            android:paddingRight="16dp"
+            android:layout_height="15dp"
             android:layout_width="match_parent"
-            android:gravity="left"
             android:scaleType="fitEnd"
             />
 

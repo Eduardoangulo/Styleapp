@@ -40,7 +40,7 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onError(FacebookException exception) {
-                Toast.makeText(getApplicationContext(), "error", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Error de conexion a Facebook", Toast.LENGTH_SHORT).show();
             }
 
         });

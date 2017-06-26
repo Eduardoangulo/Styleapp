@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.facebook.AccessToken;
 import com.facebook.GraphRequest;
@@ -68,6 +69,10 @@ public class Miperfil extends Fragment {
                 ProfilePictureView profilePictureView= (ProfilePictureView) view.findViewById(R.id.ProfilePicture);
                 profilePictureView.setProfileId(json.getString("id"));
             }
+            else{
+                Toast.makeText(getContext(), getResources().getString(R.string.connection_error), Toast.LENGTH_SHORT).show();
+            }
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
