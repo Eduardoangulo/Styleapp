@@ -12,6 +12,6 @@ public class VariablesGlobales {
     public static Marker marker_global;
     public static Place place_global;
     public static String URL_desarrollo = "http://styleapphome.prodequa.com/api/";
-    public final static String TAG="STYLEAPLOGS";
+    public final static String TAG="STYLEAPPLOGS";
     public static API_Connection conexion;
 }
