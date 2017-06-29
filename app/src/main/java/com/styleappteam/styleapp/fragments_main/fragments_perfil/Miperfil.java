@@ -27,21 +27,13 @@ public class Miperfil extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        //FrameLayout frame = (FrameLayout)getView().findViewById(R.id.frame_inicial);
-        //frame.setVisibility(View.GONE);
+
         View view= inflater.inflate(R.layout.miperfil, container, false);
         if (AccessToken.getCurrentAccessToken() == null) {
             goLoginScreen();
         } else {
             RequestData();
-                /*Profile profile = Profile.getCurrentProfile();
-                if (profile != null) {
-                   displayProfileInfo(profile, view);
 
-                } else {
-                    Profile.fetchProfileForCurrentAccessToken();
-                }*/
         }
         return view;
     }
