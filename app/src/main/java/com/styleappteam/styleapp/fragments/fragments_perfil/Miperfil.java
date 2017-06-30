@@ -5,7 +5,11 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.styleappteam.styleapp.*;
 import com.styleappteam.styleapp.activities.LoginActivity;
 
@@ -34,8 +38,15 @@ public class Miperfil extends Fragment {
     private void displayProfileInfo(View view) {
                 TextView nameTextView= (TextView) view.findViewById(R.id.profileName);
                 TextView emailTextView= (TextView) view.findViewById(R.id.profileEmail);
+                ImageView profileImg = (ImageView) view.findViewById(R.id.ProfilePicture);
                 nameTextView.setText(currentClient.getUser().getFirstName()+" "+currentClient.getUser().getLastName());
                 emailTextView.setText(currentClient.getUser().getEmail());
+                Glide.with(getContext())
+                    .load(currentClient.getPhoto())
+                    .fitCenter()
+                    .crossFade()
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .into(profileImg);
 
     }
     private void goLoginScreen() {
