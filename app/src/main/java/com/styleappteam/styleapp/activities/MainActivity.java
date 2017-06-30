@@ -18,16 +18,15 @@ import com.facebook.AccessToken;
 import com.facebook.login.LoginManager;
 import com.styleappteam.styleapp.R;
 import com.styleappteam.styleapp.connection_service.API_Connection;
-import com.styleappteam.styleapp.fragments_main.fragments_ajustes.Ajustes;
-import com.styleappteam.styleapp.fragments_main.fragments_compartir.Compartir;
-import com.styleappteam.styleapp.fragments_main.fragments_perfil.Miperfil;
-import com.styleappteam.styleapp.fragments_main.fragments_mis_servicios.Misservicios;
-import com.styleappteam.styleapp.fragments_main.fragments_principal.Principal;
-import com.styleappteam.styleapp.fragments_main.fragments_promociones.Promociones;
+import com.styleappteam.styleapp.fragments.fragments_ajustes.Ajustes;
+import com.styleappteam.styleapp.fragments.fragments_compartir.Compartir;
+import com.styleappteam.styleapp.fragments.fragments_perfil.Miperfil;
+import com.styleappteam.styleapp.fragments.fragments_mis_servicios.Misservicios;
+import com.styleappteam.styleapp.fragments.fragments_principal.Principal;
+import com.styleappteam.styleapp.fragments.fragments_promociones.Promociones;
 import static com.styleappteam.styleapp.VariablesGlobales.TAG;
 import static com.styleappteam.styleapp.VariablesGlobales.URL_desarrollo;
 import static com.styleappteam.styleapp.VariablesGlobales.conexion;
-import static com.styleappteam.styleapp.VariablesGlobales.currentClient;
 
 public class MainActivity extends AppCompatActivity {
 
