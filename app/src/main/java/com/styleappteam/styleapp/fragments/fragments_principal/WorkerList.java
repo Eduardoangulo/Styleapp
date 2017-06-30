@@ -15,7 +15,7 @@ import android.widget.Toast;
 import com.styleappteam.styleapp.R;
 import com.styleappteam.styleapp.activities.MapActivity;
 import com.styleappteam.styleapp.connection_service.GetWorkers;
-import com.styleappteam.styleapp.classes.Worker;
+import com.styleappteam.styleapp.model.Worker;
 import com.styleappteam.styleapp.adapters.Worker_Adapter;
 import com.styleappteam.styleapp.connection_service.styleapp_API;
 
@@ -28,6 +28,7 @@ import retrofit2.Retrofit;
 
 import static com.styleappteam.styleapp.VariablesGlobales.TAG;
 import static com.styleappteam.styleapp.VariablesGlobales.conexion;
+import static com.styleappteam.styleapp.VariablesGlobales.currentClient;
 import static com.styleappteam.styleapp.VariablesGlobales.place_global;
 
 /**
@@ -51,7 +52,7 @@ public class WorkerList extends Fragment {
         conexion.retrofitLoad();
         if(conexion.getRetrofit()!=null){
             Log.i(TAG, "Principal: Hay internet");
-            obtenerDatosWorkers(conexion.getRetrofit());
+            //obtenerDatosWorkers(conexion.getRetrofit());
         }else
         {
             Log.e(TAG, "Principal: se fue el internet");
@@ -97,15 +98,14 @@ public class WorkerList extends Fragment {
     private void obtenerDatosWorkers(Retrofit retrofit) {
         Log.i(TAG, "obtener datos");
         styleapp_API service = retrofit.create(styleapp_API.class);
-        GetWorkers infoWorker = null;
+        GetWorkers infoWorker = new GetWorkers();
 
-        if (place_global != null) {
-            place_local=place_global.getName().toString().split(",");
-            System.out.println(place_local[0]);
+        infoWorker.setDistrict_name("Santiago de Surco");
+        infoWorker.setLatitude(25.3131225);
+        infoWorker.setLongitude(25.3131224);
+        //infoWorker.setLatitude(currentClient.getAddresses().get(1).getLatitude());
+        //infoWorker.setLongitude(currentClient.getAddresses().get(1).getLongitude());
 
-            infoWorker.setDistrict_name(place_local[0]);
-
-        }
         Call<ArrayList<Worker>> workerCall = service.obtenerWorkers(infoWorker);
 
         workerCall.enqueue(new Callback<ArrayList<Worker>>() {
