@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.styleappteam.styleapp.R;
 import com.styleappteam.styleapp.activities.MapActivity;
 import com.styleappteam.styleapp.connection_service.GetWorkers;
+import com.styleappteam.styleapp.connection_service.InfoWorker;
 import com.styleappteam.styleapp.model.Worker;
 import com.styleappteam.styleapp.adapters.Worker_Adapter;
 import com.styleappteam.styleapp.connection_service.styleapp_API;
@@ -29,6 +30,7 @@ import retrofit2.Retrofit;
 import static com.styleappteam.styleapp.VariablesGlobales.TAG;
 import static com.styleappteam.styleapp.VariablesGlobales.conexion;
 import static com.styleappteam.styleapp.VariablesGlobales.currentClient;
+import static com.styleappteam.styleapp.VariablesGlobales.currentService;
 import static com.styleappteam.styleapp.VariablesGlobales.place_global;
 
 /**
@@ -36,10 +38,9 @@ import static com.styleappteam.styleapp.VariablesGlobales.place_global;
  */
 
 public class WorkerList extends Fragment {
-    private ArrayList<Worker> workers=null;
+    private GetWorkers getWorkers;
+    private ArrayList<Worker> workers;
     private Worker_Adapter adapter1;
-    private String [] place_local;
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -52,7 +53,7 @@ public class WorkerList extends Fragment {
         conexion.retrofitLoad();
         if(conexion.getRetrofit()!=null){
             Log.i(TAG, "Principal: Hay internet");
-            //obtenerDatosWorkers(conexion.getRetrofit());
+            obtenerDatosWorkers(conexion.getRetrofit());
         }else
         {
             Log.e(TAG, "Principal: se fue el internet");
@@ -97,25 +98,28 @@ public class WorkerList extends Fragment {
 
     private void obtenerDatosWorkers(Retrofit retrofit) {
         Log.i(TAG, "obtener datos");
-        styleapp_API service = retrofit.create(styleapp_API.class);
-        GetWorkers infoWorker = new GetWorkers();
 
+        styleapp_API service = retrofit.create(styleapp_API.class);
+
+        InfoWorker infoWorker = new InfoWorker();
         infoWorker.setDistrict_name("Santiago de Surco");
         infoWorker.setLatitude(25.3131225);
         infoWorker.setLongitude(25.3131224);
-        //infoWorker.setLatitude(currentClient.getAddresses().get(1).getLatitude());
-        //infoWorker.setLongitude(currentClient.getAddresses().get(1).getLongitude());
 
-        Call<ArrayList<Worker>> workerCall = service.obtenerWorkers(infoWorker);
+        infoWorker.setService_id(currentService.getId());
 
-        workerCall.enqueue(new Callback<ArrayList<Worker>>() {
+        Call<GetWorkers> workerCall = service.obtenerWorkers(infoWorker);
+
+        workerCall.enqueue(new Callback<GetWorkers>() {
             @Override
-            public void onResponse(Call<ArrayList<Worker>> call, Response<ArrayList<Worker>> response) {
+            public void onResponse(Call<GetWorkers> call, Response<GetWorkers> response) {
                 if (response.isSuccessful()) {
-                    Log.i(TAG, "Cargo la API");
-                    workers = response.body();
+
+                    getWorkers = response.body();
+                    workers = (ArrayList) getWorkers.getWorkers();
+
                     for(int i=0; i<workers.size(); i++){
-                        Log.i(TAG, " Nombre tipo: " +workers.get(i).getId());
+                        Log.i(TAG, " Nombre tipo: " + workers.get(i).getName());
                     }
                     adapter1.addAll(workers);
                     Log.i(TAG, "Se añadieron al ListView");
@@ -126,7 +130,7 @@ public class WorkerList extends Fragment {
                 }
             }
             @Override
-            public void onFailure(Call<ArrayList<Worker>> call, Throwable t) {
+            public void onFailure(Call<GetWorkers> call, Throwable t) {
                 Log.e(TAG, " onFailure: " + t.getMessage());
                 Toast.makeText(getContext(), getResources().getString(R.string.connection_error), Toast.LENGTH_SHORT).show();
             }

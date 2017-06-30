@@ -2,7 +2,7 @@ package com.styleappteam.styleapp.fragments.fragments_principal;
 import com.styleappteam.styleapp.adapters.Type_Adapter;
 import com.styleappteam.styleapp.connection_service.styleapp_API;
 import com.styleappteam.styleapp.R;
-import com.styleappteam.styleapp.model.Type_Service;
+import com.styleappteam.styleapp.model.Type;
 
 /**
  * Created by eduardo on 1/5/17.
@@ -27,13 +27,14 @@ import retrofit2.Retrofit;
 
 import static com.styleappteam.styleapp.VariablesGlobales.TAG;
 import static com.styleappteam.styleapp.VariablesGlobales.conexion;
+import static com.styleappteam.styleapp.VariablesGlobales.currentType;
 
 public class Principal extends Fragment {
 
     public Principal() {
         // Required empty public constructor
     }
-    private ArrayList<Type_Service> tipos_servicio=null;
+    private ArrayList<Type> tipos=null;
     private Type_Adapter adapter1;
     @Override
     public View onCreateView(LayoutInflater inflater, final ViewGroup container,
@@ -45,15 +46,17 @@ public class Principal extends Fragment {
         rootView.setAdapter(adapter1);
         rootView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             public void onItemClick(AdapterView<?> parent, View view, int position, long id)  {
-                Fragment fragment = new WorkerList();
+                Fragment fragment = new PrincipalSecondFragment();
                 getActivity().getSupportFragmentManager().beginTransaction()
                         .replace(R.id.content_frame, fragment)
                         .addToBackStack(null)
                         .commit();
+                currentType=tipos.get(position);
             }
         });
-        //API_Connection conexion= new API_Connection(getContext(), TAG, URL_desarrollo);
+
         conexion.retrofitLoad();
+
         if(conexion.getRetrofit()!=null){
             Log.i(TAG, "Principal: Hay internet");
             obtenerDatos(conexion.getRetrofit());
@@ -62,26 +65,25 @@ public class Principal extends Fragment {
             Log.e(TAG, "Principal: se fue el internet");
         }
 
-
-
         return view;
     }
     private void obtenerDatos(Retrofit retrofit) {
         Log.i(TAG, "obtener datos");
         styleapp_API service = retrofit.create(styleapp_API.class);
-        Call<ArrayList<Type_Service>> typeCall = service.obtenerlistaTipos();
+        Call<ArrayList<Type>> typeCall = service.obtenerlistaTipos();
 
-        typeCall.enqueue(new Callback<ArrayList<Type_Service>>() {
+        typeCall.enqueue(new Callback<ArrayList<Type>>() {
             @Override
-            public void onResponse(Call<ArrayList<Type_Service>> call, Response<ArrayList<Type_Service>> response) {
+            public void onResponse(Call<ArrayList<Type>> call, Response<ArrayList<Type>> response) {
                 if (response.isSuccessful()) {
-                    //aca asigna lo cojido al array
+
                     Log.i(TAG, "Cargo la API");
-                    tipos_servicio = response.body();
-                    for(int i=0; i<tipos_servicio.size(); i++){
-                        Log.i(TAG, " Nombre tipo: " +tipos_servicio.get(i).getName());
+                    tipos = response.body();
+
+                    for(int i=0; i<tipos.size(); i++){
+                        Log.i(TAG, " Nombre tipo: " +tipos.get(i).getName());
                     }
-                    adapter1.addAll(tipos_servicio);
+                    adapter1.addAll(tipos);
                     Log.i(TAG, "Se añadieron al ListView");
 
                 } else {
@@ -90,7 +92,7 @@ public class Principal extends Fragment {
                 }
             }
             @Override
-            public void onFailure(Call<ArrayList<Type_Service>> call, Throwable t) {
+            public void onFailure(Call<ArrayList<Type>> call, Throwable t) {
                 Log.e(TAG, " onFailure: " + t.getMessage());
                 Toast.makeText(getContext(), getResources().getString(R.string.connection_error), Toast.LENGTH_SHORT).show();
             }
