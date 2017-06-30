@@ -3,7 +3,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-
+    <android.support.v4.widget.SwipeRefreshLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/swiperefresh"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
     <ListView
         android:id="@+id/list"
         android:orientation="vertical"
@@ -19,4 +23,5 @@
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
         android:src="@android:drawable/ic_dialog_map" />
+    </android.support.v4.widget.SwipeRefreshLayout>
 </FrameLayout>

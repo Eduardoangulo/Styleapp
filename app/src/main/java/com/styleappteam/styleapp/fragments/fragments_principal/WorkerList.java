@@ -4,6 +4,7 @@ import android.support.v4.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,7 +12,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
-
 import com.styleappteam.styleapp.R;
 import com.styleappteam.styleapp.activities.MapActivity;
 import com.styleappteam.styleapp.connection_service.GetWorkers;
@@ -19,9 +19,7 @@ import com.styleappteam.styleapp.connection_service.InfoWorker;
 import com.styleappteam.styleapp.model.Worker;
 import com.styleappteam.styleapp.adapters.Worker_Adapter;
 import com.styleappteam.styleapp.connection_service.styleapp_API;
-
 import java.util.ArrayList;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -29,7 +27,6 @@ import retrofit2.Retrofit;
 
 import static com.styleappteam.styleapp.VariablesGlobales.TAG;
 import static com.styleappteam.styleapp.VariablesGlobales.conexion;
-import static com.styleappteam.styleapp.VariablesGlobales.currentClient;
 import static com.styleappteam.styleapp.VariablesGlobales.currentService;
 import static com.styleappteam.styleapp.VariablesGlobales.place_global;
 
@@ -41,10 +38,19 @@ public class WorkerList extends Fragment {
     private GetWorkers getWorkers;
     private ArrayList<Worker> workers;
     private Worker_Adapter adapter1;
+    private SwipeRefreshLayout refresh;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view= inflater.inflate(R.layout.workers, container, false);
+        refresh= (SwipeRefreshLayout)view.findViewById(R.id.swiperefresh);
+        refresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                refreshContent();
+            }
+        });
+        refresh.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
 
         ListView rootView= (ListView) view.findViewById(R.id.list);
 
@@ -84,27 +90,50 @@ public class WorkerList extends Fragment {
             }
         });
 
+        return view;
+    }
+    private void refreshContent(){
+        new android.os.Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                conexion.retrofitLoad();
+                if(conexion.getRetrofit()!=null){
+                    Log.i(TAG, "Principal: Hay internet");
+                    obtenerDatosWorkers(conexion.getRetrofit());
+                }else
+                {
+                    Log.e(TAG, "Principal: se fue el internet");
+                }
+                refresh.setRefreshing(false);
+            }
+        },1500);
+    }
+    private void obtenerDatosWorkers(Retrofit retrofit) {
+        Log.i(TAG, "obtener datos");
+
+        InfoWorker infoWorker = new InfoWorker();
+
+        if(workers!=null){
+            workers.clear();
+            adapter1.clear();
+        }
+
+        getWorkers=new GetWorkers();
+
+        styleapp_API service = retrofit.create(styleapp_API.class);
 
         if(place_global!=null)
         {
             Toast.makeText(getActivity(),"La ubicación actual es: "+ place_global.getAddress(), Toast.LENGTH_SHORT).show();
+            infoWorker.setLatitude(place_global.getLatLng().latitude);
+            infoWorker.setLongitude(place_global.getLatLng().longitude);
         }
         else
         {
-            Toast.makeText(getActivity(),"No se tiene información de la dirección",Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(),"Se utilizará su ubicación predeterminada",Toast.LENGTH_SHORT).show();
+            infoWorker.setLatitude(-12.122790); //jalar del registro
+            infoWorker.setLongitude(-77.026414); //jalar del registro
         }
-        return view;
-    }
-
-    private void obtenerDatosWorkers(Retrofit retrofit) {
-        Log.i(TAG, "obtener datos");
-
-        styleapp_API service = retrofit.create(styleapp_API.class);
-
-        InfoWorker infoWorker = new InfoWorker();
-        infoWorker.setDistrict_name("Santiago de Surco");
-        infoWorker.setLatitude(25.3131225);
-        infoWorker.setLongitude(25.3131224);
 
         infoWorker.setService_id(currentService.getId());
 
@@ -114,15 +143,9 @@ public class WorkerList extends Fragment {
             @Override
             public void onResponse(Call<GetWorkers> call, Response<GetWorkers> response) {
                 if (response.isSuccessful()) {
-
                     getWorkers = response.body();
                     workers = (ArrayList) getWorkers.getWorkers();
-
-                    for(int i=0; i<workers.size(); i++){
-                        Log.i(TAG, " Nombre tipo: " + workers.get(i).getName());
-                    }
                     adapter1.addAll(workers);
-                    Log.i(TAG, "Se añadieron al ListView");
 
                 } else {
                     Toast.makeText(getContext(), getResources().getString(R.string.connection_error), Toast.LENGTH_SHORT).show();
