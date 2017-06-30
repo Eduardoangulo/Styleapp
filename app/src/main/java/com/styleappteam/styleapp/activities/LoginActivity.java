@@ -1,10 +1,14 @@
 package com.styleappteam.styleapp.activities;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -40,10 +44,16 @@ public class LoginActivity extends AppCompatActivity {
     private LoginButton loginButton;
     private CallbackManager callbackManager;
 
-    private TextView registerBTN;
+   // private TextView registerBTN;
+    private String username,password;
     private TextView regularLogin;
     private EditText login_user;
     private EditText login_password;
+
+    private CheckBox saveLoginCheckBox;
+    private SharedPreferences loginPreferences;
+    private SharedPreferences.Editor loginPrefsEditor;
+    private Boolean saveLogin;
 
 
     @Override
@@ -51,20 +61,46 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         regularLogin= (TextView) findViewById(R.id.ingresarLogin);
-        registerBTN= (TextView) findViewById(R.id.registerLogin) ;
+        //registerBTN= (TextView) findViewById(R.id.registerLogin) ;
         login_user= (EditText) findViewById(R.id.loginUser);
         login_password= (EditText) findViewById(R.id.loginPass);
+        saveLoginCheckBox = (CheckBox)findViewById(R.id.saveLoginCheckBox);
+        loginPreferences = getSharedPreferences("loginPrefs", MODE_PRIVATE);
+        loginPrefsEditor = loginPreferences.edit();
 
-        registerBTN.setOnClickListener(new View.OnClickListener() {
+        saveLogin = loginPreferences.getBoolean("saveLogin", false);
+        if (saveLogin == true) {
+            login_user.setText(loginPreferences.getString("username", ""));
+            login_password.setText(loginPreferences.getString("password", ""));
+            saveLoginCheckBox.setChecked(true);
+        }
+
+        /*registerBTN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 signUp();
             }
-        });
+        });*/
 
         regularLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(login_user.getWindowToken(), 0);
+
+                username = login_user.getText().toString();
+                password = login_password.getText().toString();
+
+                if (saveLoginCheckBox.isChecked()) {
+                    loginPrefsEditor.putBoolean("saveLogin", true);
+                    loginPrefsEditor.putString("username", username);
+                    loginPrefsEditor.putString("password", password);
+                    loginPrefsEditor.commit();
+                } else {
+                    loginPrefsEditor.clear();
+                    loginPrefsEditor.commit();
+                }
+
                 loginApi(login_user.getText().toString(), login_password.getText().toString());
             }
         });
@@ -77,7 +113,8 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onSuccess(LoginResult loginResult) {
                 Log.i(TAG, "Login con fb exito");
-               verifUser();
+                signUp();
+               //verifUser();
             }
 
             @Override
@@ -93,6 +130,7 @@ public class LoginActivity extends AppCompatActivity {
         });
 
     }
+
     private void verifUser() {
         Log.i(TAG, "verifUser");
         GraphRequest request = GraphRequest.newMeRequest(AccessToken.getCurrentAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
@@ -130,12 +168,14 @@ public class LoginActivity extends AppCompatActivity {
                     if (response.isSuccessful()) {
                         if(response.body().getSuccess()){
                             Log.i(TAG, "Usuario Correcto");
+                            Toast.makeText(getApplicationContext(), "Bienvenido a Styleapp", Toast.LENGTH_SHORT).show();
                             currentClient=response.body().getClient();
                             goMainScreen();
                         }
                         else {
                             Log.i(TAG, "Usuario Incorrecto");
-                            signUp();
+                            Toast.makeText(getApplicationContext(), "Usuario o Contraseña Incorrectos", Toast.LENGTH_SHORT).show();
+                            //signUp();
                         }
                     }
                     else{
