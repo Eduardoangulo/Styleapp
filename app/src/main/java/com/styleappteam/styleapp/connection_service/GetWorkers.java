@@ -28,8 +28,8 @@ public class GetWorkers {
         this.district_name = district_name;
     }
 
-    public Double getLongitude() {
-        return longitude;
+    public Double getLongitude(Double longitude) {
+        return this.longitude;
     }
 
     public void setLongitude(Double longitude) {
