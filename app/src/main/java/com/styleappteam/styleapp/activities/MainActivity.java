@@ -27,6 +27,7 @@ import com.styleappteam.styleapp.fragments.fragments_promociones.Promociones;
 import static com.styleappteam.styleapp.VariablesGlobales.TAG;
 import static com.styleappteam.styleapp.VariablesGlobales.URL_desarrollo;
 import static com.styleappteam.styleapp.VariablesGlobales.conexion;
+import static com.styleappteam.styleapp.VariablesGlobales.currentClient;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -41,9 +42,10 @@ public class MainActivity extends AppCompatActivity {
 
         if(AccessToken.getCurrentAccessToken()==null){
             Log.i(TAG, "Token: "+AccessToken.getCurrentAccessToken());
-            finish();
-            goLoginScreen();
-
+            if(currentClient==null){
+                finish();
+                goLoginScreen();
+            }
         }
         conexion= new API_Connection(getApplicationContext(), TAG, URL_desarrollo);
         //conexion.retrofitLoad();
