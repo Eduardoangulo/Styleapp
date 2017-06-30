@@ -1,5 +1,5 @@
 
-package com.styleappteam.styleapp.classes;
+package com.styleappteam.styleapp.model;
 
 import java.util.List;
 import com.google.gson.annotations.Expose;

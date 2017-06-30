@@ -27,6 +27,7 @@ import com.styleappteam.styleapp.fragments_main.fragments_promociones.Promocione
 import static com.styleappteam.styleapp.VariablesGlobales.TAG;
 import static com.styleappteam.styleapp.VariablesGlobales.URL_desarrollo;
 import static com.styleappteam.styleapp.VariablesGlobales.conexion;
+import static com.styleappteam.styleapp.VariablesGlobales.currentClient;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -41,12 +42,15 @@ public class MainActivity extends AppCompatActivity {
 
         if(AccessToken.getCurrentAccessToken()==null){
             Log.i(TAG, "Token: "+AccessToken.getCurrentAccessToken());
-            goLoginScreen();
             finish();
+            goLoginScreen();
+
         }
         conexion= new API_Connection(getApplicationContext(), TAG, URL_desarrollo);
         //conexion.retrofitLoad();
-        Log.i(TAG, "Token: "+AccessToken.getCurrentAccessToken());
+        Log.i(TAG, "Token2: "+AccessToken.getCurrentAccessToken());
+        Log.i(TAG, "MainActivity");
+
 
         appbar = (Toolbar)findViewById(R.id.appbar);
         setSupportActionBar(appbar);

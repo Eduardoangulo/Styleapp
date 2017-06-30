@@ -1,4 +1,4 @@
-package com.styleappteam.styleapp.classes;
+package com.styleappteam.styleapp.adapters;
 
 import android.app.Activity;
 import android.view.LayoutInflater;
@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.styleappteam.styleapp.R;
+import com.styleappteam.styleapp.classes.Type_Service;
 
 /**
  * Created by Luis on 14/06/2017.

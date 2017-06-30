@@ -3,6 +3,8 @@ package com.styleappteam.styleapp.activities;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -12,9 +14,10 @@ import android.widget.Toast;
 import com.facebook.AccessToken;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
+import com.facebook.login.LoginManager;
 import com.styleappteam.styleapp.R;
-import com.styleappteam.styleapp.classes.NewUser;
-import com.styleappteam.styleapp.connection_service.Type_Service_API;
+import com.styleappteam.styleapp.connection_service.NewUser;
+import com.styleappteam.styleapp.connection_service.styleapp_API;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -29,25 +32,39 @@ import static com.styleappteam.styleapp.VariablesGlobales.conexion;
 
 public class SignUpActivity extends AppCompatActivity {
 
-    EditText nameTextView;
-    EditText LnameTextView;
-    EditText emailTextView;
-    EditText password;
-    TextView register;
+    private EditText nameTextView;
+    private EditText LnameTextView;
+    private EditText emailTextView;
+    private EditText password;
+    private TextView register;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
+        Log.i(TAG, "Entro a registrar");
         nameTextView= (EditText) findViewById(R.id.registerName);
         LnameTextView= (EditText) findViewById(R.id.registerLName);
         emailTextView= (EditText) findViewById(R.id.registerEmail);
-        RequestData();
+        password= (EditText) findViewById(R.id.registerPassword);
         register= (TextView) findViewById(R.id.registerBtn);
-
-
+        register.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NewUser newUser= new NewUser(emailTextView.getText().toString(), nameTextView.getText().toString(),LnameTextView.getText().toString(),emailTextView.getText().toString(),password.getText().toString());
+                conexion.retrofitLoad();
+                if(conexion.getRetrofit()!=null){
+                    Log.i(TAG, "Principal: Hay internet");
+                    registerUser(conexion.getRetrofit(), newUser);
+                }else {
+                    Log.e(TAG, "Principal: se fue el internet");
+                }
+            }
+        });
+        //RequestData();
     }
     private void RequestData() {
+        Log.i(TAG, "requestData");
         GraphRequest request = GraphRequest.newMeRequest(AccessToken.getCurrentAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
             @Override
             public void onCompleted(JSONObject object, GraphResponse response) {
@@ -67,7 +84,22 @@ public class SignUpActivity extends AppCompatActivity {
                 LnameTextView.setText(json.getString("last_name"));
                 emailTextView.setText(json.getString("email"));
                 password=(EditText) findViewById(R.id.registerPassword);
-
+                final String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
+                emailTextView.addTextChangedListener(new TextWatcher() {
+                    public void afterTextChanged(Editable s) {
+                        String email=emailTextView.getText().toString().trim();
+                        if (!email.matches(emailPattern) || s.length() <= 0)
+                        {
+                            Toast.makeText(getApplicationContext(),"Invalid email address",Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                        // other stuffs
+                    }
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+                        // other stuffs
+                    }
+                });
                 register.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -91,6 +123,7 @@ public class SignUpActivity extends AppCompatActivity {
         }
     }
     private void goLoginScreen() {
+        LoginManager.getInstance().logOut();
         finish();
         Intent intent= new Intent(this, LoginActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION|Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -99,7 +132,7 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     private void registerUser(Retrofit retrofit, NewUser newUser){
-        Type_Service_API service = retrofit.create(Type_Service_API.class);
+        styleapp_API service = retrofit.create(styleapp_API.class);
         Call<NewUser> call = service.registrarCliente(newUser);
         call.enqueue(new Callback<NewUser>() {
             @Override
@@ -121,5 +154,14 @@ public class SignUpActivity extends AppCompatActivity {
 
             }
         });
+    }
+    private boolean validateNewUser(NewUser newUser){
+
+        return false;
+    }
+    @Override
+    protected void onPause() {
+        super.onPause();
+        LoginManager.getInstance().logOut();
     }
 }

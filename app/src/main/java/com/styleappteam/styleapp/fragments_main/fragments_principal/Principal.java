@@ -1,6 +1,6 @@
 package com.styleappteam.styleapp.fragments_main.fragments_principal;
-import com.styleappteam.styleapp.connection_service.API_Connection;
-import com.styleappteam.styleapp.connection_service.Type_Service_API;
+import com.styleappteam.styleapp.adapters.Type_Adapter;
+import com.styleappteam.styleapp.connection_service.styleapp_API;
 import com.styleappteam.styleapp.classes.*;
 import com.styleappteam.styleapp.R;
 
@@ -25,7 +25,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
-import static com.styleappteam.styleapp.VariablesGlobales.URL_desarrollo;
 import static com.styleappteam.styleapp.VariablesGlobales.TAG;
 import static com.styleappteam.styleapp.VariablesGlobales.conexion;
 
@@ -69,7 +68,7 @@ public class Principal extends Fragment {
     }
     private void obtenerDatos(Retrofit retrofit) {
         Log.i(TAG, "obtener datos");
-        Type_Service_API service = retrofit.create(Type_Service_API.class);
+        styleapp_API service = retrofit.create(styleapp_API.class);
         Call<ArrayList<Type_Service>> typeCall = service.obtenerlistaTipos();
 
         typeCall.enqueue(new Callback<ArrayList<Type_Service>>() {

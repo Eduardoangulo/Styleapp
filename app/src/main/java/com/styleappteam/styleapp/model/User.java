@@ -1,5 +1,5 @@
 
-package com.styleappteam.styleapp.classes;
+package com.styleappteam.styleapp.model;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
