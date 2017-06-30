@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.styleappteam.styleapp.R;
-import com.styleappteam.styleapp.classes.Type_Service;
+import com.styleappteam.styleapp.model.Type_Service;
 
 /**
  * Created by Luis on 14/06/2017.

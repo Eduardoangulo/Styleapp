@@ -1,7 +1,7 @@
 package com.styleappteam.styleapp.connection_service;
 
-import com.styleappteam.styleapp.classes.Type_Service;
-import com.styleappteam.styleapp.classes.Worker;
+import com.styleappteam.styleapp.model.Type_Service;
+import com.styleappteam.styleapp.model.Worker;
 
 import java.util.ArrayList;
 import retrofit2.Call;

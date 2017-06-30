@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.styleappteam.styleapp.R;
-import com.styleappteam.styleapp.classes.Worker;
+import com.styleappteam.styleapp.model.Worker;
 
 /**
  * Created by Luis on 09/06/2017.
