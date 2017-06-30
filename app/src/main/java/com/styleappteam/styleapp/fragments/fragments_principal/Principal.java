@@ -1,8 +1,8 @@
 package com.styleappteam.styleapp.fragments.fragments_principal;
 import com.styleappteam.styleapp.adapters.Type_Adapter;
 import com.styleappteam.styleapp.connection_service.styleapp_API;
-import com.styleappteam.styleapp.classes.*;
 import com.styleappteam.styleapp.R;
+import com.styleappteam.styleapp.model.Type_Service;
 
 /**
  * Created by eduardo on 1/5/17.

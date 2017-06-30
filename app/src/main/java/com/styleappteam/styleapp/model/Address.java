@@ -20,10 +20,10 @@ public class Address {
     private Integer districtId;
     @SerializedName("latitude")
     @Expose
-    private String latitude;
+    private Double latitude;
     @SerializedName("longitude")
     @Expose
-    private String longitude;
+    private Double longitude;
     @SerializedName("user_id")
     @Expose
     private Integer userId;
@@ -33,6 +33,7 @@ public class Address {
     @SerializedName("updated_at")
     @Expose
     private String updatedAt;
+
 
     public Integer getId() {
         return id;
@@ -66,19 +67,19 @@ public class Address {
         this.districtId = districtId;
     }
 
-    public String getLatitude() {
+    public Double getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(String latitude) {
+    public void setLatitude(Double latitude) {
         this.latitude = latitude;
     }
 
-    public String getLongitude() {
+    public Double getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(String longitude) {
+    public void setLongitude(Double longitude) {
         this.longitude = longitude;
     }
 
@@ -105,5 +106,4 @@ public class Address {
     public void setUpdatedAt(String updatedAt) {
         this.updatedAt = updatedAt;
     }
-
 }
