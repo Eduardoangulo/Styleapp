@@ -32,9 +32,13 @@ public class Worker_Adapter extends ArrayAdapter<Worker> {
         TextView workerName = (TextView) listItemView.findViewById(R.id.workerName);
         ImageView stars = (ImageView) listItemView.findViewById(R.id.stars);
         ImageView img = (ImageView) listItemView.findViewById(R.id.worker_image);
+        TextView distanceText = (TextView)listItemView.findViewById(R.id.distanceText);
+        TextView price = (TextView)listItemView.findViewById(R.id.cost);
 
+        workerName.setText(currentWorker.getFull_name());
+        distanceText.setText(currentWorker.getDistance().toString());
+        price.setText("Costo: "+currentWorker.getPrice());
 
-//        workerName.setText(currentWorker.getId());
         //stars.setImageResource(currentWorker.getValoration());
         //img.setImageResource(currentWorker.getImg());
 
