@@ -1,10 +1,14 @@
 package com.styleappteam.styleapp.activities;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -41,9 +45,15 @@ public class LoginActivity extends AppCompatActivity {
     private CallbackManager callbackManager;
 
    // private TextView registerBTN;
+    private String username,password;
     private TextView regularLogin;
     private EditText login_user;
     private EditText login_password;
+
+    private CheckBox saveLoginCheckBox;
+    private SharedPreferences loginPreferences;
+    private SharedPreferences.Editor loginPrefsEditor;
+    private Boolean saveLogin;
 
 
     @Override
@@ -54,6 +64,16 @@ public class LoginActivity extends AppCompatActivity {
         //registerBTN= (TextView) findViewById(R.id.registerLogin) ;
         login_user= (EditText) findViewById(R.id.loginUser);
         login_password= (EditText) findViewById(R.id.loginPass);
+        saveLoginCheckBox = (CheckBox)findViewById(R.id.saveLoginCheckBox);
+        loginPreferences = getSharedPreferences("loginPrefs", MODE_PRIVATE);
+        loginPrefsEditor = loginPreferences.edit();
+
+        saveLogin = loginPreferences.getBoolean("saveLogin", false);
+        if (saveLogin == true) {
+            login_user.setText(loginPreferences.getString("username", ""));
+            login_password.setText(loginPreferences.getString("password", ""));
+            saveLoginCheckBox.setChecked(true);
+        }
 
         /*registerBTN.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,6 +85,22 @@ public class LoginActivity extends AppCompatActivity {
         regularLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(login_user.getWindowToken(), 0);
+
+                username = login_user.getText().toString();
+                password = login_password.getText().toString();
+
+                if (saveLoginCheckBox.isChecked()) {
+                    loginPrefsEditor.putBoolean("saveLogin", true);
+                    loginPrefsEditor.putString("username", username);
+                    loginPrefsEditor.putString("password", password);
+                    loginPrefsEditor.commit();
+                } else {
+                    loginPrefsEditor.clear();
+                    loginPrefsEditor.commit();
+                }
+
                 loginApi(login_user.getText().toString(), login_password.getText().toString());
             }
         });

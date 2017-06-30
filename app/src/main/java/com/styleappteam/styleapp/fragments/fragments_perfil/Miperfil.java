@@ -37,6 +37,7 @@ public class Miperfil extends Fragment {
 
     private void displayProfileInfo(View view) {
                 TextView nameTextView= (TextView) view.findViewById(R.id.profileName);
+                TextView telfTextView= (TextView) view.findViewById(R.id.profileName);
                 TextView emailTextView= (TextView) view.findViewById(R.id.profileEmail);
                 ImageView profileImg = (ImageView) view.findViewById(R.id.ProfilePicture);
                 nameTextView.setText(currentClient.getUser().getFirstName()+" "+currentClient.getUser().getLastName());
