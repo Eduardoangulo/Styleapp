@@ -1,8 +1,7 @@
-package com.styleappteam.styleapp.fragments_main.fragments_promociones;
+package com.styleappteam.styleapp.fragments.fragments_promociones;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.Context;
 import android.support.v4.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;

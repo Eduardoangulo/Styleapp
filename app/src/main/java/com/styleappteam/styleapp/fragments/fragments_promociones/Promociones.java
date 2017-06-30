@@ -1,4 +1,4 @@
-package com.styleappteam.styleapp.fragments_main.fragments_promociones;
+package com.styleappteam.styleapp.fragments.fragments_promociones;
 import com.styleappteam.styleapp.*;
 import com.styleappteam.styleapp.classes.classes_promociones.Coupon;
 import com.styleappteam.styleapp.classes.classes_promociones.Coupons_Adapter;

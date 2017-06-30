@@ -1,4 +1,4 @@
-package com.styleappteam.styleapp.fragments_main.fragments_principal;
+package com.styleappteam.styleapp.fragments.fragments_principal;
 import com.styleappteam.styleapp.adapters.Type_Adapter;
 import com.styleappteam.styleapp.connection_service.styleapp_API;
 import com.styleappteam.styleapp.classes.*;
