@@ -1,5 +1,6 @@
 package com.styleappteam.styleapp.connection_service;
 
+import com.styleappteam.styleapp.model.Client;
 import com.styleappteam.styleapp.model.Services;
 import com.styleappteam.styleapp.model.Type;
 
@@ -34,4 +35,8 @@ public interface styleapp_API {
     @Headers({ "Content-Type: application/json"})
     @POST("clients/getWorkers")
     Call<GetWorkers> obtenerWorkers(@Body InfoWorker infoWorker);
+
+    @Headers({ "Content-Type: application/json"})
+    @POST("details/client")
+    Call<ArrayList<DetailClient>> obtenerDetailClient(@Body Integer clientId);
 }

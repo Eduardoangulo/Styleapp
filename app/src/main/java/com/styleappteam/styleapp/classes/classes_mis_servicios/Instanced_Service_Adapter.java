@@ -36,9 +36,9 @@ public class Instanced_Service_Adapter extends ArrayAdapter<Instanced_Service> {
         ImageView img = (ImageView) listItemView.findViewById(R.id.basicImg);
 
 
-        servicet.setText(currentService.getServiceName());
-        service_status.setText(currentService.getState());
-        img.setImageResource(currentService.getImgsrc());
+        //servicet.setText(currentService.getServiceName());
+        //service_status.setText(currentService.getState());
+        //img.setImageResource(currentService.getImgsrc());
 
         return listItemView;
 
