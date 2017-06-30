@@ -38,5 +38,5 @@ public interface styleapp_API {
 
     @Headers({ "Content-Type: application/json"})
     @POST("details/client")
-    Call<ArrayList<DetailClient>> obtenerDetailClient(@Body Integer clientId);
+    Call<ArrayList<DetailClient>> obtenerDetailClient(@Body clientDetailPost cpost);
 }

@@ -113,14 +113,12 @@ public class LoginActivity extends AppCompatActivity {
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
-                Log.i(TAG, "Login con fb exito");
+                Log.i(TAG, "register con fb exito");
                 signUp();
-               //verifUser();
             }
 
             @Override
             public void onCancel() {
-                //Toast.makeText(getApplicationContext(), "Regi", Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -132,29 +130,6 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    private void verifUser() {
-        Log.i(TAG, "verifUser");
-        GraphRequest request = GraphRequest.newMeRequest(AccessToken.getCurrentAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
-            @Override
-            public void onCompleted(JSONObject object, GraphResponse response) {
-                final JSONObject json = response.getJSONObject();
-                try {
-                    if (json != null) {
-                        loginApi(json.getString("email"), "password");
-                    } else {
-                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.connection_error), Toast.LENGTH_SHORT).show();
-                    }
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-        Bundle parameters = new Bundle();
-        parameters.putString("fields", "email");
-        request.setParameters(parameters);
-        request.executeAsync();
-    }
 
     private void loginApi(String email, String password){
         loginPost lPost = new loginPost(email, password);
