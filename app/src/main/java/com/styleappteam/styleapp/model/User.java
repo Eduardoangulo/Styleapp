@@ -4,14 +4,12 @@ package com.styleappteam.styleapp.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+
 public class User {
 
     @SerializedName("id")
     @Expose
     private Integer id;
-    @SerializedName("username")
-    @Expose
-    private String username;
     @SerializedName("first_name")
     @Expose
     private String firstName;
@@ -21,9 +19,15 @@ public class User {
     @SerializedName("email")
     @Expose
     private String email;
+    @SerializedName("telephone")
+    @Expose
+    private Integer telephone;
     @SerializedName("password")
     @Expose
     private String password;
+    @SerializedName("status")
+    @Expose
+    private Integer status;
     @SerializedName("role_id")
     @Expose
     private Integer roleId;
@@ -40,14 +44,6 @@ public class User {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
     }
 
     public String getFirstName() {
@@ -74,12 +70,28 @@ public class User {
         this.email = email;
     }
 
+    public Integer getTelephone() {
+        return telephone;
+    }
+
+    public void setTelephone(Integer telephone) {
+        this.telephone = telephone;
+    }
+
     public String getPassword() {
         return password;
     }
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 
     public Integer getRoleId() {
@@ -105,5 +117,4 @@ public class User {
     public void setUpdatedAt(String updatedAt) {
         this.updatedAt = updatedAt;
     }
-
 }
