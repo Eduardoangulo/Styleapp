@@ -1,4 +1,4 @@
-package com.styleappteam.styleapp.classes;
+package com.styleappteam.styleapp.model;
 
 /**
  * Created by Luis on 14/06/2017.
