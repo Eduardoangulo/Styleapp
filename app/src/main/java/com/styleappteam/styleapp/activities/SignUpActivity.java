@@ -37,6 +37,7 @@ public class SignUpActivity extends AppCompatActivity {
     private EditText emailTextView;
     private EditText password;
     private TextView register;
+    private boolean validEmail=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,20 +49,51 @@ public class SignUpActivity extends AppCompatActivity {
         emailTextView= (EditText) findViewById(R.id.registerEmail);
         password= (EditText) findViewById(R.id.registerPassword);
         register= (TextView) findViewById(R.id.registerBtn);
+
+        final String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
+        emailTextView.addTextChangedListener(new TextWatcher() {
+            public void afterTextChanged(Editable s) {
+                String email=emailTextView.getText().toString().trim();
+                if (!email.matches(emailPattern) || s.length() <= 0)
+                {
+                    Toast.makeText(getApplicationContext(),"Invalid email address",Toast.LENGTH_SHORT).show();
+                    validEmail=false;
+                }
+                else{
+                    validEmail=true;
+                }
+            }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                // other stuffs
+            }
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                // other stuffs
+            }
+        });
+        if(AccessToken.getCurrentAccessToken()!=null){
+            RequestData();
+        }
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 NewUser newUser= new NewUser(emailTextView.getText().toString(), nameTextView.getText().toString(),LnameTextView.getText().toString(),emailTextView.getText().toString(),password.getText().toString());
-                conexion.retrofitLoad();
-                if(conexion.getRetrofit()!=null){
-                    Log.i(TAG, "Principal: Hay internet");
-                    registerUser(conexion.getRetrofit(), newUser);
-                }else {
-                    Log.e(TAG, "Principal: se fue el internet");
+                if(validateNewUser(newUser)){
+                    conexion.retrofitLoad();
+                    if(conexion.getRetrofit()!=null){
+                        Log.i(TAG, "Principal: Hay internet");
+                        registerUser(conexion.getRetrofit(), newUser);
+                    }else {
+                        Log.e(TAG, "Principal: se fue el internet");
+                    }
                 }
+                else{
+                    Toast.makeText(getApplicationContext(),"Datos Invalidos", Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
-        //RequestData();
+
+
     }
     private void RequestData() {
         Log.i(TAG, "requestData");
@@ -83,36 +115,6 @@ public class SignUpActivity extends AppCompatActivity {
                 nameTextView.setText(json.getString("first_name"));
                 LnameTextView.setText(json.getString("last_name"));
                 emailTextView.setText(json.getString("email"));
-                password=(EditText) findViewById(R.id.registerPassword);
-                final String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
-                emailTextView.addTextChangedListener(new TextWatcher() {
-                    public void afterTextChanged(Editable s) {
-                        String email=emailTextView.getText().toString().trim();
-                        if (!email.matches(emailPattern) || s.length() <= 0)
-                        {
-                            Toast.makeText(getApplicationContext(),"Invalid email address",Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                        // other stuffs
-                    }
-                    public void onTextChanged(CharSequence s, int start, int before, int count) {
-                        // other stuffs
-                    }
-                });
-                register.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        NewUser newUser= new NewUser(emailTextView.getText().toString(), nameTextView.getText().toString(),LnameTextView.getText().toString(),emailTextView.getText().toString(),password.getText().toString());
-                        conexion.retrofitLoad();
-                        if(conexion.getRetrofit()!=null){
-                            Log.i(TAG, "Principal: Hay internet");
-                            registerUser(conexion.getRetrofit(), newUser);
-                        }else {
-                            Log.e(TAG, "Principal: se fue el internet");
-                        }
-                    }
-                });
             }
             else{
                 Toast.makeText(getApplicationContext(), getResources().getString(R.string.connection_error), Toast.LENGTH_SHORT).show();
@@ -156,8 +158,7 @@ public class SignUpActivity extends AppCompatActivity {
         });
     }
     private boolean validateNewUser(NewUser newUser){
-
-        return false;
+        return !(!validEmail||newUser.getUsername()==" "||newUser.getFirst_name()==" "||newUser.getLast_name()==" ");
     }
     @Override
     protected void onPause() {
