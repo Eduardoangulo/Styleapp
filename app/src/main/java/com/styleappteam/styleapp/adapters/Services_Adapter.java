@@ -35,6 +35,18 @@ public View getView(int position, View convertView, ViewGroup parent) {
 
 
             servicet.setText(currentType.getName());
+            switch(currentType.getId()){
+                case 1:img.setImageResource(R.drawable.corte_hippie); break;
+                case 2:img.setImageResource(R.drawable.corte_militar); break;
+                case 3:img.setImageResource(R.drawable.corte_escolar); break;
+                case 4:img.setImageResource(R.drawable.pedicure_dama); break;
+                case 5:img.setImageResource(R.drawable.pedicure_caballero); break;
+                case 6:img.setImageResource(R.drawable.manicure_dama); break;
+                case 7:img.setImageResource(R.drawable.manicure_caballero); break;
+                default:img.setImageResource(R.drawable.generictype); break;
+
+
+            }
             //img.setImageResource(currentService.getImgsrc());
 
             return listItemView;
