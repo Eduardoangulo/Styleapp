@@ -35,7 +35,12 @@ public class Type_Adapter extends ArrayAdapter<Type> {
 
 
         servicet.setText(currentType.getName());
-        //img.setImageResource(currentService.getImgsrc());
+        switch (currentType.getId()){
+            case 1: img.setImageResource(R.drawable.haircut_icon); break;
+            case 2: img.setImageResource(R.drawable.pedicure); break;
+            case 3: img.setImageResource(R.drawable.manicure); break;
+            default: img.setImageResource(R.drawable.generictype); break;
+        }
 
         return listItemView;
     }
