@@ -9,34 +9,35 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.styleappteam.styleapp.R;
-import com.styleappteam.styleapp.model.Type_Service;
+import com.styleappteam.styleapp.model.Type;
 
 /**
- * Created by Luis on 14/06/2017.
+ * Created by eduardo on 6/30/17.
  */
 
-public class Type_Adapter extends ArrayAdapter<Type_Service> {
-private int r;
-public Type_Adapter(Activity context, int resource){
+public class Type_Adapter extends ArrayAdapter<Type> {
+
+    private int r;
+    public Type_Adapter(Activity context, int resource){
         super(context, resource);
         r=resource;
-        }
-@Override
-public View getView(int position, View convertView, ViewGroup parent) {
+    }
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
         View listItemView = convertView;
         if (listItemView == null) {
             listItemView = LayoutInflater.from(getContext()).inflate(r, parent, false);
-            }
-            Type_Service currentService = getItem(position);
-
-            TextView servicet = (TextView) listItemView.findViewById(R.id.serviceName);
-            ImageView img = (ImageView) listItemView.findViewById(R.id.basicImg);
-
-
-            servicet.setText(currentService.getName());
-            //img.setImageResource(currentService.getImgsrc());
-
-            return listItemView;
         }
+        Type currentType = getItem(position);
+
+        TextView servicet = (TextView) listItemView.findViewById(R.id.serviceName);
+        ImageView img = (ImageView) listItemView.findViewById(R.id.basicImg);
+
+
+        servicet.setText(currentType.getName());
+        //img.setImageResource(currentService.getImgsrc());
+
+        return listItemView;
+    }
 
 }

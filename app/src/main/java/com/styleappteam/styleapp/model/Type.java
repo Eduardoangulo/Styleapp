@@ -10,32 +10,72 @@ import java.util.List;
  */
 
 public class Type {
-    @SerializedName("type_id")
+    @SerializedName("id")
     @Expose
-    private Integer type_id;
+    private Integer id;
 
-    @SerializedName("type_name")
+    @SerializedName("name")
     @Expose
-    private String type_name;
+    private String name;
+
+    @SerializedName("slug")
+    @Expose
+    private String slug;
+
+    @SerializedName("description")
+    @Expose
+    private String description;
+
+    @SerializedName("created_at")
+    @Expose
+    private String created_at;
+
+    @SerializedName("updated_at")
+    @Expose
+    private String updated_at;
 
     @SerializedName("services")
     @Expose
     private List<Services> services = null;
 
-    public Integer getType_id() {
-        return type_id;
+    public String getName() {
+        return name;
     }
 
-    public void setType_id(Integer type_id) {
-        this.type_id = type_id;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getType_name() {
-        return type_name;
+    public String getSlug() {
+        return slug;
     }
 
-    public void setType_name(String type_name) {
-        this.type_name = type_name;
+    public void setSlug(String slug) {
+        this.slug = slug;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getCreated_at() {
+        return created_at;
+    }
+
+    public void setCreated_at(String created_at) {
+        this.created_at = created_at;
+    }
+
+    public String getUpdated_at() {
+        return updated_at;
+    }
+
+    public void setUpdated_at(String updated_at) {
+        this.updated_at = updated_at;
     }
 
     public List<Services> getServices() {
@@ -44,5 +84,13 @@ public class Type {
 
     public void setServices(List<Services> services) {
         this.services = services;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 }

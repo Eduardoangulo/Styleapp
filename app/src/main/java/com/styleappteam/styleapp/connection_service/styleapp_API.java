@@ -1,7 +1,7 @@
 package com.styleappteam.styleapp.connection_service;
 
-import com.styleappteam.styleapp.model.Type_Service;
-import com.styleappteam.styleapp.model.Worker;
+import com.styleappteam.styleapp.model.Services;
+import com.styleappteam.styleapp.model.Type;
 
 import java.util.ArrayList;
 import retrofit2.Call;
@@ -15,8 +15,13 @@ import retrofit2.http.POST;
  */
 
 public interface styleapp_API {
+    @Headers({ "Content-Type: application/json"})
     @GET("types")
-    Call<ArrayList<Type_Service>> obtenerlistaTipos();
+    Call<ArrayList<Type>> obtenerlistaTipos();
+
+    @Headers({ "Content-Type: application/json"})
+    @GET("services")
+    Call<ArrayList<Services>> obtenerListaServicios();
 
     @Headers({ "Content-Type: application/json"})
     @POST("clients")
@@ -28,5 +33,5 @@ public interface styleapp_API {
 
     @Headers({ "Content-Type: application/json"})
     @POST("clients/getWorkers")
-    Call<ArrayList<Worker>> obtenerWorkers(@Body GetWorkers infoWorker);
+    Call<GetWorkers> obtenerWorkers(@Body InfoWorker infoWorker);
 }
