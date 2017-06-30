@@ -55,12 +55,12 @@ public class LoginActivity extends AppCompatActivity {
         login_user= (EditText) findViewById(R.id.loginUser);
         login_password= (EditText) findViewById(R.id.loginPass);
 
-        registerBTN.setOnClickListener(new View.OnClickListener() {
+        /*registerBTN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 signUp();
             }
-        });
+        });*/
 
         regularLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,7 +77,8 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onSuccess(LoginResult loginResult) {
                 Log.i(TAG, "Login con fb exito");
-               verifUser();
+                signUp();
+               //verifUser();
             }
 
             @Override
@@ -93,6 +94,7 @@ public class LoginActivity extends AppCompatActivity {
         });
 
     }
+
     private void verifUser() {
         Log.i(TAG, "verifUser");
         GraphRequest request = GraphRequest.newMeRequest(AccessToken.getCurrentAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
@@ -130,12 +132,14 @@ public class LoginActivity extends AppCompatActivity {
                     if (response.isSuccessful()) {
                         if(response.body().getSuccess()){
                             Log.i(TAG, "Usuario Correcto");
+                            Toast.makeText(getApplicationContext(), "Bienvenido a Styleapp", Toast.LENGTH_SHORT).show();
                             currentClient=response.body().getClient();
                             goMainScreen();
                         }
                         else {
                             Log.i(TAG, "Usuario Incorrecto");
-                            signUp();
+                            Toast.makeText(getApplicationContext(), "Usuario o Contraseña Incorrectos", Toast.LENGTH_SHORT).show();
+                            //signUp();
                         }
                     }
                     else{

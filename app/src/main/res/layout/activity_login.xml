@@ -82,19 +82,19 @@
                 android:padding="16dp"
                 android:layout_marginBottom="12dp"/>
 
-            <TextView
-                android:id="@+id/registerLogin"
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:textSize="10sp"
-                android:text="@string/register"
-                android:padding="4dp"
-                android:background="@color/colorPrimary"
-                android:textStyle="bold"
-                android:textColor="#FFFF"
-                android:gravity="center"
-                android:textAllCaps="true"
-                android:layout_marginBottom="4dp"/>
+            <!--<TextView-->
+                <!--android:id="@+id/registerLogin"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:textSize="10sp"-->
+                <!--android:text="@string/register"-->
+                <!--android:padding="4dp"-->
+                <!--android:background="@color/colorPrimary"-->
+                <!--android:textStyle="bold"-->
+                <!--android:textColor="#FFFF"-->
+                <!--android:gravity="center"-->
+                <!--android:textAllCaps="true"-->
+                <!--android:layout_marginBottom="4dp"/>-->
 
             <TextView
                 android:id="@+id/forgotPass"

@@ -165,4 +165,11 @@ public class SignUpActivity extends AppCompatActivity {
         super.onPause();
         LoginManager.getInstance().logOut();
     }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        LoginManager.getInstance().logOut();
+    }
+
 }
