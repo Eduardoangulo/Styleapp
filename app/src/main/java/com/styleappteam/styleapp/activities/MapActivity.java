@@ -4,6 +4,7 @@ package com.styleappteam.styleapp.activities;
  * Created by eduardo on 6/11/17.
  */
 
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -31,6 +32,7 @@ import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
 import com.google.android.gms.location.places.ui.PlaceSelectionListener;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.styleappteam.styleapp.R;
+import com.styleappteam.styleapp.fragments.fragments_principal.WorkerList;
 
 import static com.styleappteam.styleapp.VariablesGlobales.marker_global;
 import static com.styleappteam.styleapp.VariablesGlobales.place_global;
@@ -165,14 +167,9 @@ public class MapActivity extends AppCompatActivity implements  OnMapReadyCallbac
     public void onBackPressed()
     {
         if(marker_global!=null)
-        {
             Toast.makeText(this,"La ubicación actual es: "+place_global.getAddress(), Toast.LENGTH_LONG).show();
-
-        }
         else
-        {
             Toast.makeText(this,"No se tiene información de la dirección",Toast.LENGTH_LONG).show();
-        }
 
         super.onBackPressed();  // optional depending on your needs
     }

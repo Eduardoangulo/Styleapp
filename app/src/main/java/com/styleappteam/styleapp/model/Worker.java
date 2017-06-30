@@ -66,15 +66,19 @@ public class Worker {
 
     @SerializedName("latitude")
     @Expose
-    private String latitude;
+    private Double latitude;
 
     @SerializedName("longitude")
     @Expose
-    private String longitude;
+    private Double longitude;
 
     @SerializedName("distance")
     @Expose
-    private Integer distance;
+    private Double distance;
+
+    @SerializedName("price")
+    @Expose
+    private Double price;
 
     public Integer getId() {
         return id;
@@ -170,5 +174,45 @@ public class Worker {
 
     public void setFull_name(String full_name) {
         this.full_name = full_name;
+    }
+
+    public Integer getDistrict_id() {
+        return district_id;
+    }
+
+    public void setDistrict_id(Integer district_id) {
+        this.district_id = district_id;
+    }
+
+    public Double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(Double latitude) {
+        this.latitude = latitude;
+    }
+
+    public Double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(Double longitude) {
+        this.longitude = longitude;
+    }
+
+    public Double getDistance() {
+        return distance;
+    }
+
+    public void setDistance(Double distance) {
+        this.distance = distance;
+    }
+
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
     }
 }
