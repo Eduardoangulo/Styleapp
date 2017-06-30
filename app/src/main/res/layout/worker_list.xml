@@ -43,6 +43,7 @@
             android:textSize="13dp"
             android:text="Costo: S/.60"
             android:textAppearance="?android:textAppearanceMedium"
+            />extAppearance="?android:textAppearanceMedium"
             />
         <ImageView
             android:id="@+id/stars"
@@ -75,7 +76,7 @@
             />
 
         <TextView
-            android:id="@+id/hourText"
+            android:id="@+id/distanceText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="A 2km"
