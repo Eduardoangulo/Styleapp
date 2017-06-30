@@ -43,7 +43,9 @@ public class Principal extends Fragment {
         View view= inflater.inflate(R.layout.principal, container, false);
         ListView rootView= (ListView) view.findViewById(R.id.list);
         adapter1=new Type_Adapter(getActivity(), R.layout.basic_list);
+
         rootView.setAdapter(adapter1);
+
         rootView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             public void onItemClick(AdapterView<?> parent, View view, int position, long id)  {
                 Fragment fragment = new PrincipalSecondFragment();
@@ -58,17 +60,12 @@ public class Principal extends Fragment {
         conexion.retrofitLoad();
 
         if(conexion.getRetrofit()!=null){
-            Log.i(TAG, "Principal: Hay internet");
             obtenerDatos(conexion.getRetrofit());
-        }else
-        {
-            Log.e(TAG, "Principal: se fue el internet");
         }
 
         return view;
     }
     private void obtenerDatos(Retrofit retrofit) {
-        Log.i(TAG, "obtener datos");
         styleapp_API service = retrofit.create(styleapp_API.class);
         Call<ArrayList<Type>> typeCall = service.obtenerlistaTipos();
 
@@ -76,19 +73,11 @@ public class Principal extends Fragment {
             @Override
             public void onResponse(Call<ArrayList<Type>> call, Response<ArrayList<Type>> response) {
                 if (response.isSuccessful()) {
-
-                    Log.i(TAG, "Cargo la API");
                     tipos = response.body();
-
-                    for(int i=0; i<tipos.size(); i++){
-                        Log.i(TAG, " Nombre tipo: " +tipos.get(i).getName());
-                    }
                     adapter1.addAll(tipos);
-                    Log.i(TAG, "Se añadieron al ListView");
 
                 } else {
                     Toast.makeText(getContext(), getResources().getString(R.string.connection_error), Toast.LENGTH_SHORT).show();
-                    Log.e(TAG, " onResponse: " + response.errorBody());
                 }
             }
             @Override

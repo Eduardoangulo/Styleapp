@@ -170,8 +170,7 @@ public class MapActivity extends AppCompatActivity implements  OnMapReadyCallbac
             Toast.makeText(this,"La ubicación actual es: "+place_global.getAddress(), Toast.LENGTH_LONG).show();
         else
             Toast.makeText(this,"No se tiene información de la dirección",Toast.LENGTH_LONG).show();
-
-        super.onBackPressed();  // optional depending on your needs
+        super.onBackPressed();
     }
 
 }
