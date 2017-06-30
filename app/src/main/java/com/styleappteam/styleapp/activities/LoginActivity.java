@@ -40,7 +40,7 @@ public class LoginActivity extends AppCompatActivity {
     private LoginButton loginButton;
     private CallbackManager callbackManager;
 
-    private TextView registerBTN;
+   // private TextView registerBTN;
     private TextView regularLogin;
     private EditText login_user;
     private EditText login_password;
@@ -51,7 +51,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         regularLogin= (TextView) findViewById(R.id.ingresarLogin);
-        registerBTN= (TextView) findViewById(R.id.registerLogin) ;
+        //registerBTN= (TextView) findViewById(R.id.registerLogin) ;
         login_user= (EditText) findViewById(R.id.loginUser);
         login_password= (EditText) findViewById(R.id.loginPass);
 
