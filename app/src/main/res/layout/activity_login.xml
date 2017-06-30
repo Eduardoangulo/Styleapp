@@ -22,7 +22,7 @@
             android:layout_marginTop="40dp"
             android:paddingLeft="48dp"
             android:paddingRight="48dp"
-            android:paddingBottom="64dp"
+            android:paddingBottom="48dp"
             android:paddingTop="64dp"
             android:background="@drawable/layout_bg">
             <TextView
@@ -41,7 +41,7 @@
                 android:layout_marginBottom="12dp"
                 android:ems="10"
                 android:hint="@string/usuario"
-                android:inputType="textPersonName" />
+                android:inputType="textEmailAddress" />
 
             <TextView
                 android:id="@+id/userPass"
@@ -59,7 +59,17 @@
                 android:textSize="16sp"
                 android:hint="@string/password"
                 android:inputType="textPassword"
-                android:layout_marginBottom="12dp"/>
+                android:layout_marginBottom="2dp"/>
+
+            <CheckBox
+                android:id="@+id/saveLoginCheckBox"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/editTextPassword"
+                android:text="Save Login?"
+                android:layout_marginBottom="2dp"
+                />
 
             <TextView
                 android:id="@+id/ingresarLogin"
