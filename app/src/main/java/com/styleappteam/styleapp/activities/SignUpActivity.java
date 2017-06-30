@@ -72,14 +72,16 @@ public class SignUpActivity extends AppCompatActivity {
                 // other stuffs
             }
         });
+
         if(AccessToken.getCurrentAccessToken()!=null){
             RequestData();
         }
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                NewUser newUser= new NewUser(Integer.parseInt(telfTextView.getText().toString()), nameTextView.getText().toString(),LnameTextView.getText().toString(),emailTextView.getText().toString(),password.getText().toString());
-                if(validateNewUser(newUser)){
+
+                if(validateNewUser(telfTextView.getText().toString(), nameTextView.getText().toString(),LnameTextView.getText().toString(), password.getText().toString())){
+                    NewUser newUser= new NewUser(Integer.parseInt(telfTextView.getText().toString()), nameTextView.getText().toString(),LnameTextView.getText().toString(),emailTextView.getText().toString(),password.getText().toString());
                     conexion.retrofitLoad();
                     if(conexion.getRetrofit()!=null){
                         Log.i(TAG, "Principal: Hay internet");
@@ -89,7 +91,7 @@ public class SignUpActivity extends AppCompatActivity {
                     }
                 }
                 else{
-                    Toast.makeText(getApplicationContext(),"Datos Invalidos", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(),"Ingrese todos los datos", Toast.LENGTH_SHORT).show();
                 }
 
             }
@@ -159,8 +161,8 @@ public class SignUpActivity extends AppCompatActivity {
             }
         });
     }
-    private boolean validateNewUser(NewUser newUser){
-        return !(!validEmail||newUser.getTelephone()==null||newUser.getFirst_name()==" "||newUser.getLast_name()==" ");
+    private boolean validateNewUser(String telf, String name, String LastName, String password){
+        return !(!validEmail||telf.length()<=0||name.length()<=0||LastName.length()<=0||password.length()<=0);
     }
     @Override
     protected void onPause() {
@@ -171,6 +173,12 @@ public class SignUpActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
+        LoginManager.getInstance().logOut();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
         LoginManager.getInstance().logOut();
     }
 

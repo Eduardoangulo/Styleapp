@@ -19,6 +19,7 @@ import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
+import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.styleappteam.styleapp.R;
@@ -44,7 +45,7 @@ public class LoginActivity extends AppCompatActivity {
     private LoginButton loginButton;
     private CallbackManager callbackManager;
 
-   // private TextView registerBTN;
+    private TextView registerBTN;
     private String username,password;
     private TextView regularLogin;
     private EditText login_user;
@@ -61,7 +62,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         regularLogin= (TextView) findViewById(R.id.ingresarLogin);
-        //registerBTN= (TextView) findViewById(R.id.registerLogin) ;
+        registerBTN= (TextView) findViewById(R.id.registerLogin) ;
         login_user= (EditText) findViewById(R.id.loginUser);
         login_password= (EditText) findViewById(R.id.loginPass);
         saveLoginCheckBox = (CheckBox)findViewById(R.id.saveLoginCheckBox);
@@ -75,12 +76,12 @@ public class LoginActivity extends AppCompatActivity {
             saveLoginCheckBox.setChecked(true);
         }
 
-        /*registerBTN.setOnClickListener(new View.OnClickListener() {
+        registerBTN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 signUp();
             }
-        });*/
+        });
 
         regularLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -119,7 +120,7 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onCancel() {
-                Toast.makeText(getApplicationContext(), "login cancelado", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getApplicationContext(), "Regi", Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -210,4 +211,5 @@ public class LoginActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         callbackManager.onActivityResult(requestCode, resultCode, data);
     }
+
 }

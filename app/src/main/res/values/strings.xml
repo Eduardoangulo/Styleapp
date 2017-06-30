@@ -73,5 +73,7 @@
     <string name="FirstName">nombre</string>
     <string name="registerSuccess">Registro Exitoso!</string>
     <string name="registerFail">Email ya registrado!</string>
+    <string name="remember_me">Recordarme</string>
+    <string name="registerwithFB">Registrarse con Facebook</string>
 
 </resources>
