@@ -40,13 +40,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        if(AccessToken.getCurrentAccessToken()==null){
-            Log.i(TAG, "Token: "+AccessToken.getCurrentAccessToken());
+        /*if(AccessToken.getCurrentAccessToken()==null){
+            Log.i(TAG, "Token: "+AccessToken.getCurrentAccessToken());*/
             if(currentClient==null){
                 finish();
                 goLoginScreen();
             }
-        }
+       // }
         conexion= new API_Connection(getApplicationContext(), TAG, URL_desarrollo);
         //conexion.retrofitLoad();
         Log.i(TAG, "Token2: "+AccessToken.getCurrentAccessToken());

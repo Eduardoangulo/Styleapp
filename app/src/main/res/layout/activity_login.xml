@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    xmlns:facebook="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:background="@drawable/salonspa"
     android:layout_height="match_parent"
@@ -67,7 +68,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_below="@+id/editTextPassword"
-                android:text="Save Login?"
+                android:text="@string/remember_me"
                 android:layout_marginBottom="2dp"
                 />
 
@@ -89,22 +90,25 @@
                 android:id="@+id/login_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="16dp"
-                android:layout_marginBottom="12dp"/>
+                android:padding="4dp"
+                android:layout_marginBottom="8dp"
+                facebook:com_facebook_login_text="@string/registerwithFB"
+                facebook:com_facebook_logout_text="@string/registerwithFB"
+                />
 
-            <!--<TextView-->
-                <!--android:id="@+id/registerLogin"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:textSize="10sp"-->
-                <!--android:text="@string/register"-->
-                <!--android:padding="4dp"-->
-                <!--android:background="@color/colorPrimary"-->
-                <!--android:textStyle="bold"-->
-                <!--android:textColor="#FFFF"-->
-                <!--android:gravity="center"-->
-                <!--android:textAllCaps="true"-->
-                <!--android:layout_marginBottom="4dp"/>-->
+            <TextView
+                android:id="@+id/registerLogin"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:textSize="10sp"
+                android:text="@string/register"
+                android:padding="4dp"
+                android:background="@color/colorPrimary"
+                android:textStyle="bold"
+                android:textColor="#FFFF"
+                android:gravity="center"
+                android:textAllCaps="true"
+                android:layout_marginBottom="4dp"/>
 
             <TextView
                 android:id="@+id/forgotPass"
