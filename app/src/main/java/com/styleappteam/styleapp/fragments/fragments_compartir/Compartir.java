@@ -1,4 +1,4 @@
-package com.styleappteam.styleapp.fragments_main.fragments_compartir;
+package com.styleappteam.styleapp.fragments.fragments_compartir;
 /**
  * Created by eduardo on 1/5/17.
  */

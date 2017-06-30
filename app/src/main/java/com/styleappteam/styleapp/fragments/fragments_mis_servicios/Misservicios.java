@@ -1,4 +1,4 @@
-package com.styleappteam.styleapp.fragments_main.fragments_mis_servicios;
+package com.styleappteam.styleapp.fragments.fragments_mis_servicios;
 
 /**
  * Created by eduardo on 1/5/17.

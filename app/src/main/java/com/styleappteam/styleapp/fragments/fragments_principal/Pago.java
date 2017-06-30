@@ -1,8 +1,7 @@
-package com.styleappteam.styleapp.fragments_main.fragments_principal;
+package com.styleappteam.styleapp.fragments.fragments_principal;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.InputFilter;

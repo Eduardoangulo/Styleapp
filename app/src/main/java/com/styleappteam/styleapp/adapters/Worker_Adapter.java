@@ -34,9 +34,9 @@ public class Worker_Adapter extends ArrayAdapter<Worker> {
         ImageView img = (ImageView) listItemView.findViewById(R.id.worker_image);
 
 
-        workerName.setText(currentWorker.getName());
-        stars.setImageResource(currentWorker.getValoration());
-        img.setImageResource(currentWorker.getImg());
+//        workerName.setText(currentWorker.getId());
+        //stars.setImageResource(currentWorker.getValoration());
+        //img.setImageResource(currentWorker.getImg());
 
         return listItemView;
 

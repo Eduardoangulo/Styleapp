@@ -1,6 +1,7 @@
 package com.styleappteam.styleapp.connection_service;
 
 import com.styleappteam.styleapp.classes.Type_Service;
+import com.styleappteam.styleapp.classes.Worker;
 
 import java.util.ArrayList;
 import retrofit2.Call;
@@ -24,4 +25,8 @@ public interface styleapp_API {
     @Headers({ "Content-Type: application/json"})
     @POST("clients/login")
     Call<loginResult> login(@Body loginPost log);
+
+    @Headers({ "Content-Type: application/json"})
+    @POST("clients/getWorkers")
+    Call<ArrayList<Worker>> obtenerWorkers(@Body GetWorkers infoWorker);
 }

@@ -1,4 +1,4 @@
-package com.styleappteam.styleapp.fragments_main.fragments_ajustes;
+package com.styleappteam.styleapp.fragments.fragments_ajustes;
 
 /**
  * Created by eduardo on 1/5/17.
