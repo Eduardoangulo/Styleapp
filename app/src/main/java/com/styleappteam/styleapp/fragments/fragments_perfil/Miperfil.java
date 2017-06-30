@@ -37,11 +37,12 @@ public class Miperfil extends Fragment {
 
     private void displayProfileInfo(View view) {
                 TextView nameTextView= (TextView) view.findViewById(R.id.profileName);
-                TextView telfTextView= (TextView) view.findViewById(R.id.profileName);
+                TextView telfTextView= (TextView) view.findViewById(R.id.profilePhone);
                 TextView emailTextView= (TextView) view.findViewById(R.id.profileEmail);
                 ImageView profileImg = (ImageView) view.findViewById(R.id.ProfilePicture);
                 nameTextView.setText(currentClient.getUser().getFirstName()+" "+currentClient.getUser().getLastName());
                 emailTextView.setText(currentClient.getUser().getEmail());
+                telfTextView.setText(currentClient.getUser().getTelephone().toString());
                 Glide.with(getContext())
                     .load(currentClient.getPhoto())
                     .fitCenter()
