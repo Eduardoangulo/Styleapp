@@ -1,4 +1,4 @@
-package com.styleappteam.styleapp.classes;
+package com.styleappteam.styleapp.connection_service;
 
 /**
  * Created by Luis on 29/06/2017.

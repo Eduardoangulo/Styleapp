@@ -14,7 +14,7 @@ import android.widget.Toast;
 import com.styleappteam.styleapp.R;
 import com.styleappteam.styleapp.activities.MapActivity;
 import com.styleappteam.styleapp.classes.Worker;
-import com.styleappteam.styleapp.classes.Worker_Adapter;
+import com.styleappteam.styleapp.adapters.Worker_Adapter;
 import static com.styleappteam.styleapp.VariablesGlobales.place_global;
 
 /**
