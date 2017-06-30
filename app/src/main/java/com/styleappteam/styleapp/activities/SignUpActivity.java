@@ -35,6 +35,7 @@ public class SignUpActivity extends AppCompatActivity {
     private EditText nameTextView;
     private EditText LnameTextView;
     private EditText emailTextView;
+    private EditText telfTextView;
     private EditText password;
     private TextView register;
     private boolean validEmail=false;
@@ -47,6 +48,7 @@ public class SignUpActivity extends AppCompatActivity {
         nameTextView= (EditText) findViewById(R.id.registerName);
         LnameTextView= (EditText) findViewById(R.id.registerLName);
         emailTextView= (EditText) findViewById(R.id.registerEmail);
+        telfTextView= (EditText) findViewById(R.id.registerTelf);
         password= (EditText) findViewById(R.id.registerPassword);
         register= (TextView) findViewById(R.id.registerBtn);
 
@@ -76,7 +78,7 @@ public class SignUpActivity extends AppCompatActivity {
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                NewUser newUser= new NewUser(emailTextView.getText().toString(), nameTextView.getText().toString(),LnameTextView.getText().toString(),emailTextView.getText().toString(),password.getText().toString());
+                NewUser newUser= new NewUser(Integer.parseInt(telfTextView.getText().toString()), nameTextView.getText().toString(),LnameTextView.getText().toString(),emailTextView.getText().toString(),password.getText().toString());
                 if(validateNewUser(newUser)){
                     conexion.retrofitLoad();
                     if(conexion.getRetrofit()!=null){
@@ -158,11 +160,18 @@ public class SignUpActivity extends AppCompatActivity {
         });
     }
     private boolean validateNewUser(NewUser newUser){
-        return !(!validEmail||newUser.getUsername()==" "||newUser.getFirst_name()==" "||newUser.getLast_name()==" ");
+        return !(!validEmail||newUser.getTelephone()==null||newUser.getFirst_name()==" "||newUser.getLast_name()==" ");
     }
     @Override
     protected void onPause() {
         super.onPause();
         LoginManager.getInstance().logOut();
     }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        LoginManager.getInstance().logOut();
+    }
+
 }
