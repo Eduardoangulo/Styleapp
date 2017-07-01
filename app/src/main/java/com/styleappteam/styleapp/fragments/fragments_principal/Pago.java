@@ -18,9 +18,16 @@ import com.styleappteam.styleapp.Culqi.Token;
 import com.styleappteam.styleapp.Culqi.TokenCallback;
 import com.styleappteam.styleapp.Culqi.Validation;
 import com.styleappteam.styleapp.R;
+import com.styleappteam.styleapp.connection_service.GetWorkers;
 import com.styleappteam.styleapp.connection_service.TokenToServer;
+import com.styleappteam.styleapp.connection_service.styleapp_API;
 
 import org.json.JSONObject;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 
 import static com.styleappteam.styleapp.VariablesGlobales.conexion;
 import static com.styleappteam.styleapp.VariablesGlobales.currentClient;
@@ -155,7 +162,7 @@ public class Pago extends Fragment {
                     public void onSuccess(JSONObject token) {
                         try {
                             result.setText(token.get("id").toString());
-                            enviarTokenAlServidor(token.get("id").toString());
+                            //enviarTokenAlServidor(token.get("id").toString());
                         } catch (Exception ex) {
                             progress.hide();
                         }
@@ -189,8 +196,24 @@ public class Pago extends Fragment {
             tokenToServer.setWorker_id(currentWorker.getId());
             tokenToServer.setToken(token);
 
-
+            enviarToken(conexion.getRetrofit(),tokenToServer);
         }
 
+    }
+    private void enviarToken(Retrofit retrofit, TokenToServer tokenToServer){
+        styleapp_API service = retrofit.create(styleapp_API.class);
+        Call<TokenToServer> workerCall = service.enviarToken(tokenToServer);
+        workerCall.enqueue(new Callback<TokenToServer>() {
+            @Override
+            public void onResponse(Call<TokenToServer> call, Response<TokenToServer> response) {
+                if (response.isSuccessful()) {
+
+                }
+            }
+            @Override
+            public void onFailure(Call<TokenToServer> call, Throwable t) {
+
+            }
+        });
     }
 }

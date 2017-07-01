@@ -42,5 +42,5 @@ public interface styleapp_API {
 
     @Headers({ "Content-Type: application/json"})
     @POST("details")
-    Call<ArrayList<TokenToServer>> enviarToken(@Body TokenToServer tokenToServer);
+    Call<TokenToServer> enviarToken(@Body TokenToServer tokenToServer);
 }

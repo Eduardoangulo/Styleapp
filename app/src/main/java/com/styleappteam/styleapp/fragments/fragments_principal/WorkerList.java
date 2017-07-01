@@ -82,7 +82,7 @@ public class WorkerList extends Fragment {
 
             public void onItemClick(AdapterView<?> parent, View view, int position, long id)  {
 
-                if(place_global==null){
+                if(workers==null){
                     view.setClickable(false);
                 }
                 else{

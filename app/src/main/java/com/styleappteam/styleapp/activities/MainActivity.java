@@ -30,6 +30,7 @@ import static com.styleappteam.styleapp.VariablesGlobales.TAG;
 import static com.styleappteam.styleapp.VariablesGlobales.URL_desarrollo;
 import static com.styleappteam.styleapp.VariablesGlobales.conexion;
 import static com.styleappteam.styleapp.VariablesGlobales.currentClient;
+import static com.styleappteam.styleapp.VariablesGlobales.currentService;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -123,6 +124,7 @@ public class MainActivity extends AppCompatActivity {
                             case R.id.menu_seccion_8:
                                 OcultarFragment1();
                                 cleanStack();
+                                currentClient=null;
                                 LoginManager.getInstance().logOut();
                                 progress.show();
                                 goLoginScreen();
