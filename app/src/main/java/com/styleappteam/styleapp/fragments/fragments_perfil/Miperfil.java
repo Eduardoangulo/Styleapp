@@ -1,4 +1,5 @@
 package com.styleappteam.styleapp.fragments.fragments_perfil;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -18,6 +19,8 @@ import static com.styleappteam.styleapp.VariablesGlobales.currentClient;
 
 public class Miperfil extends Fragment {
 
+    private ProgressDialog progress;
+
     public Miperfil() {
         // Required empty public constructor
     }
@@ -30,12 +33,18 @@ public class Miperfil extends Fragment {
         if (currentClient == null) {
             goLoginScreen();
         } else {
+            progress = new ProgressDialog(getActivity());
+            progress.setMessage(getResources().getString(R.string.loading));
+            progress.setCancelable(false);
+            progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+
             displayProfileInfo(view);
         }
         return view;
     }
 
     private void displayProfileInfo(View view) {
+                progress.show();
                 TextView nameTextView= (TextView) view.findViewById(R.id.profileName);
                 TextView telfTextView= (TextView) view.findViewById(R.id.profilePhone);
                 TextView emailTextView= (TextView) view.findViewById(R.id.profileEmail);
@@ -49,7 +58,7 @@ public class Miperfil extends Fragment {
                     .crossFade()
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .into(profileImg);
-
+                 progress.hide();
 
     }
     private void goLoginScreen() {

@@ -3,6 +3,7 @@ package com.styleappteam.styleapp.fragments.fragments_mis_servicios;
 /**
  * Created by eduardo on 1/5/17.
  */
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -32,6 +33,7 @@ import static com.styleappteam.styleapp.VariablesGlobales.currentClient;
 public class Misservicios extends Fragment {
     private misservicios_Adapter adapter1;
     private ArrayList<DetailClient> detailClients= new ArrayList<>();
+    private ProgressDialog progress;
 
     public Misservicios() {
         // Required empty public constructor
@@ -43,6 +45,12 @@ public class Misservicios extends Fragment {
         // Inflate the layout for this fragment
         View view= inflater.inflate(R.layout.misservicios, container, false);
         ListView rootView= (ListView) view.findViewById(R.id.list);
+        progress = new ProgressDialog(getActivity());
+        progress.setMessage(getResources().getString(R.string.loading));
+        progress.setCancelable(false);
+        progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progress.show();
+
         adapter1=new misservicios_Adapter(getActivity(), R.layout.myservices_list);
         rootView.setAdapter(adapter1);
 
@@ -68,15 +76,16 @@ public class Misservicios extends Fragment {
                     detailClients = response.body();
                     Log.i(TAG,"MIS SERVICIOS se obtuvo datos: "+response.body().size());
                     adapter1.addAll(detailClients);
-
                 } else {
                     Log.e(TAG,"MIS SERVICIOS no se obtuvo datos");
                     Toast.makeText(getContext(), getResources().getString(R.string.connection_error), Toast.LENGTH_SHORT).show();
                 }
+                progress.hide();
             }
             @Override
             public void onFailure(Call<ArrayList<DetailClient>> call, Throwable t) {
                 Log.e(TAG, "MIS SERVICIOS onFailure: " + t.getMessage());
+                progress.hide();
                 Toast.makeText(getContext(), getResources().getString(R.string.connection_error), Toast.LENGTH_SHORT).show();
             }
         });
