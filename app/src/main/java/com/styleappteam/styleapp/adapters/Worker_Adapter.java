@@ -48,6 +48,10 @@ public class Worker_Adapter extends ArrayAdapter<Worker> {
                 .crossFade()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(img);
+
+        if(currentWorker.getValue_calc()==null){
+            currentWorker.setValue_calc(0);
+        }
         switch(currentWorker.getValue_calc()){
             case 1:stars.setImageResource(R.drawable.stars_1); break;
             case 2:stars.setImageResource(R.drawable.stars_2); break;

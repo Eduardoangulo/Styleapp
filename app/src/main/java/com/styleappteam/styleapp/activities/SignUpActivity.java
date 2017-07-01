@@ -58,7 +58,7 @@ public class SignUpActivity extends AppCompatActivity {
                 String email=emailTextView.getText().toString().trim();
                 if (!email.matches(emailPattern) || s.length() <= 0)
                 {
-                    Toast.makeText(getApplicationContext(),"Invalid email address",Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getApplicationContext(),"Invalid email address",Toast.LENGTH_SHORT).show();
                     validEmail=false;
                 }
                 else{
