@@ -10,9 +10,9 @@
 
     <ImageView
         android:layout_gravity="center"
-        android:layout_margin="16dp"
+        android:layout_margin="12dp"
         android:id="@+id/worker_image"
-        android:layout_height="56dp"
+        android:layout_height="75dp"
         android:layout_width="0dp"
         android:scaleType="fitCenter"
         android:layout_weight="1"
@@ -25,7 +25,6 @@
         android:gravity="center_vertical"
         android:padding="8dp"
         android:layout_weight="3"
-        android:layout_marginRight="8dp"
         >
 
         <TextView
@@ -43,8 +42,8 @@
             android:textSize="13dp"
             android:text="Costo: S/.60"
             android:textAppearance="?android:textAppearanceMedium"
-            />extAppearance="?android:textAppearanceMedium"
             />
+
         <ImageView
             android:id="@+id/stars"
             android:src="@drawable/stars_1"

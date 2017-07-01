@@ -40,7 +40,7 @@ public class Worker_Adapter extends ArrayAdapter<Worker> {
 
         workerName.setText(currentWorker.getFirst_name()+" "+currentWorker.getLast_name());
         distanceText.setText(identificarKM(currentWorker.getDistance()));
-        price.setText("Costo: "+currentWorker.getPrice());
+        price.setText("Costo: S/."+currentWorker.getPrice());
         dist_icon.setImageResource(identificarIconoDistancia(currentWorker.getDistance()));
         Glide.with(getContext())
                 .load(currentWorker.getPhoto())
