@@ -20,6 +20,10 @@ public class Worker {
     @Expose
     private Integer user_id;
 
+    @SerializedName("photo")
+    @Expose
+    private String photo;
+
     @SerializedName("created_at")
     @Expose
     private String created_at;
@@ -28,13 +32,13 @@ public class Worker {
     @Expose
     private String updated_at;
 
-    @SerializedName("username")
-    @Expose
-    private String username;
-
     @SerializedName("first_name")
     @Expose
     private String first_name;
+
+    @SerializedName("last_name")
+    @Expose
+    private String last_name;
 
     @SerializedName("email")
     @Expose
@@ -80,6 +84,11 @@ public class Worker {
     @Expose
     private Double price;
 
+    @SerializedName("value_calc")
+    @Expose
+    private Integer value_calc;
+
+
     public Integer getId() {
         return id;
     }
@@ -110,14 +119,6 @@ public class Worker {
 
     public void setUpdated_at(String updated_at) {
         this.updated_at = updated_at;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
     }
 
     public String getFirst_name() {
@@ -214,5 +215,29 @@ public class Worker {
 
     public void setPrice(Double price) {
         this.price = price;
+    }
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
+    }
+
+    public String getLast_name() {
+        return last_name;
+    }
+
+    public void setLast_name(String last_name) {
+        this.last_name = last_name;
+    }
+
+    public Integer getValue_calc() {
+        return value_calc;
+    }
+
+    public void setValue_calc(Integer value_calc) {
+        this.value_calc = value_calc;
     }
 }

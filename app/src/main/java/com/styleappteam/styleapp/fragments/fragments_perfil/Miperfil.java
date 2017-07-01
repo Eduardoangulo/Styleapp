@@ -50,6 +50,7 @@ public class Miperfil extends Fragment {
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .into(profileImg);
 
+
     }
     private void goLoginScreen() {
         Intent intent= new Intent(getActivity(), LoginActivity.class);
