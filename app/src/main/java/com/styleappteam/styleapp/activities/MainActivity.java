@@ -97,12 +97,12 @@ public class MainActivity extends AppCompatActivity {
                                 fragment = new Misservicios();
                                 fragmentTransaction = true;
                                 break;
-                            case R.id.menu_seccion_4:
+                            /*case R.id.menu_seccion_4:
                                 OcultarFragment1();
                                 cleanStack();
                                 fragment = new Promociones();
                                 fragmentTransaction = true;
-                                break;
+                                break;*/
                             case R.id.menu_seccion_5:
                                 OcultarFragment1();
                                 cleanStack();
