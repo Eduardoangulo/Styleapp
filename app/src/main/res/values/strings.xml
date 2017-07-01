@@ -50,7 +50,7 @@
     <string name="hint_year">Año</string>
     <string name="hint_cvv">CVV</string>
     <string name="hint_email">Correo electrónico</string>
-    <string name="llave_publica">pk_test_y8nynabl9fkzdUZv</string>
+    <string name="llave_publica">llave_publica_culqi</string>
     <string name="llave_privada">llave_privada_culqi</string>
 
     <string name="selected_place">Último lugar elegido: </string>
