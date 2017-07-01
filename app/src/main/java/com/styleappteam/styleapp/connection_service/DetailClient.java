@@ -8,6 +8,8 @@ import com.styleappteam.styleapp.model.Client;
 import com.styleappteam.styleapp.model.Services;
 import com.styleappteam.styleapp.model.Worker;
 
+import java.util.List;
+
 
 /**
  * Created by eduardo on 6/30/17.
@@ -32,11 +34,11 @@ public class DetailClient {
 
     @SerializedName("worker")
     @Expose
-    private Worker worker;
+    private List<Worker> worker;
 
     @SerializedName("client")
     @Expose
-    private Client client;
+    private List<Client> client;
 
     public Integer getId() {
         return id;
@@ -70,19 +72,19 @@ public class DetailClient {
         this.service = service;
     }
 
-    public Worker getWorker() {
+    public List<Worker> getWorker() {
         return worker;
     }
 
-    public void setWorker(Worker worker) {
+    public void setWorker(List<Worker> worker) {
         this.worker = worker;
     }
 
-    public Client getClient() {
+    public List<Client> getClient() {
         return client;
     }
 
-    public void setClient(Client client) {
+    public void setClient(List<Client> client) {
         this.client = client;
     }
 }

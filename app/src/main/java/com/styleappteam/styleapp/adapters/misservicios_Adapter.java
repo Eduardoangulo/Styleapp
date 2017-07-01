@@ -33,11 +33,13 @@ public class misservicios_Adapter extends ArrayAdapter<DetailClient> {
         DetailClient currentService = getItem(position);
 
         TextView servicet = (TextView) listItemView.findViewById(R.id.serviceName);
+        TextView estilista = (TextView)listItemView.findViewById(R.id.estilista);
         TextView service_status = (TextView)listItemView.findViewById(R.id.status);
         ImageView img = (ImageView) listItemView.findViewById(R.id.basicImg);
 
 
         servicet.setText(currentService.getService().getName());
+        estilista.setText(currentService.getWorker().get(0).getFirst_name()+" "+currentService.getWorker().get(0).getLast_name());
 
       switch(currentService.getService().getId()){
             case 1:img.setImageResource(R.drawable.corte_hippie); break;
