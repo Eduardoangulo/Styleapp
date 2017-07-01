@@ -152,7 +152,7 @@ public class MapActivity extends AppCompatActivity implements  OnMapReadyCallbac
 
     }
     public void addMarkerToMap(LatLng latLng) {
-        marker_global =mapa.addMarker(new MarkerOptions().position(latLng).title("title").snippet("snippet"));
+        marker_global =mapa.addMarker(new MarkerOptions().position(latLng).title("Posición elegida").snippet("StyleApp"));
                 //.icon(BitmapDescriptorFactory.fromResource(R.drawable.icon_burro))
         //markerexists=true;
     }

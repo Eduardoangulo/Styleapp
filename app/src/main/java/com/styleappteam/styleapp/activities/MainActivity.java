@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -76,39 +77,47 @@ public class MainActivity extends AppCompatActivity {
                         switch (menuItem.getItemId()) {
                             case R.id.menu_seccion_1:
                                 fragment = new Principal();
+                                cleanStack();
                                 fragmentTransaction = true;
                                 break;
                             case R.id.menu_seccion_2:
                                 OcultarFragment1();
                                 fragment = new Miperfil();
+                                cleanStack();
                                 fragmentTransaction = true;
                                 break;
                             case R.id.menu_seccion_3:
                                 OcultarFragment1();
+                                cleanStack();
                                 fragment = new Misservicios();
                                 fragmentTransaction = true;
                                 break;
                             case R.id.menu_seccion_4:
                                 OcultarFragment1();
+                                cleanStack();
                                 fragment = new Promociones();
                                 fragmentTransaction = true;
                                 break;
                             case R.id.menu_seccion_5:
                                 OcultarFragment1();
+                                cleanStack();
                                 fragment = new Compartir();
                                 fragmentTransaction = true;
                                 break;
                             case R.id.menu_seccion_6:
                                 OcultarFragment1();
+                                cleanStack();
                                 fragment = new Ajustes();
                                 fragmentTransaction = true;
                                 break;
                             case R.id.menu_seccion_7:
                                 OcultarFragment1();
+                                cleanStack();
                                 sendReport();
                                 break;
                             case R.id.menu_seccion_8:
                                 OcultarFragment1();
+                                cleanStack();
                                 LoginManager.getInstance().logOut();
                                 goLoginScreen();
                                 break;
@@ -162,6 +171,12 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+    private void cleanStack(){
+        FragmentManager fm = this.getSupportFragmentManager();
+        for(int i = 0; i < fm.getBackStackEntryCount(); ++i) {
+            fm.popBackStack();
+        }
     }
 
 }

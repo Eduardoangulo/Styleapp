@@ -34,16 +34,43 @@ public class Worker_Adapter extends ArrayAdapter<Worker> {
         ImageView img = (ImageView) listItemView.findViewById(R.id.worker_image);
         TextView distanceText = (TextView)listItemView.findViewById(R.id.distanceText);
         TextView price = (TextView)listItemView.findViewById(R.id.cost);
+        ImageView dist_icon = (ImageView)listItemView.findViewById(R.id.colordist);
 
         workerName.setText(currentWorker.getFull_name());
-        distanceText.setText(currentWorker.getDistance().toString());
+        distanceText.setText(identificarKM(currentWorker.getDistance()));
         price.setText("Costo: "+currentWorker.getPrice());
+        dist_icon.setImageResource(identificarIconoDistancia(currentWorker.getDistance()));
 
         //stars.setImageResource(currentWorker.getValoration());
-        //img.setImageResource(currentWorker.getImg());
 
         return listItemView;
 
     }
+    private int identificarIconoDistancia(Double distancia ){
+        int id_Icon;
+        if(distancia<200){
+            id_Icon = R.drawable.ic_verde;
+        }else{
+            if(distancia<500){
+                id_Icon = R.drawable.ic_amarillo;
+            }else{
+                id_Icon = R.drawable.ic_rojo;
+            }
+        }
+        return id_Icon;
+    }
+
+    private String identificarKM(Double distancia){
+        String km_text="";
+        if(distancia<=600){
+            km_text=distancia+" m";
+        }
+        else{
+            distancia=distancia/1000;
+            km_text=distancia+" km";
+        }
+        return km_text;
+    }
+
 
 }
