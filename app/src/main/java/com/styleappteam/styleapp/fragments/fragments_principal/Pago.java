@@ -18,7 +18,6 @@ import com.styleappteam.styleapp.Culqi.Token;
 import com.styleappteam.styleapp.Culqi.TokenCallback;
 import com.styleappteam.styleapp.Culqi.Validation;
 import com.styleappteam.styleapp.R;
-import com.styleappteam.styleapp.connection_service.GetWorkers;
 import com.styleappteam.styleapp.connection_service.TokenToServer;
 import com.styleappteam.styleapp.connection_service.styleapp_API;
 
@@ -29,6 +28,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
+import static com.facebook.FacebookSdk.getApplicationContext;
 import static com.styleappteam.styleapp.VariablesGlobales.conexion;
 import static com.styleappteam.styleapp.VariablesGlobales.currentClient;
 import static com.styleappteam.styleapp.VariablesGlobales.currentService;
@@ -59,21 +59,28 @@ public class Pago extends Fragment {
         progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
 
         txtcardnumber = (TextView) view.findViewById(R.id.txt_cardnumber);
+
         txtcvv = (TextView) view.findViewById(R.id.txt_cvv);
+
         txtmonth = (TextView) view.findViewById(R.id.txt_month);
+
         txtyear = (TextView) view.findViewById(R.id.txt_year);
+
         txtemail = (TextView) view.findViewById(R.id.txt_email);
+
         kind_card = (TextView) view.findViewById(R.id.kind_card);
+
         result = (TextView) view.findViewById(R.id.token_id);
+
         btnPay = (Button) view.findViewById(R.id.btn_pay);
+
+        txtcvv.setEnabled(false);
 
         txtcardnumber.setTransformationMethod(new NumericKeyBoardTransformationMethod());
         txtcvv.setTransformationMethod(new NumericKeyBoardTransformationMethod());
         txtmonth.setTransformationMethod(new NumericKeyBoardTransformationMethod());
         txtyear.setTransformationMethod(new NumericKeyBoardTransformationMethod());
         txtemail.setTransformationMethod(new NumericKeyBoardTransformationMethod());
-
-        txtcvv.setEnabled(true);
 
         txtcardnumber.addTextChangedListener(new TextWatcher() {
             @Override
@@ -82,7 +89,7 @@ public class Pago extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (s.length() == 0) {
+                if(s.length() == 0){
                     txtcvv.setEnabled(true);
                 }
             }
@@ -90,22 +97,22 @@ public class Pago extends Fragment {
             @Override
             public void afterTextChanged(Editable s) {
                 String text = txtcardnumber.getText().toString();
-                if (s.length() == 0) {
+                if(s.length() == 0) {
                     txtcardnumber.setBackgroundResource(R.drawable.border_error);
                 }
 
-                if (validation.luhn(text)) {
+                if(validation.luhn(text)) {
                     txtcardnumber.setBackgroundResource(R.drawable.border_sucess);
                 } else {
                     txtcardnumber.setBackgroundResource(R.drawable.border_error);
                 }
 
                 int cvv = validation.bin(text, kind_card);
-                if (cvv > 0) {
+                if(cvv > 0) {
                     txtcvv.setFilters(new InputFilter[]{new InputFilter.LengthFilter(cvv)});
                     txtcvv.setEnabled(true);
                 } else {
-                    txtcvv.setEnabled(true);
+                    txtcvv.setEnabled(false);
                     txtcvv.setText("");
                 }
             }
@@ -123,7 +130,7 @@ public class Pago extends Fragment {
             @Override
             public void afterTextChanged(Editable s) {
                 String text = txtyear.getText().toString();
-                if (validation.year(text)) {
+                if(validation.year(text)){
                     txtyear.setBackgroundResource(R.drawable.border_error);
                 } else {
                     txtyear.setBackgroundResource(R.drawable.border_sucess);
@@ -143,7 +150,7 @@ public class Pago extends Fragment {
             @Override
             public void afterTextChanged(Editable s) {
                 String text = txtmonth.getText().toString();
-                if (validation.month(text)) {
+                if(validation.month(text)){
                     txtmonth.setBackgroundResource(R.drawable.border_error);
                 } else {
                     txtmonth.setBackgroundResource(R.drawable.border_sucess);
@@ -151,19 +158,20 @@ public class Pago extends Fragment {
             }
         });
 
-        btnPay.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
+        btnPay.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
                 progress.show();
 
                 Card card = new Card(txtcardnumber.getText().toString(), txtcvv.getText().toString(), Integer.parseInt(txtmonth.getText().toString()), Integer.parseInt(txtyear.getText().toString()), txtemail.getText().toString());
+
                 Token token = new Token(getResources().getString(R.string.llave_publica));
-                token.createToken(getContext(), card, new TokenCallback() {
+
+                token.createToken(getApplicationContext(), card, new TokenCallback() {
                     @Override
                     public void onSuccess(JSONObject token) {
                         try {
                             result.setText(token.get("id").toString());
-                            //enviarTokenAlServidor(token.get("id").toString());
-                        } catch (Exception ex) {
+                        } catch (Exception ex){
                             progress.hide();
                         }
                         progress.hide();
@@ -178,8 +186,11 @@ public class Pago extends Fragment {
             }
         });
 
+
         return view;
     }
+
+    //enviarTokenAlServidor(token.get("id").toString());
     private class NumericKeyBoardTransformationMethod extends PasswordTransformationMethod {
         @Override
         public CharSequence getTransformation(CharSequence source, View view) {
