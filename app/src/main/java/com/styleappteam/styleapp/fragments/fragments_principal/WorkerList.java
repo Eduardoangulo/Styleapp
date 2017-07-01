@@ -1,5 +1,6 @@
 package com.styleappteam.styleapp.fragments.fragments_principal;
 
+import android.app.ProgressDialog;
 import android.support.v4.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
@@ -41,10 +42,18 @@ public class WorkerList extends Fragment {
     private ArrayList<Worker> workers;
     private Worker_Adapter adapter1;
     private SwipeRefreshLayout refresh;
+    private ProgressDialog progress;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view= inflater.inflate(R.layout.workers, container, false);
+
+        progress = new ProgressDialog(getActivity());
+        progress.setMessage(getResources().getString(R.string.loading));
+        progress.setCancelable(false);
+        progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progress.show();
+
         refresh= (SwipeRefreshLayout)view.findViewById(R.id.swiperefresh);
         refresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -64,6 +73,7 @@ public class WorkerList extends Fragment {
             obtenerDatosWorkers(conexion.getRetrofit());
         }else
         {
+            progress.hide();
             Log.e(TAG, "Principal: se fue el internet");
         }
 
@@ -154,11 +164,13 @@ public class WorkerList extends Fragment {
                     Toast.makeText(getContext(), getResources().getString(R.string.connection_error), Toast.LENGTH_SHORT).show();
                     Log.e(TAG, " onResponse: " + response.errorBody());
                 }
+                progress.hide();
             }
             @Override
             public void onFailure(Call<GetWorkers> call, Throwable t) {
                 Log.e(TAG, " onFailure: " + t.getMessage());
                 Toast.makeText(getContext(), getResources().getString(R.string.connection_error), Toast.LENGTH_SHORT).show();
+                progress.hide();
             }
         });
     }
