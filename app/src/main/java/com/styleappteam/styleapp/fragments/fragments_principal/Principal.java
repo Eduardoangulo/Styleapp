@@ -8,6 +8,7 @@ import com.styleappteam.styleapp.model.Type;
  * Created by eduardo on 1/5/17.
  */
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -36,12 +37,21 @@ public class Principal extends Fragment {
     }
     private ArrayList<Type> tipos=null;
     private Type_Adapter adapter1;
+    private ProgressDialog progress;
+
     @Override
     public View onCreateView(LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view= inflater.inflate(R.layout.principal, container, false);
         ListView rootView= (ListView) view.findViewById(R.id.list);
+
+        progress = new ProgressDialog(getActivity());
+        progress.setMessage(getResources().getString(R.string.loading));
+        progress.setCancelable(false);
+        progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progress.show();
+
         adapter1=new Type_Adapter(getActivity(), R.layout.basic_list);
 
         rootView.setAdapter(adapter1);
@@ -75,15 +85,16 @@ public class Principal extends Fragment {
                 if (response.isSuccessful()) {
                     tipos = response.body();
                     adapter1.addAll(tipos);
-
                 } else {
                     Toast.makeText(getContext(), getResources().getString(R.string.connection_error), Toast.LENGTH_SHORT).show();
                 }
+                progress.hide();
             }
             @Override
             public void onFailure(Call<ArrayList<Type>> call, Throwable t) {
                 Log.e(TAG, " onFailure: " + t.getMessage());
                 Toast.makeText(getContext(), getResources().getString(R.string.connection_error), Toast.LENGTH_SHORT).show();
+                progress.hide();
             }
         });
     }

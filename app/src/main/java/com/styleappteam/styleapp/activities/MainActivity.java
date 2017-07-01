@@ -1,5 +1,6 @@
 package com.styleappteam.styleapp.activities;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -35,19 +36,23 @@ public class MainActivity extends AppCompatActivity {
     private Toolbar appbar;
     private DrawerLayout drawerLayout;
     private NavigationView navView;
+    private ProgressDialog progress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        /*if(AccessToken.getCurrentAccessToken()==null){
-            Log.i(TAG, "Token: "+AccessToken.getCurrentAccessToken());*/
-            if(currentClient==null){
-                finish();
-                goLoginScreen();
-            }
-       // }
+        progress = new ProgressDialog(this);
+        progress.setMessage(getResources().getString(R.string.loading));
+        progress.setCancelable(false);
+        progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+
+        if(currentClient==null){
+            finish();
+            goLoginScreen();
+        }
+
         conexion= new API_Connection(getApplicationContext(), TAG, URL_desarrollo);
         //conexion.retrofitLoad();
         Log.i(TAG, "Token2: "+AccessToken.getCurrentAccessToken());
@@ -119,7 +124,9 @@ public class MainActivity extends AppCompatActivity {
                                 OcultarFragment1();
                                 cleanStack();
                                 LoginManager.getInstance().logOut();
+                                progress.show();
                                 goLoginScreen();
+                                progress.hide();
                                 break;
                         }
 

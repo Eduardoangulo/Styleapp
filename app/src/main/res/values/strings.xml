@@ -10,6 +10,7 @@
     <string name="OlvContra"><u>¿No recuerda su contraseña?</u></string>
     <string name="iniciarSesion">ingresar</string>
 
+    <string name="loading">Cargando</string>
 
     <string name="menu_opcion1">Principal</string>
     <string name="menu_opcion2">Mi perfil</string>
