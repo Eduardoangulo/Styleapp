@@ -18,8 +18,14 @@ import com.styleappteam.styleapp.Culqi.Token;
 import com.styleappteam.styleapp.Culqi.TokenCallback;
 import com.styleappteam.styleapp.Culqi.Validation;
 import com.styleappteam.styleapp.R;
+import com.styleappteam.styleapp.connection_service.TokenToServer;
 
 import org.json.JSONObject;
+
+import static com.styleappteam.styleapp.VariablesGlobales.conexion;
+import static com.styleappteam.styleapp.VariablesGlobales.currentClient;
+import static com.styleappteam.styleapp.VariablesGlobales.currentService;
+import static com.styleappteam.styleapp.VariablesGlobales.currentWorker;
 
 /**
  * Created by eduardo on 6/25/17.
@@ -143,14 +149,13 @@ public class Pago extends Fragment {
                 progress.show();
 
                 Card card = new Card(txtcardnumber.getText().toString(), txtcvv.getText().toString(), Integer.parseInt(txtmonth.getText().toString()), Integer.parseInt(txtyear.getText().toString()), txtemail.getText().toString());
-
-                Token token = new Token("pk_test_QqGjpvWBQMeLI3Uz");
-
+                Token token = new Token(getResources().getString(R.string.llave_publica));
                 token.createToken(getContext(), card, new TokenCallback() {
                     @Override
                     public void onSuccess(JSONObject token) {
                         try {
                             result.setText(token.get("id").toString());
+                            enviarTokenAlServidor(token.get("id").toString());
                         } catch (Exception ex) {
                             progress.hide();
                         }
@@ -173,5 +178,19 @@ public class Pago extends Fragment {
         public CharSequence getTransformation(CharSequence source, View view) {
             return source;
         }
+    }
+    private void enviarTokenAlServidor(String token){
+        conexion.retrofitLoad();
+        if(conexion!=null){
+            TokenToServer tokenToServer = new TokenToServer();
+
+            tokenToServer.setClient_id(currentClient.getId());
+            tokenToServer.setServer_id(currentService.getId());
+            tokenToServer.setWorker_id(currentWorker.getId());
+            tokenToServer.setToken(token);
+
+
+        }
+
     }
 }

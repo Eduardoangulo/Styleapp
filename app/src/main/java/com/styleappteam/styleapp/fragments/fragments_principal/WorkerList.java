@@ -28,6 +28,8 @@ import retrofit2.Retrofit;
 import static com.styleappteam.styleapp.VariablesGlobales.TAG;
 import static com.styleappteam.styleapp.VariablesGlobales.conexion;
 import static com.styleappteam.styleapp.VariablesGlobales.currentService;
+import static com.styleappteam.styleapp.VariablesGlobales.currentType;
+import static com.styleappteam.styleapp.VariablesGlobales.currentWorker;
 import static com.styleappteam.styleapp.VariablesGlobales.place_global;
 
 /**
@@ -79,6 +81,7 @@ public class WorkerList extends Fragment {
                             .replace(R.id.content_frame, fragment)
                             .addToBackStack(null)
                             .commit();
+                    currentWorker = workers.get(position);
                 }
             }
         });
