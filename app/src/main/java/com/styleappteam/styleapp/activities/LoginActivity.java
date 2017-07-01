@@ -148,7 +148,9 @@ public class LoginActivity extends AppCompatActivity {
             Call.enqueue(new Callback<loginResult>() {
                 @Override
                 public void onResponse(Call<loginResult> call, Response<loginResult> response) {
+                    progress.hide();
                     if (response.isSuccessful()) {
+
                         if(response.body().getSuccess()){
                             Log.i(TAG, "Usuario Correcto");
                             Toast.makeText(getApplicationContext(), "Bienvenido a Styleapp", Toast.LENGTH_SHORT).show();
@@ -157,14 +159,14 @@ public class LoginActivity extends AppCompatActivity {
                         }
                         else {
                             Log.i(TAG, "Usuario Incorrecto");
+
                             Toast.makeText(getApplicationContext(), "Usuario o Contraseña Incorrectos", Toast.LENGTH_SHORT).show();
                         }
-
                     }
                     else{
                         Log.e(TAG, " Verificar onResponse: " + response.errorBody());
                     }
-                    progress.hide();
+
                 }
                 @Override
                 public void onFailure(Call<loginResult> call, Throwable t) {
