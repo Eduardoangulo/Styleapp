@@ -47,7 +47,7 @@
             />
         <ImageView
             android:id="@+id/stars"
-            android:src="@drawable/stars"
+            android:src="@drawable/stars_1"
             android:layout_height="20dp"
             android:layout_width="match_parent"
             android:gravity="left"
