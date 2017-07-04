@@ -48,6 +48,10 @@ public class Worker {
     @Expose
     private String password;
 
+    @SerializedName("token")
+    @Expose
+    private String token;
+
     @SerializedName("role_id")
     @Expose
     private Integer role_id;
@@ -239,5 +243,13 @@ public class Worker {
 
     public void setValue_calc(Integer value_calc) {
         this.value_calc = value_calc;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 }
