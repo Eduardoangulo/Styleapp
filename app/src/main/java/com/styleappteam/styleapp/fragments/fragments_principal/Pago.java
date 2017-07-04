@@ -220,10 +220,12 @@ public class Pago extends Fragment {
         Log.i(TAG, "Enviar Notificacion");
         String clientName=currentClient.getUser().getFirstName()+" "+currentClient.getUser().getLastName();
         String token;
-        if(worker.getToken()!=null){
+        if(worker.getToken()==null){
             token="gg";
         }
-        token=worker.getToken();
+        else{
+            token=worker.getToken();
+        }
         NotificationPost nPost= new NotificationPost(token, new Notificacion("Nueva solicitud de servicio!",clientName+" solicito tus servicios!"), new Datos("Enviado deade app","Enviado deade app"));
         notifications_API service= retrofit.create(notifications_API.class);
         Call<NotificationResponse> Call= service.enviarNotificacion(nPost);
