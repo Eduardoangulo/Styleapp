@@ -144,7 +144,7 @@ public class LoginActivity extends AppCompatActivity {
             Call.enqueue(new Callback<loginResult>() {
                 @Override
                 public void onResponse(Call<loginResult> call, Response<loginResult> response) {
-                    progress.hide();
+                    progress.dismiss();
                     if (response.isSuccessful()) {
 
                         if(response.body().getSuccess()){
@@ -167,11 +167,11 @@ public class LoginActivity extends AppCompatActivity {
                 @Override
                 public void onFailure(Call<loginResult> call, Throwable t) {
                     Log.e(TAG, " Verificar onFailure: " + t.getMessage());
-                    progress.hide();
+                    progress.dismiss();
                 }
             });
         }else {
-            progress.hide();
+            progress.dismiss();
             Log.e(TAG, "Principal: se fue el internet");
         }
     }
