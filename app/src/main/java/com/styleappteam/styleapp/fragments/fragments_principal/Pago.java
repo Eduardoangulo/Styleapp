@@ -266,6 +266,7 @@ public class Pago extends Fragment {
     }
 
     private void crearDetalle(Retrofit retrofit) {
+        Log.i(TAG, currentWorker.getId()+" "+ currentClient.getId()+" "+currentService.getId());
         DetailPost detallePots= new DetailPost(currentWorker.getId(), currentClient.getId(), currentService.getId());
         styleapp_API service = retrofit.create(styleapp_API.class);
         Call<DetailPostResponse> Call = service.creatDetalle(detallePots);
