@@ -102,6 +102,8 @@ public class LoginActivity extends AppCompatActivity {
                     loginPrefsEditor.commit();
                 } else {
                     loginPrefsEditor.clear();
+                    loginPrefsEditor.putString("username", username);
+                    loginPrefsEditor.putString("password", password);
                     loginPrefsEditor.commit();
                 }
 
