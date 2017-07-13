@@ -71,6 +71,9 @@ public class Principal extends Fragment {
 
         if(conexion.getRetrofit()!=null){
             obtenerDatos(conexion.getRetrofit());
+        }else{
+            Toast.makeText(getContext(), getResources().getString(R.string.connection_error), Toast.LENGTH_SHORT).show();
+            progress.dismiss();
         }
 
         return view;
@@ -85,16 +88,17 @@ public class Principal extends Fragment {
                 if (response.isSuccessful()) {
                     tipos = response.body();
                     adapter1.addAll(tipos);
+                    progress.dismiss();
                 } else {
+                    progress.dismiss();
                     Toast.makeText(getContext(), getResources().getString(R.string.connection_error), Toast.LENGTH_SHORT).show();
                 }
-                progress.hide();
             }
             @Override
             public void onFailure(Call<ArrayList<Type>> call, Throwable t) {
                 Log.e(TAG, " onFailure: " + t.getMessage());
                 Toast.makeText(getContext(), getResources().getString(R.string.connection_error), Toast.LENGTH_SHORT).show();
-                progress.hide();
+                progress.dismiss();
             }
         });
     }

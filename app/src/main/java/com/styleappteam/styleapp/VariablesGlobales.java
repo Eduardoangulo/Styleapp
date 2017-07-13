@@ -1,5 +1,7 @@
 package com.styleappteam.styleapp;
 
+import android.content.SharedPreferences;
+
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.maps.model.Marker;
 import com.styleappteam.styleapp.connection_service.API_Connection;
@@ -23,4 +25,6 @@ public class VariablesGlobales {
     public static Type currentType;
     public static Worker currentWorker;
     public static Services currentService;
+    public static SharedPreferences loginPreferences;
+    public static SharedPreferences.Editor loginPrefsEditor;
 }

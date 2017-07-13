@@ -58,7 +58,7 @@ public class Miperfil extends Fragment {
                     .crossFade()
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .into(profileImg);
-                 progress.hide();
+                 progress.dismiss();
 
     }
     private void goLoginScreen() {
