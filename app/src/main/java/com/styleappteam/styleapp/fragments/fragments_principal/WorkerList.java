@@ -1,5 +1,6 @@
 package com.styleappteam.styleapp.fragments.fragments_principal;
 
+import android.app.Notification;
 import android.app.ProgressDialog;
 import android.support.v4.app.Fragment;
 import android.content.Intent;
@@ -15,8 +16,14 @@ import android.widget.ListView;
 import android.widget.Toast;
 import com.styleappteam.styleapp.R;
 import com.styleappteam.styleapp.activities.MapActivity;
+import com.styleappteam.styleapp.connection_service.API_Connection;
 import com.styleappteam.styleapp.connection_service.GetWorkers;
 import com.styleappteam.styleapp.connection_service.InfoWorker;
+import com.styleappteam.styleapp.connection_service.notifications.Datos;
+import com.styleappteam.styleapp.connection_service.notifications.Notificacion;
+import com.styleappteam.styleapp.connection_service.notifications.NotificationPost;
+import com.styleappteam.styleapp.connection_service.notifications.NotificationResponse;
+import com.styleappteam.styleapp.connection_service.notifications_API;
 import com.styleappteam.styleapp.model.Worker;
 import com.styleappteam.styleapp.adapters.Worker_Adapter;
 import com.styleappteam.styleapp.connection_service.styleapp_API;
@@ -28,6 +35,7 @@ import retrofit2.Retrofit;
 
 import static com.styleappteam.styleapp.VariablesGlobales.TAG;
 import static com.styleappteam.styleapp.VariablesGlobales.conexion;
+import static com.styleappteam.styleapp.VariablesGlobales.currentClient;
 import static com.styleappteam.styleapp.VariablesGlobales.currentService;
 import static com.styleappteam.styleapp.VariablesGlobales.currentType;
 import static com.styleappteam.styleapp.VariablesGlobales.currentWorker;
@@ -86,6 +94,7 @@ public class WorkerList extends Fragment {
                     view.setClickable(false);
                 }
                 else{
+
                     Fragment fragment = new Pago();
                     getActivity().getSupportFragmentManager().beginTransaction()
                             .replace(R.id.content_frame, fragment)
@@ -105,6 +114,9 @@ public class WorkerList extends Fragment {
 
         return view;
     }
+
+
+
     private void refreshContent(){
         new android.os.Handler().postDelayed(new Runnable() {
             @Override
@@ -144,8 +156,8 @@ public class WorkerList extends Fragment {
         else
         {
             Toast.makeText(getActivity(),"Se utilizará su ubicación predeterminada",Toast.LENGTH_SHORT).show();
-            infoWorker.setLatitude(-12.122790); //jalar del registro
-            infoWorker.setLongitude(-77.026414); //jalar del registro
+            infoWorker.setLatitude(-12.054227); //jalar del registro
+            infoWorker.setLongitude(-77.082802); //jalar del registro
         }
 
         infoWorker.setService_id(currentService.getId());

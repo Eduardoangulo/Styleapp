@@ -21,6 +21,7 @@ import com.styleappteam.styleapp.connection_service.clientDetailPost;
 import com.styleappteam.styleapp.connection_service.styleapp_API;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -103,17 +104,18 @@ public class Misservicios extends Fragment {
                     detailClients = response.body();
                     Log.i(TAG,"MIS SERVICIOS se obtuvo datos: "+response.body().size());
                     adapter1.clear();
+                    Collections.reverse(detailClients);
                     adapter1.addAll(detailClients);
                 } else {
                     Log.e(TAG,"MIS SERVICIOS no se obtuvo datos");
                     Toast.makeText(getContext(), getResources().getString(R.string.connection_error), Toast.LENGTH_SHORT).show();
                 }
-                progress.hide();
+                progress.dismiss();
             }
             @Override
             public void onFailure(Call<ArrayList<DetailClient>> call, Throwable t) {
                 Log.e(TAG, "MIS SERVICIOS onFailure: " + t.getMessage());
-                progress.hide();
+                progress.dismiss();
                 Toast.makeText(getContext(), getResources().getString(R.string.connection_error), Toast.LENGTH_SHORT).show();
             }
         });

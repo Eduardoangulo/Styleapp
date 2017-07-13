@@ -44,7 +44,7 @@
     <string name="app_settings">Ajustes</string>
 
     <!--Culqi-->
-    <string name="button_token">Pagar</string>
+    <string name="button_token">Solicitar servicio</string>
     <string name="hint_card_number">Número de tarjeta</string>
     <string name="hint_month">Mes</string>
     <string name="hint_year">Año</string>

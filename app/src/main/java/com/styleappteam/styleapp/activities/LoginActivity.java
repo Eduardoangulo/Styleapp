@@ -13,16 +13,12 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
-import com.facebook.GraphRequest;
-import com.facebook.GraphResponse;
-import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.styleappteam.styleapp.R;
 import com.styleappteam.styleapp.connection_service.loginPost;
 import com.styleappteam.styleapp.connection_service.loginResult;
@@ -139,7 +135,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
     private void loginApi(String email, String password){
-        loginPost lPost = new loginPost(email, password);
+        loginPost lPost = new loginPost(email, password, FirebaseInstanceId.getInstance().getToken());
         conexion.retrofitLoad();
         if(conexion.getRetrofit()!=null){
             Log.i(TAG, "Principal: Hay internet");
@@ -148,7 +144,7 @@ public class LoginActivity extends AppCompatActivity {
             Call.enqueue(new Callback<loginResult>() {
                 @Override
                 public void onResponse(Call<loginResult> call, Response<loginResult> response) {
-                    progress.hide();
+                    progress.dismiss();
                     if (response.isSuccessful()) {
 
                         if(response.body().getSuccess()){
@@ -171,11 +167,11 @@ public class LoginActivity extends AppCompatActivity {
                 @Override
                 public void onFailure(Call<loginResult> call, Throwable t) {
                     Log.e(TAG, " Verificar onFailure: " + t.getMessage());
-                    progress.hide();
+                    progress.dismiss();
                 }
             });
         }else {
-            progress.hide();
+            progress.dismiss();
             Log.e(TAG, "Principal: se fue el internet");
         }
     }

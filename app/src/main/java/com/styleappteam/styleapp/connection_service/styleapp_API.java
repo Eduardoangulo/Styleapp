@@ -1,5 +1,7 @@
 package com.styleappteam.styleapp.connection_service;
 
+import com.styleappteam.styleapp.connection_service.detail_creation.DetailPost;
+import com.styleappteam.styleapp.connection_service.detail_creation.DetailPostResponse;
 import com.styleappteam.styleapp.model.Client;
 import com.styleappteam.styleapp.model.Services;
 import com.styleappteam.styleapp.model.Type;
@@ -43,4 +45,8 @@ public interface styleapp_API {
     @Headers({ "Content-Type: application/json"})
     @POST("details")
     Call<TokenToServer> enviarToken(@Body TokenToServer tokenToServer);
+
+    @Headers({ "Content-Type: application/json"})
+    @POST("details")
+    Call<DetailPostResponse> creatDetalle(@Body DetailPost detailPost);
 }

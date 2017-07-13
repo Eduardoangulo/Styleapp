@@ -7,19 +7,30 @@ import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextWatcher;
 import android.text.method.PasswordTransformationMethod;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.styleappteam.styleapp.Culqi.Card;
 import com.styleappteam.styleapp.Culqi.Token;
 import com.styleappteam.styleapp.Culqi.TokenCallback;
 import com.styleappteam.styleapp.Culqi.Validation;
 import com.styleappteam.styleapp.R;
+import com.styleappteam.styleapp.connection_service.API_Connection;
 import com.styleappteam.styleapp.connection_service.TokenToServer;
+import com.styleappteam.styleapp.connection_service.detail_creation.DetailPost;
+import com.styleappteam.styleapp.connection_service.detail_creation.DetailPostResponse;
+import com.styleappteam.styleapp.connection_service.notifications.Datos;
+import com.styleappteam.styleapp.connection_service.notifications.Notificacion;
+import com.styleappteam.styleapp.connection_service.notifications.NotificationPost;
+import com.styleappteam.styleapp.connection_service.notifications.NotificationResponse;
+import com.styleappteam.styleapp.connection_service.notifications_API;
 import com.styleappteam.styleapp.connection_service.styleapp_API;
+import com.styleappteam.styleapp.model.Worker;
 
 import org.json.JSONObject;
 
@@ -29,6 +40,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 
 import static com.facebook.FacebookSdk.getApplicationContext;
+import static com.styleappteam.styleapp.VariablesGlobales.TAG;
 import static com.styleappteam.styleapp.VariablesGlobales.conexion;
 import static com.styleappteam.styleapp.VariablesGlobales.currentClient;
 import static com.styleappteam.styleapp.VariablesGlobales.currentService;
@@ -81,6 +93,7 @@ public class Pago extends Fragment {
         txtmonth.setTransformationMethod(new NumericKeyBoardTransformationMethod());
         txtyear.setTransformationMethod(new NumericKeyBoardTransformationMethod());
         txtemail.setTransformationMethod(new NumericKeyBoardTransformationMethod());
+        final API_Connection noti= new API_Connection(getContext(), TAG, "https://fcm.googleapis.com/");
 
         txtcardnumber.addTextChangedListener(new TextWatcher() {
             @Override
@@ -161,6 +174,19 @@ public class Pago extends Fragment {
         btnPay.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 progress.show();
+                noti.retrofitLoad();
+                if(noti.getRetrofit()!=null){
+                    Log.i(TAG, "Notificaciones: Hay internet");
+                    enviarNotificacion(noti.getRetrofit(), currentWorker);
+                }else
+                {
+                    Log.e(TAG, "Principal: se fue el internet");
+                    progress.dismiss();
+                }
+
+
+               //CULQUI TARJETA DE CREDITO
+               /* progress.show();
 
                 Card card = new Card(txtcardnumber.getText().toString(), txtcvv.getText().toString(), Integer.parseInt(txtmonth.getText().toString()), Integer.parseInt(txtyear.getText().toString()), txtemail.getText().toString());
 
@@ -181,13 +207,87 @@ public class Pago extends Fragment {
                     public void onError(Exception error) {
                         progress.hide();
                     }
-                });
+                });*/
 
             }
         });
 
 
         return view;
+    }
+
+    private void enviarNotificacion(Retrofit retrofit, Worker worker) {
+        Log.i(TAG, "Enviar Notificacion");
+        String clientName=currentClient.getUser().getFirstName()+" "+currentClient.getUser().getLastName();
+        String token;
+        if(worker.getToken()==null){
+            token="gg";
+        }
+        else{
+            token=worker.getToken();
+        }
+        NotificationPost nPost= new NotificationPost(token, new Notificacion("Nueva solicitud de servicio!",clientName+" solicito tus servicios!"), new Datos("Enviado deade app","Enviado deade app"));
+        notifications_API service= retrofit.create(notifications_API.class);
+        Call<NotificationResponse> Call= service.enviarNotificacion(nPost);
+        Call.enqueue(new Callback<NotificationResponse>() {
+            @Override
+            public void onResponse(Call<NotificationResponse> call, Response<NotificationResponse> response) {
+                if(response.isSuccessful()){
+                    if(response.body().getSuccess()==1){
+                        Log.i(TAG, "Se envio la notificacion");
+                        conexion.retrofitLoad();
+                        if(conexion.getRetrofit()!=null){
+                            Log.i(TAG, "Principal: Hay internet");
+                            crearDetalle(conexion.getRetrofit());
+                        }else
+                        {
+                            Log.e(TAG, "Principal: se fue el internet");
+                            progress.dismiss();
+                        }
+                    }
+                    else{
+                        Log.i(TAG, "Error al enviar notificacion");
+                        Toast.makeText(getApplicationContext(), "Error al enviar solicitud", Toast.LENGTH_SHORT).show();
+                        progress.dismiss();
+                    }
+
+                }
+                else{
+                    Log.e(TAG, " Notificacion-onResponse: " + response.errorBody());
+                    Toast.makeText(getApplicationContext(), "Error al enviar solicitud", Toast.LENGTH_SHORT).show();
+                }
+            }
+            @Override
+            public void onFailure(Call<NotificationResponse> call, Throwable t) {
+                Log.e(TAG, " Notificacion-onFailure: " + t.getMessage());
+                progress.dismiss();
+            }
+        });
+    }
+
+    private void crearDetalle(Retrofit retrofit) {
+        Log.i(TAG, currentWorker.getId()+" "+ currentClient.getId()+" "+currentService.getId());
+        DetailPost detallePots= new DetailPost(currentWorker.getId(), currentClient.getId(), currentService.getId());
+        styleapp_API service = retrofit.create(styleapp_API.class);
+        Call<DetailPostResponse> Call = service.creatDetalle(detallePots);
+        Call.enqueue(new Callback<DetailPostResponse>() {
+            @Override
+            public void onResponse(Call<DetailPostResponse> call, Response<DetailPostResponse> response) {
+                if(response.isSuccessful()){
+                    Toast.makeText(getApplicationContext(), "Se envio su solicitud", Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    Log.e(TAG, " CrearDetalle-onResponse: " + response.errorBody());
+                }
+                progress.dismiss();
+            }
+
+            @Override
+            public void onFailure(Call<DetailPostResponse> call, Throwable t) {
+                Log.e(TAG, " CrearDetalle-onFailure: " + t.getMessage());
+                progress.dismiss();
+            }
+        });
     }
 
     //enviarTokenAlServidor(token.get("id").toString());
