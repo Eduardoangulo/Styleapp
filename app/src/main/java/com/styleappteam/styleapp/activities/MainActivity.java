@@ -31,6 +31,8 @@ import static com.styleappteam.styleapp.VariablesGlobales.URL_desarrollo;
 import static com.styleappteam.styleapp.VariablesGlobales.conexion;
 import static com.styleappteam.styleapp.VariablesGlobales.currentClient;
 import static com.styleappteam.styleapp.VariablesGlobales.currentService;
+import static com.styleappteam.styleapp.VariablesGlobales.loginPreferences;
+import static com.styleappteam.styleapp.VariablesGlobales.loginPrefsEditor;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -43,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        Log.i(TAG, "MainActivity");
         progress = new ProgressDialog(this);
         progress.setMessage(getResources().getString(R.string.loading));
         progress.setCancelable(false);
@@ -55,10 +57,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
         conexion= new API_Connection(getApplicationContext(), TAG, URL_desarrollo);
-        //conexion.retrofitLoad();
-        Log.i(TAG, "Token2: "+AccessToken.getCurrentAccessToken());
-        Log.i(TAG, "MainActivity");
-
 
         appbar = (Toolbar)findViewById(R.id.appbar);
         setSupportActionBar(appbar);
@@ -124,11 +122,10 @@ public class MainActivity extends AppCompatActivity {
                             case R.id.menu_seccion_8:
                                 OcultarFragment1();
                                 cleanStack();
-                                currentClient=null;
                                 LoginManager.getInstance().logOut();
                                 progress.show();
-                                goLoginScreen();
-                                progress.hide();
+                                LogOut();
+                                progress.dismiss();
                                 break;
                         }
 
@@ -155,6 +152,12 @@ public class MainActivity extends AppCompatActivity {
         if (intent.resolveActivity(getPackageManager()) != null) {
             startActivity(intent);
         }
+    }
+    private void LogOut(){
+        loginPrefsEditor.clear();
+        loginPrefsEditor.commit();
+        currentClient=null;
+        goLoginScreen();
     }
     //regresar al login despues de cerrar sesion o si no habias iniciado sesion.
     private void goLoginScreen() {

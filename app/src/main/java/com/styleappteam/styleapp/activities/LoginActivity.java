@@ -37,6 +37,8 @@ import retrofit2.Response;
 import static com.styleappteam.styleapp.VariablesGlobales.TAG;
 import static com.styleappteam.styleapp.VariablesGlobales.conexion;
 import static com.styleappteam.styleapp.VariablesGlobales.currentClient;
+import static com.styleappteam.styleapp.VariablesGlobales.loginPreferences;
+import static com.styleappteam.styleapp.VariablesGlobales.loginPrefsEditor;
 
 public class LoginActivity extends AppCompatActivity {
     private LoginButton loginButton;
@@ -49,14 +51,17 @@ public class LoginActivity extends AppCompatActivity {
     private EditText login_password;
 
     private CheckBox saveLoginCheckBox;
-    private SharedPreferences loginPreferences;
-    private SharedPreferences.Editor loginPrefsEditor;
+
     private Boolean saveLogin;
     private ProgressDialog progress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        progress = new ProgressDialog(this);
+        progress.setMessage(getResources().getString(R.string.loading));
+        progress.setCancelable(false);
+        progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         setContentView(R.layout.activity_login);
         regularLogin= (TextView) findViewById(R.id.ingresarLogin);
         registerBTN= (TextView) findViewById(R.id.registerLogin) ;
@@ -65,26 +70,21 @@ public class LoginActivity extends AppCompatActivity {
         saveLoginCheckBox = (CheckBox)findViewById(R.id.saveLoginCheckBox);
         loginPreferences = getSharedPreferences("loginPrefs", MODE_PRIVATE);
         loginPrefsEditor = loginPreferences.edit();
-
-        progress = new ProgressDialog(this);
-        progress.setMessage(getResources().getString(R.string.loading));
-        progress.setCancelable(false);
-        progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-
+        Log.i(TAG, "LoginActivity");
         saveLogin = loginPreferences.getBoolean("saveLogin", false);
-        if (saveLogin == true) {
+        if (saveLogin) {
+            progress.show();
             login_user.setText(loginPreferences.getString("username", ""));
             login_password.setText(loginPreferences.getString("password", ""));
             saveLoginCheckBox.setChecked(true);
+            loginApi(login_user.getText().toString(), login_password.getText().toString());
         }
-
         registerBTN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 signUp();
             }
         });
-
         regularLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -135,6 +135,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
     private void loginApi(String email, String password){
+        Log.i(TAG, "User: "+email+" password: "+password);
         loginPost lPost = new loginPost(email, password, FirebaseInstanceId.getInstance().getToken());
         conexion.retrofitLoad();
         if(conexion.getRetrofit()!=null){
@@ -160,6 +161,7 @@ public class LoginActivity extends AppCompatActivity {
                         }
                     }
                     else{
+                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.connection_error), Toast.LENGTH_LONG).show();
                         Log.e(TAG, " Verificar onResponse: " + response.errorBody());
                     }
 
