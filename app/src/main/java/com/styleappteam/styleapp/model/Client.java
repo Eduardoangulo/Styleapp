@@ -29,6 +29,9 @@ public class Client {
     @Expose
     private List<Address> addresses = null;
 
+    private String logedUsername;
+    private String logedPassword;
+
     public Integer getUserId() {
         return userId;
     }
@@ -83,5 +86,21 @@ public class Client {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getLogedUsername() {
+        return logedUsername;
+    }
+
+    public void setLogedUsername(String logedUsername) {
+        this.logedUsername = logedUsername;
+    }
+
+    public String getLogedPassword() {
+        return logedPassword;
+    }
+
+    public void setLogedPassword(String logedPassword) {
+        this.logedPassword = logedPassword;
     }
 }

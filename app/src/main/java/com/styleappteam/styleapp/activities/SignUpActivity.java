@@ -1,6 +1,7 @@
 package com.styleappteam.styleapp.activities;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -58,10 +59,11 @@ public class SignUpActivity extends AppCompatActivity {
                 String email=emailTextView.getText().toString().trim();
                 if (!email.matches(emailPattern) || s.length() <= 0)
                 {
-                    //Toast.makeText(getApplicationContext(),"Invalid email address",Toast.LENGTH_SHORT).show();
+                    emailTextView.setBackgroundColor(getResources().getColor(R.color.mistake));
                     validEmail=false;
                 }
                 else{
+                    emailTextView.setBackgroundColor(getResources().getColor(R.color.correct));
                     validEmail=true;
                 }
             }
@@ -91,7 +93,7 @@ public class SignUpActivity extends AppCompatActivity {
                     }
                 }
                 else{
-                    Toast.makeText(getApplicationContext(),"Ingrese todos los datos", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(),"Por favor ingrese los datos correctamente", Toast.LENGTH_SHORT).show();
                 }
 
             }
