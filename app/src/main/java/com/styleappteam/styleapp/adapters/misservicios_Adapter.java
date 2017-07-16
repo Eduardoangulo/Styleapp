@@ -55,6 +55,7 @@ public class misservicios_Adapter extends ArrayAdapter<DetailClient> {
             case 0: service_status.setText("Cancelado"); break;
             case 1: service_status.setText("Realizado"); break;
             case 2: service_status.setText("En camino"); break;
+            case 3: service_status.setText("Pendiente"); break;
             default: service_status.setText(" "); break;
         }
         return listItemView;

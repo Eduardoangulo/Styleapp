@@ -2,6 +2,8 @@ package com.styleappteam.styleapp.connection_service;
 
 import com.styleappteam.styleapp.connection_service.detail_creation.DetailPost;
 import com.styleappteam.styleapp.connection_service.detail_creation.DetailPostResponse;
+import com.styleappteam.styleapp.connection_service.detail_creation.RatingPost;
+import com.styleappteam.styleapp.connection_service.detail_creation.RatingResult;
 import com.styleappteam.styleapp.connection_service.login.loginPost;
 import com.styleappteam.styleapp.connection_service.login.loginResult;
 import com.styleappteam.styleapp.model.Services;
@@ -50,4 +52,8 @@ public interface styleapp_API {
     @Headers({ "Content-Type: application/json"})
     @POST("details")
     Call<DetailPostResponse> creatDetalle(@Body DetailPost detailPost);
+
+    @Headers({ "Content-Type: application/json"})
+    @POST("details/changeValue")
+    Call<RatingResult> valorar(@Body RatingPost ratingPost);
 }

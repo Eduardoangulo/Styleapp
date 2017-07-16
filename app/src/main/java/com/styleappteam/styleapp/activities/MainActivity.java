@@ -2,10 +2,12 @@ package com.styleappteam.styleapp.activities;
 
 import android.Manifest;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Criteria;
 import android.location.Location;
+import android.location.LocationListener;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
@@ -25,8 +27,10 @@ import android.widget.Toast;
 
 
 import com.facebook.login.LoginManager;
+import com.google.android.gms.location.LocationCallback;
 import com.styleappteam.styleapp.R;
 import com.styleappteam.styleapp.connection_service.API_Connection;
+import com.styleappteam.styleapp.connection_service.InfoWorker;
 import com.styleappteam.styleapp.connection_service.login.loginPost;
 import com.styleappteam.styleapp.connection_service.login.loginResult;
 import com.styleappteam.styleapp.connection_service.styleapp_API;
@@ -36,6 +40,7 @@ import com.styleappteam.styleapp.fragments.fragments_perfil.Miperfil;
 import com.styleappteam.styleapp.fragments.fragments_mis_servicios.Misservicios;
 import com.styleappteam.styleapp.fragments.fragments_principal.Principal;
 
+import java.util.Calendar;
 import java.util.List;
 
 import retrofit2.Call;
@@ -254,18 +259,9 @@ public class MainActivity extends AppCompatActivity {
             case MY_PERMISSIONS_REQUEST_LOCATION: {
                 // If request is cancelled, the result arrays are empty.
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission. ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                    if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
                         Log.i(TAG, "Permiso ubicacion autorizado");
-                        if(getLocation()[0]==-1.0){
-                            Toast.makeText(getApplicationContext(),"error: Se utilizará su ubicación predeterminada",Toast.LENGTH_SHORT).show();
-                            infoWorker.setLatitude(-12.054227); //jalar del registro
-                            infoWorker.setLongitude(-77.082802); //jalar del registro
-                        }else{
-                            Toast.makeText(getApplicationContext(),"Se utilizará su ubicación",Toast.LENGTH_SHORT).show();
-                            infoWorker.setLatitude(getLocation()[0]); //jalar del registro
-                            infoWorker.setLongitude(getLocation()[1]); //jalar del registro
-                        }
-
+                        requestSingleUpdate(this);
                     }
                 } else {
                     Log.i(TAG, "Permiso ubicacion rechazado");
@@ -277,54 +273,65 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
     }
-    private double[] getLocation(){
-        double coordenadas[]= new double[2];
-        // Get the location manager
-        LocationManager locationManager = (LocationManager)
-                getSystemService(LOCATION_SERVICE);
+
+    public static void requestSingleUpdate(final Context context) {
+        Log.i(TAG, "requestSingleUpdate");
+        final LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
         Criteria criteria = new Criteria();
-        String bestProvider = locationManager.getBestProvider(criteria, false);
-        try{
-            Location location = locationManager.getLastKnownLocation(bestProvider);
-            try {
-                coordenadas[0] = location.getLatitude();
-                coordenadas[1]  = location.getLongitude();
-            } catch (NullPointerException e) {
-                coordenadas[0] = -1.0;
-                coordenadas[1]  = -1.0;
-            }
-        }
-        catch(SecurityException e){
-            Log.e(TAG, "No esta autorizado");
-            coordenadas[0] = -1.0;
-            coordenadas[1]  = -1.0;
-        }
-        return coordenadas;
-    }
-    private double[] getGPS() {
-        LocationManager lm = (LocationManager) getSystemService(
-                getApplicationContext().LOCATION_SERVICE);
-        List<String> providers = lm.getProviders(true);
-
-        Location l = null;
         try {
-            for (int i = providers.size() - 1; i >= 0; i--) {
-                l = lm.getLastKnownLocation(providers.get(i));
-                if (l != null) break;
+            int provider=-1;
+            List<String> providers = locationManager.getProviders(true);
+            Location location = null;
+            for (int i=providers.size()-1; i>=0; i--) {
+                location = locationManager.getLastKnownLocation(providers.get(i));
+                if (location != null) {
+                    provider=i;
+                    break;
+                }
             }
-        }
-        catch(SecurityException e){
-            Log.e(TAG, "No esta autorizado");
-        }
-        double[] gps = new double[2];
-        if (l != null) {
-            gps[0] = l.getLatitude();
-            gps[1] = l.getLongitude();
-        }
+            Log.i(TAG, "provider: "+providers.get(provider));
+            //Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+            if(location != null && location.getTime() > Calendar.getInstance().getTimeInMillis() - 2 * 60 * 1000) {
+                Log.i(TAG, "Ultima ubicacion: " + location.getLongitude() + " " + location.getLatitude());
+                infoWorker.setLongitude(location.getLongitude());
+                infoWorker.setLatitude(location.getLatitude());
+            }
+            else {
+                String p;
+                if(provider==-1){
+                    p=LocationManager.NETWORK_PROVIDER;
+                }
+                else{
+                    p=providers.get(provider);
+                }
+                Log.i(TAG, "requestLocationUpdates");
+                locationManager.requestLocationUpdates(p, 0, 0, new LocationListener() {
+                    @Override
+                    public void onLocationChanged(Location location) {
+                        Log.i(TAG, "Ubicacion: " + location.getLongitude() + " " + location.getLatitude());
+                        infoWorker.setLongitude(location.getLongitude());
+                        infoWorker.setLatitude(location.getLatitude());
+                        locationManager.removeUpdates(this);
+                    }
 
-        return gps;
+                    @Override
+                    public void onStatusChanged(String provider, int status, Bundle extras) {
+                    }
+
+                    @Override
+                    public void onProviderEnabled(String provider) {
+                    }
+
+                    @Override
+                    public void onProviderDisabled(String provider) {
+                    }
+
+                }, null);
+            }
+         } catch (SecurityException e) {
+                Log.e(TAG, "No tienes permisos de ubicacion");
+         }
     }
-
 }
 
 

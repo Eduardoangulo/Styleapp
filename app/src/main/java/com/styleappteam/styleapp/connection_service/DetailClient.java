@@ -28,6 +28,10 @@ public class DetailClient {
     @Expose
     private Integer status;
 
+    @SerializedName("value")
+    @Expose
+    private Integer value;
+
     @SerializedName("service")
     @Expose
     private Services service;
@@ -86,5 +90,13 @@ public class DetailClient {
 
     public void setClient(List<Client> client) {
         this.client = client;
+    }
+
+    public Integer getValue() {
+        return value;
+    }
+
+    public void setValue(Integer value) {
+        this.value = value;
     }
 }
