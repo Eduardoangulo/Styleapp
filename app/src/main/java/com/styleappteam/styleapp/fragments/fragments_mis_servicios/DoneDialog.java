@@ -1,32 +1,29 @@
-package com.styleappteam.styleapp.fragments.fragments_promociones;
+package com.styleappteam.styleapp.fragments.fragments_mis_servicios;
 
+/**
+ * Created by Luis on 13/07/2017.
+ */
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.support.v4.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.EditText;
 
 import com.styleappteam.styleapp.R;
 
-/**
- * Created by Luis on 25/06/2017.
- */
+public class DoneDialog extends DialogFragment {
 
-public class addCouponDialog extends DialogFragment {
-
-    public void setmListener(addCouponDialogListener mListener) {
-        this.mListener = mListener;
+    public void setDoneDialogListener(DoneDialogListener mListener) {
+        this.listener = mListener;
     }
 
-    public interface addCouponDialogListener {
-        public void onDialogPositiveClick(DialogFragment dialog, String result);
+    public interface DoneDialogListener {
+        public void onDialogPositiveClick(DialogFragment dialog);
         public void onDialogNegativeClick(DialogFragment dialog);
     }
-    private addCouponDialogListener mListener;
+    private DoneDialogListener listener;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -39,18 +36,15 @@ public class addCouponDialog extends DialogFragment {
                 .setMessage("Ingresar Codigo Promocional")
                 .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        // FIRE ZE MISSILES!
-                        EditText couponCode=(EditText) view.findViewById(R.id.couponCode);
-                        Log.i("DIALOGLOGS", "codigo cupon: "+ couponCode.getText().toString());
-                        mListener.onDialogPositiveClick(addCouponDialog.this, couponCode.getText().toString());
+                        listener.onDialogPositiveClick(DoneDialog.this);
                     }
                 })
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        mListener.onDialogNegativeClick(addCouponDialog.this);
+                        listener.onDialogNegativeClick(DoneDialog.this);
                     }
                 });
-        // Create the AlertDialog object and return it
+
         return builder.create();
     }
 }

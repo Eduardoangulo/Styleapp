@@ -3,7 +3,6 @@ package com.styleappteam.styleapp.activities;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -20,13 +19,11 @@ import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.styleappteam.styleapp.R;
-import com.styleappteam.styleapp.connection_service.loginPost;
-import com.styleappteam.styleapp.connection_service.loginResult;
+import com.styleappteam.styleapp.connection_service.API_Connection;
+import com.styleappteam.styleapp.connection_service.login.loginPost;
+import com.styleappteam.styleapp.connection_service.login.loginResult;
 import com.styleappteam.styleapp.connection_service.styleapp_API;
 
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.Arrays;
 
@@ -35,6 +32,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import static com.styleappteam.styleapp.VariablesGlobales.TAG;
+import static com.styleappteam.styleapp.VariablesGlobales.URL_desarrollo;
 import static com.styleappteam.styleapp.VariablesGlobales.conexion;
 import static com.styleappteam.styleapp.VariablesGlobales.currentClient;
 import static com.styleappteam.styleapp.VariablesGlobales.loginPreferences;
@@ -134,9 +132,12 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
-    private void loginApi(String email, String password){
-        Log.i(TAG, "User: "+email+" password: "+password);
-        loginPost lPost = new loginPost(email, password, FirebaseInstanceId.getInstance().getToken());
+    private void loginApi(final String email, final String pass){
+        Log.i(TAG, "User: "+email+" password: "+pass);
+        loginPost lPost = new loginPost(email, pass, FirebaseInstanceId.getInstance().getToken());
+        if(conexion==null){
+            conexion= new API_Connection(getApplicationContext(), TAG, URL_desarrollo);
+        }
         conexion.retrofitLoad();
         if(conexion.getRetrofit()!=null){
             Log.i(TAG, "Principal: Hay internet");
@@ -152,6 +153,8 @@ public class LoginActivity extends AppCompatActivity {
                             Log.i(TAG, "Usuario Correcto");
                             Toast.makeText(getApplicationContext(), "Bienvenido a Styleapp", Toast.LENGTH_SHORT).show();
                             currentClient=response.body().getClient();
+                            currentClient.setLogedUsername(email);
+                            currentClient.setLogedPassword(pass);
                             goMainScreen();
                         }
                         else {

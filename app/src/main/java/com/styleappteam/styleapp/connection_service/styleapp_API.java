@@ -2,7 +2,8 @@ package com.styleappteam.styleapp.connection_service;
 
 import com.styleappteam.styleapp.connection_service.detail_creation.DetailPost;
 import com.styleappteam.styleapp.connection_service.detail_creation.DetailPostResponse;
-import com.styleappteam.styleapp.model.Client;
+import com.styleappteam.styleapp.connection_service.login.loginPost;
+import com.styleappteam.styleapp.connection_service.login.loginResult;
 import com.styleappteam.styleapp.model.Services;
 import com.styleappteam.styleapp.model.Type;
 

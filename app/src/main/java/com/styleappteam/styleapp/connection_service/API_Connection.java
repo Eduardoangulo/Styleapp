@@ -39,7 +39,7 @@ public class API_Connection {
             Log.i(TAG, "creo retrofit");
         }
         else{
-            Toast.makeText(context, context.getResources().getString(R.string.noInternet) , Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, context.getResources().getString(R.string.noInternet) , Toast.LENGTH_LONG).show();
         }
 
     }

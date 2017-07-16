@@ -60,7 +60,6 @@ public class Worker_Adapter extends ArrayAdapter<Worker> {
             case 5:stars.setImageResource(R.drawable.stars_5); break;
             default: break;
         }
-        //stars.setImageResource(currentWorker.getValoration());
 
         return listItemView;
 

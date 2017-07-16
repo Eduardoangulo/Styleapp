@@ -1,12 +1,18 @@
 package com.styleappteam.styleapp.activities;
 
+import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Criteria;
+import android.location.Location;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -15,25 +21,34 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
-import com.facebook.AccessToken;
+
 import com.facebook.login.LoginManager;
 import com.styleappteam.styleapp.R;
 import com.styleappteam.styleapp.connection_service.API_Connection;
+import com.styleappteam.styleapp.connection_service.login.loginPost;
+import com.styleappteam.styleapp.connection_service.login.loginResult;
+import com.styleappteam.styleapp.connection_service.styleapp_API;
 import com.styleappteam.styleapp.fragments.fragments_ajustes.Ajustes;
 import com.styleappteam.styleapp.fragments.fragments_compartir.Compartir;
 import com.styleappteam.styleapp.fragments.fragments_perfil.Miperfil;
 import com.styleappteam.styleapp.fragments.fragments_mis_servicios.Misservicios;
 import com.styleappteam.styleapp.fragments.fragments_principal.Principal;
-import com.styleappteam.styleapp.fragments.fragments_promociones.Promociones;
+
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+import static com.styleappteam.styleapp.VariablesGlobales.MY_PERMISSIONS_REQUEST_LOCATION;
 import static com.styleappteam.styleapp.VariablesGlobales.TAG;
 import static com.styleappteam.styleapp.VariablesGlobales.URL_desarrollo;
 import static com.styleappteam.styleapp.VariablesGlobales.conexion;
 import static com.styleappteam.styleapp.VariablesGlobales.currentClient;
-import static com.styleappteam.styleapp.VariablesGlobales.currentService;
-import static com.styleappteam.styleapp.VariablesGlobales.loginPreferences;
+import static com.styleappteam.styleapp.VariablesGlobales.infoWorker;
 import static com.styleappteam.styleapp.VariablesGlobales.loginPrefsEditor;
-
 public class MainActivity extends AppCompatActivity {
 
     private Toolbar appbar;
@@ -125,7 +140,7 @@ public class MainActivity extends AppCompatActivity {
                                 LoginManager.getInstance().logOut();
                                 progress.show();
                                 LogOut();
-                                progress.dismiss();
+                                //progress.dismiss();
                                 break;
                         }
 
@@ -156,8 +171,49 @@ public class MainActivity extends AppCompatActivity {
     private void LogOut(){
         loginPrefsEditor.clear();
         loginPrefsEditor.commit();
-        currentClient=null;
-        goLoginScreen();
+        Log.i(TAG, "User: "+currentClient.getLogedUsername()+" password: "+currentClient.getLogedPassword());
+        loginPost lPost = new loginPost(currentClient.getLogedUsername(), currentClient.getLogedPassword(), currentClient.getLogedUsername());
+        if(conexion==null){
+            conexion= new API_Connection(getApplicationContext(), TAG, URL_desarrollo);
+        }
+        conexion.retrofitLoad();
+        if(conexion.getRetrofit()!=null){
+            Log.i(TAG, "Principal: Hay internet");
+            styleapp_API service = conexion.getRetrofit().create(styleapp_API.class);
+            Call<loginResult> Call = service.login(lPost);
+            Call.enqueue(new Callback<loginResult>() {
+                @Override
+                public void onResponse(Call<loginResult> call, Response<loginResult> response) {
+                    progress.dismiss();
+                    if (response.isSuccessful()) {
+                        if(response.body().getSuccess()){
+                            Log.i(TAG, "Usuario Correcto");
+                            currentClient=null;
+                            goLoginScreen();
+                        }
+                        else {
+                            Log.i(TAG, "Datos dañados");
+                            Toast.makeText(getApplicationContext(), getResources().getString(R.string.connection_error), Toast.LENGTH_LONG).show();
+                        }
+                    }
+                    else{
+                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.connection_error), Toast.LENGTH_LONG).show();
+                        Log.e(TAG, " logOut onResponse: " + response.errorBody());
+                    }
+
+                }
+                @Override
+                public void onFailure(Call<loginResult> call, Throwable t) {
+                    Log.e(TAG, " logOut onFailure: " + t.getMessage());
+                    Toast.makeText(getApplicationContext(), getResources().getString(R.string.connection_error), Toast.LENGTH_LONG).show();
+                    progress.dismiss();
+                }
+            });
+        }else {
+            progress.dismiss();
+            Toast.makeText(getApplicationContext(), getResources().getString(R.string.connection_error), Toast.LENGTH_LONG).show();
+            Log.e(TAG, "Principal: se fue el internet");
+        }
     }
     //regresar al login despues de cerrar sesion o si no habias iniciado sesion.
     private void goLoginScreen() {
@@ -190,5 +246,85 @@ public class MainActivity extends AppCompatActivity {
             fm.popBackStack();
         }
     }
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        //progress.dismiss();
+        Log.i(TAG, "onRequestPermissionsResult");
+        switch (requestCode) {
+            case MY_PERMISSIONS_REQUEST_LOCATION: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission. ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                        Log.i(TAG, "Permiso ubicacion autorizado");
+                        if(getLocation()[0]==-1.0){
+                            Toast.makeText(getApplicationContext(),"error: Se utilizará su ubicación predeterminada",Toast.LENGTH_SHORT).show();
+                            infoWorker.setLatitude(-12.054227); //jalar del registro
+                            infoWorker.setLongitude(-77.082802); //jalar del registro
+                        }else{
+                            Toast.makeText(getApplicationContext(),"Se utilizará su ubicación",Toast.LENGTH_SHORT).show();
+                            infoWorker.setLatitude(getLocation()[0]); //jalar del registro
+                            infoWorker.setLongitude(getLocation()[1]); //jalar del registro
+                        }
+
+                    }
+                } else {
+                    Log.i(TAG, "Permiso ubicacion rechazado");
+                    Toast.makeText(getApplicationContext(),"Se utilizará su ubicación predeterminada",Toast.LENGTH_SHORT).show();
+                    infoWorker.setLatitude(-12.054227); //jalar del registro
+                    infoWorker.setLongitude(-77.082802); //jalar del registro
+                }
+            }
+            return;
+        }
+    }
+    private double[] getLocation(){
+        double coordenadas[]= new double[2];
+        // Get the location manager
+        LocationManager locationManager = (LocationManager)
+                getSystemService(LOCATION_SERVICE);
+        Criteria criteria = new Criteria();
+        String bestProvider = locationManager.getBestProvider(criteria, false);
+        try{
+            Location location = locationManager.getLastKnownLocation(bestProvider);
+            try {
+                coordenadas[0] = location.getLatitude();
+                coordenadas[1]  = location.getLongitude();
+            } catch (NullPointerException e) {
+                coordenadas[0] = -1.0;
+                coordenadas[1]  = -1.0;
+            }
+        }
+        catch(SecurityException e){
+            Log.e(TAG, "No esta autorizado");
+            coordenadas[0] = -1.0;
+            coordenadas[1]  = -1.0;
+        }
+        return coordenadas;
+    }
+    private double[] getGPS() {
+        LocationManager lm = (LocationManager) getSystemService(
+                getApplicationContext().LOCATION_SERVICE);
+        List<String> providers = lm.getProviders(true);
+
+        Location l = null;
+        try {
+            for (int i = providers.size() - 1; i >= 0; i--) {
+                l = lm.getLastKnownLocation(providers.get(i));
+                if (l != null) break;
+            }
+        }
+        catch(SecurityException e){
+            Log.e(TAG, "No esta autorizado");
+        }
+        double[] gps = new double[2];
+        if (l != null) {
+            gps[0] = l.getLatitude();
+            gps[1] = l.getLongitude();
+        }
+
+        return gps;
+    }
 
 }
+
+

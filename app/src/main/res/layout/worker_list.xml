@@ -43,7 +43,6 @@
             android:text="Costo: S/.60"
             android:textAppearance="?android:textAppearanceMedium"
             />
-
         <ImageView
             android:id="@+id/stars"
             android:src="@drawable/stars_1"

@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.maps.model.Marker;
 import com.styleappteam.styleapp.connection_service.API_Connection;
+import com.styleappteam.styleapp.connection_service.InfoWorker;
 import com.styleappteam.styleapp.model.Client;
 import com.styleappteam.styleapp.model.Services;
 import com.styleappteam.styleapp.model.Type;
@@ -27,4 +28,6 @@ public class VariablesGlobales {
     public static Services currentService;
     public static SharedPreferences loginPreferences;
     public static SharedPreferences.Editor loginPrefsEditor;
+    public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
+    public static InfoWorker infoWorker = new InfoWorker();
 }

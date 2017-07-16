@@ -5,12 +5,14 @@ package com.styleappteam.styleapp.fragments.fragments_mis_servicios;
  */
 import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -65,6 +67,16 @@ public class Misservicios extends Fragment {
 
         adapter1=new misservicios_Adapter(getActivity(), R.layout.myservices_list);
         rootView.setAdapter(adapter1);
+        rootView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                switch (detailClients.get(position).getStatus()){
+                    case 1: rateService(); break;
+                    default:break;
+                }
+            }
+        });
 
         conexion.retrofitLoad();
 
@@ -73,6 +85,17 @@ public class Misservicios extends Fragment {
         }
 
         return view;
+    }
+    private void rateService(){
+        RatingDialog dialog= new RatingDialog();
+        dialog.setRatingDialogListener(new RatingDialog.RatingDialogListener() {
+            @Override
+            public void onDialogPositiveClick(DialogFragment dialog, float rating) {
+                Toast.makeText(getContext(), "Valoracion: "+rating, Toast.LENGTH_SHORT).show();
+            }
+        });
+        dialog.show(getFragmentManager() , "RatingDialog");
+
     }
     private void refreshContent(){
         new android.os.Handler().postDelayed(new Runnable() {

@@ -1,6 +1,7 @@
 package com.styleappteam.styleapp.activities;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -58,10 +59,11 @@ public class SignUpActivity extends AppCompatActivity {
                 String email=emailTextView.getText().toString().trim();
                 if (!email.matches(emailPattern) || s.length() <= 0)
                 {
-                    //Toast.makeText(getApplicationContext(),"Invalid email address",Toast.LENGTH_SHORT).show();
+                    emailTextView.setBackgroundColor(getResources().getColor(R.color.mistake));
                     validEmail=false;
                 }
                 else{
+                    emailTextView.setBackgroundColor(getResources().getColor(R.color.correct));
                     validEmail=true;
                 }
             }
@@ -81,7 +83,7 @@ public class SignUpActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 if(validateNewUser(telfTextView.getText().toString(), nameTextView.getText().toString(),LnameTextView.getText().toString(), password.getText().toString())){
-                    NewUser newUser= new NewUser(Integer.parseInt(telfTextView.getText().toString()), nameTextView.getText().toString(),LnameTextView.getText().toString(),emailTextView.getText().toString(),password.getText().toString());
+                    NewUser newUser= new NewUser(telfTextView.getText().toString(), nameTextView.getText().toString(),LnameTextView.getText().toString(),emailTextView.getText().toString(),password.getText().toString());
                     conexion.retrofitLoad();
                     if(conexion.getRetrofit()!=null){
                         Log.i(TAG, "Principal: Hay internet");
@@ -91,7 +93,7 @@ public class SignUpActivity extends AppCompatActivity {
                     }
                 }
                 else{
-                    Toast.makeText(getApplicationContext(),"Ingrese todos los datos", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(),"Por favor ingrese los datos correctamente", Toast.LENGTH_SHORT).show();
                 }
 
             }
@@ -162,7 +164,7 @@ public class SignUpActivity extends AppCompatActivity {
         });
     }
     private boolean validateNewUser(String telf, String name, String LastName, String password){
-        return !(!validEmail||telf.length()<=0||name.length()<=0||LastName.length()<=0||password.length()<=0);
+        return !(!validEmail||(telf.length()<=0||telf.length()>15)||name.length()<=0||LastName.length()<=0||password.length()<=0);
     }
     @Override
     protected void onPause() {
