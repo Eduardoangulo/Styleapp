@@ -7,13 +7,13 @@ package com.styleappteam.styleapp.connection_service;
 public class NewUser {
     	private final String _encrypted="StyleAppHome2017Api";
         private final String photo="https://placehold.it/100";
-        private Integer telephone;
+        private String telephone;
         private String first_name;
         private String last_name;
         private String email;
         private String password;
 
-        public NewUser(Integer telephone, String first_name, String last_name, String email, String password) {
+        public NewUser(String telephone, String first_name, String last_name, String email, String password) {
             this.setTelephone(telephone);
             this.setFirst_name(first_name);
             this.setLast_name(last_name);
@@ -62,11 +62,11 @@ public class NewUser {
         this.password = password;
     }
 
-    public Integer getTelephone() {
+    public String getTelephone() {
         return telephone;
     }
 
-    public void setTelephone(Integer telephone) {
+    public void setTelephone(String telephone) {
         this.telephone = telephone;
     }
 }

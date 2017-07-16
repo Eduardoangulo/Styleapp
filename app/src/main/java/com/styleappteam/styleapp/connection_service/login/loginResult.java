@@ -1,4 +1,4 @@
-package com.styleappteam.styleapp.connection_service;
+package com.styleappteam.styleapp.connection_service.login;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

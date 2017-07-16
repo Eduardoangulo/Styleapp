@@ -3,7 +3,6 @@ package com.styleappteam.styleapp.activities;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -21,13 +20,10 @@ import com.facebook.login.widget.LoginButton;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.styleappteam.styleapp.R;
 import com.styleappteam.styleapp.connection_service.API_Connection;
-import com.styleappteam.styleapp.connection_service.loginPost;
-import com.styleappteam.styleapp.connection_service.loginResult;
+import com.styleappteam.styleapp.connection_service.login.loginPost;
+import com.styleappteam.styleapp.connection_service.login.loginResult;
 import com.styleappteam.styleapp.connection_service.styleapp_API;
 
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.Arrays;
 

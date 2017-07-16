@@ -50,7 +50,7 @@ public class Worker {
 
     @SerializedName("token")
     @Expose
-    private String token;
+    private String _token;
 
     @SerializedName("role_id")
     @Expose
@@ -246,10 +246,10 @@ public class Worker {
     }
 
     public String getToken() {
-        return token;
+        return _token;
     }
 
     public void setToken(String token) {
-        this.token = token;
+        this._token = token;
     }
 }

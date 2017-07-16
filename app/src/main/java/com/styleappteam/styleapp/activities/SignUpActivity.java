@@ -83,7 +83,7 @@ public class SignUpActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 if(validateNewUser(telfTextView.getText().toString(), nameTextView.getText().toString(),LnameTextView.getText().toString(), password.getText().toString())){
-                    NewUser newUser= new NewUser(Integer.parseInt(telfTextView.getText().toString()), nameTextView.getText().toString(),LnameTextView.getText().toString(),emailTextView.getText().toString(),password.getText().toString());
+                    NewUser newUser= new NewUser(telfTextView.getText().toString(), nameTextView.getText().toString(),LnameTextView.getText().toString(),emailTextView.getText().toString(),password.getText().toString());
                     conexion.retrofitLoad();
                     if(conexion.getRetrofit()!=null){
                         Log.i(TAG, "Principal: Hay internet");
@@ -164,7 +164,7 @@ public class SignUpActivity extends AppCompatActivity {
         });
     }
     private boolean validateNewUser(String telf, String name, String LastName, String password){
-        return !(!validEmail||telf.length()<=0||name.length()<=0||LastName.length()<=0||password.length()<=0);
+        return !(!validEmail||(telf.length()<=0||telf.length()>15)||name.length()<=0||LastName.length()<=0||password.length()<=0);
     }
     @Override
     protected void onPause() {

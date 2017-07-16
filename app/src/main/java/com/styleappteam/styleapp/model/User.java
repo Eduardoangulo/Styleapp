@@ -21,7 +21,7 @@ public class User {
     private String email;
     @SerializedName("telephone")
     @Expose
-    private Integer telephone;
+    private String telephone;
     @SerializedName("password")
     @Expose
     private String password;
@@ -70,11 +70,11 @@ public class User {
         this.email = email;
     }
 
-    public Integer getTelephone() {
+    public String getTelephone() {
         return telephone;
     }
 
-    public void setTelephone(Integer telephone) {
+    public void setTelephone(String telephone) {
         this.telephone = telephone;
     }
 
