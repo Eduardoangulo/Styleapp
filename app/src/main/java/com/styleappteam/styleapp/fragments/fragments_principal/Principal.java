@@ -91,13 +91,13 @@ public class Principal extends Fragment {
                     progress.dismiss();
                 } else {
                     progress.dismiss();
-                    Toast.makeText(getContext(), getResources().getString(R.string.connection_error), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Error de Conexión", Toast.LENGTH_SHORT).show();
                 }
             }
             @Override
             public void onFailure(Call<ArrayList<Type>> call, Throwable t) {
                 Log.e(TAG, " onFailure: " + t.getMessage());
-                Toast.makeText(getContext(), getResources().getString(R.string.connection_error), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Error de Conexión", Toast.LENGTH_SHORT).show();
                 progress.dismiss();
             }
         });

@@ -26,6 +26,7 @@ import android.widget.Toast;
 
 import android.Manifest;
 import com.styleappteam.styleapp.R;
+import com.styleappteam.styleapp.activities.MainActivity;
 import com.styleappteam.styleapp.activities.MapActivity;
 import com.styleappteam.styleapp.connection_service.GetWorkers;
 import com.styleappteam.styleapp.connection_service.InfoWorker;
@@ -46,6 +47,7 @@ import static com.styleappteam.styleapp.VariablesGlobales.currentService;
 import static com.styleappteam.styleapp.VariablesGlobales.currentWorker;
 import static com.styleappteam.styleapp.VariablesGlobales.infoWorker;
 import static com.styleappteam.styleapp.VariablesGlobales.place_global;
+import static com.styleappteam.styleapp.activities.MainActivity.requestSingleUpdate;
 
 /**
  * Created by Luis on 06/06/2017.
@@ -93,22 +95,14 @@ public class WorkerList extends Fragment{
                 }
                 else
                 {
-                    if(getLocation()[0]==-1.0){
-                        Toast.makeText(getContext(),"error: Se utilizará su ubicación predeterminada",Toast.LENGTH_SHORT).show();
-                        infoWorker.setLatitude(-12.054227); //jalar del registro
-                        infoWorker.setLongitude(-77.082802); //jalar del registro
-                    }else{
-                        Log.i(TAG, "Se utilizará su ubicación: "+getLocation()[0]+" "+getLocation()[1]);
-                        Toast.makeText(getContext(),"Se utilizará su ubicación",Toast.LENGTH_SHORT).show();
-                        infoWorker.setLatitude(getLocation()[0]); //jalar del registro
-                        infoWorker.setLongitude(getLocation()[1]); //jalar del registro
-                    }
+                    Toast.makeText(getContext(),"Se utilizara su ubicación",Toast.LENGTH_SHORT).show();
+                    requestSingleUpdate(getActivity());
                 }
             }
             obtenerDatosWorkers(conexion.getRetrofit());
         }else
         {
-            progress.hide();
+            progress.dismiss();
             Log.e(TAG, "Principal: se fue el internet");
         }
 
@@ -194,7 +188,7 @@ public class WorkerList extends Fragment{
 
                 } else {
                     progress.dismiss();
-                    Toast.makeText(getContext(), getResources().getString(R.string.connection_error), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Error de Conexión", Toast.LENGTH_SHORT).show();
                     Log.e(TAG, " onResponse: " + response.errorBody());
                 }
 
@@ -202,26 +196,22 @@ public class WorkerList extends Fragment{
             @Override
             public void onFailure(Call<GetWorkers> call, Throwable t) {
                 Log.e(TAG, " onFailure: " + t.getMessage());
-                Toast.makeText(getContext(), getResources().getString(R.string.connection_error), Toast.LENGTH_SHORT).show();
                 progress.dismiss();
+                Toast.makeText(getContext(), "Error de Conexión", Toast.LENGTH_SHORT).show();
+
             }
         });
     }
 
     private boolean checkLocationPermission() {
         if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission. ACCESS_FINE_LOCATION)!= PackageManager.PERMISSION_GRANTED) {
-            // Should we show an explanation?
             if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), Manifest.permission. ACCESS_FINE_LOCATION)) {
-                // Show an explanation to the user *asynchronously* -- don't block
-                // this thread waiting for the user's response! After the user
-                // sees the explanation, try again to request the permission.
                 new AlertDialog.Builder(getActivity())
                         .setTitle("Styleapp necesita tu ubicación!")
                         .setMessage("Activar la ubicacion ayuda a encontrar a los estilistas mas cercanos a ti")
                         .setPositiveButton(R.string.accept, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-                                //Prompt the user once explanation has been shown
                                 ActivityCompat.requestPermissions(getActivity(),
                                         new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
                                         MY_PERMISSIONS_REQUEST_LOCATION);
@@ -239,30 +229,6 @@ public class WorkerList extends Fragment{
         }else{
             return true;
         }
-    }
-    private double[] getLocation(){
-        double coordenadas[]= new double[2];
-        // Get the location manager
-        LocationManager locationManager = (LocationManager)
-                getActivity().getSystemService(LOCATION_SERVICE);
-        Criteria criteria = new Criteria();
-        String bestProvider = locationManager.getBestProvider(criteria, false);
-        try{
-            Location location = locationManager.getLastKnownLocation(bestProvider);
-            try {
-                coordenadas[0] = location.getLatitude();
-                coordenadas[1]  = location.getLongitude();
-            } catch (NullPointerException e) {
-                coordenadas[0] = -1.0;
-                coordenadas[1]  = -1.0;
-            }
-        }
-        catch(SecurityException e){
-            Log.e(TAG, "No esta autorizado");
-            coordenadas[0] = -1.0;
-            coordenadas[1]  = -1.0;
-        }
-        return coordenadas;
     }
 
 }

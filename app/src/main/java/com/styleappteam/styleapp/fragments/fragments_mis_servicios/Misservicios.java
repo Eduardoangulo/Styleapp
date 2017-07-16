@@ -20,6 +20,8 @@ import com.styleappteam.styleapp.*;
 import com.styleappteam.styleapp.adapters.misservicios_Adapter;
 import com.styleappteam.styleapp.connection_service.DetailClient;
 import com.styleappteam.styleapp.connection_service.clientDetailPost;
+import com.styleappteam.styleapp.connection_service.detail_creation.RatingPost;
+import com.styleappteam.styleapp.connection_service.detail_creation.RatingResult;
 import com.styleappteam.styleapp.connection_service.styleapp_API;
 
 import java.util.ArrayList;
@@ -70,11 +72,18 @@ public class Misservicios extends Fragment {
         rootView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                switch (detailClients.get(position).getStatus()){
-                    case 1: rateService(); break;
-                    default:break;
+            if(detailClients.get(position).getValue()==null) {
+                switch (detailClients.get(position).getStatus()) {
+                    case 1:
+                        rateDetail(detailClients.get(position).getId());
+                        break;
+                    default:
+                        break;
                 }
+            }
+            else{
+                Toast.makeText(getContext(), "Ya ha valorado este servicio", Toast.LENGTH_SHORT).show();
+            }
             }
         });
 
@@ -86,12 +95,33 @@ public class Misservicios extends Fragment {
 
         return view;
     }
-    private void rateService(){
+    private void rateDetail(final int id){
         RatingDialog dialog= new RatingDialog();
         dialog.setRatingDialogListener(new RatingDialog.RatingDialogListener() {
             @Override
             public void onDialogPositiveClick(DialogFragment dialog, float rating) {
-                Toast.makeText(getContext(), "Valoracion: "+rating, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "Valoracion: "+rating, Toast.LENGTH_SHORT).show();
+            conexion.retrofitLoad();
+            if(conexion.getRetrofit()!=null){
+              Log.i(TAG, "Principal: Hay internet");
+                styleapp_API service = conexion.getRetrofit().create(styleapp_API.class);
+                Call<RatingResult> Call = service.valorar(new RatingPost(id, Math.round(rating)));
+                Call.enqueue(new Callback<RatingResult>() {
+                    @Override
+                    public void onResponse(Call<RatingResult> call, Response<RatingResult> response) {
+                        Log.i(TAG, "Se valoro exitosamente");
+                    }
+                    @Override
+                    public void onFailure(Call<RatingResult> call, Throwable t) {
+                        Log.e(TAG,"NO se pudo valorar");
+                        Toast.makeText(getContext(), "Error de conexión", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+            }else {
+              Log.e(TAG, "Principal: se fue el internet");
+            }
+
             }
         });
         dialog.show(getFragmentManager() , "RatingDialog");
