@@ -48,7 +48,7 @@ public class Worker {
     @Expose
     private String password;
 
-    @SerializedName("token")
+    @SerializedName("_token")
     @Expose
     private String _token;
 
