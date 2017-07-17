@@ -6,6 +6,8 @@ import com.styleappteam.styleapp.connection_service.detail_creation.RatingPost;
 import com.styleappteam.styleapp.connection_service.detail_creation.RatingResult;
 import com.styleappteam.styleapp.connection_service.login.loginPost;
 import com.styleappteam.styleapp.connection_service.login.loginResult;
+import com.styleappteam.styleapp.connection_service.status.StatusPost;
+import com.styleappteam.styleapp.connection_service.status.StatusResponse;
 import com.styleappteam.styleapp.model.Services;
 import com.styleappteam.styleapp.model.Type;
 
@@ -56,4 +58,7 @@ public interface styleapp_API {
     @Headers({ "Content-Type: application/json"})
     @POST("details/changeValue")
     Call<RatingResult> valorar(@Body RatingPost ratingPost);
+    @Headers({ "Content-Type: application/json"})
+    @POST("details/done")
+    Call<StatusResponse> doneService(@Body StatusPost statusPost);
 }

@@ -80,4 +80,6 @@
     <string name="accept">Aceptar</string>
     <string name="registerwithFB">Registrarse con Facebook</string>
 
+    <string name="done">¿Esta seguro de querer marcarlo como realizado?</string>
+
 </resources>
