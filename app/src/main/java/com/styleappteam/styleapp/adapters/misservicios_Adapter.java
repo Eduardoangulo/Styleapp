@@ -35,7 +35,12 @@ public class misservicios_Adapter extends ArrayAdapter<DetailClient> {
         TextView servicet = (TextView) listItemView.findViewById(R.id.serviceName);
         TextView estilista = (TextView)listItemView.findViewById(R.id.estilista);
         TextView service_status = (TextView)listItemView.findViewById(R.id.status);
+        TextView date = (TextView)listItemView.findViewById(R.id.date);
         ImageView img = (ImageView) listItemView.findViewById(R.id.basicImg);
+
+        String fecha=currentService.getCreatedAt().split(" ")[1]+" "+currentService.getCreatedAt().split(" ")[0];
+        date.setText(fecha);
+        servicet.setText(currentService.getService().getName());
 
 
         servicet.setText(currentService.getService().getName());

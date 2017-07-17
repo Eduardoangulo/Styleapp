@@ -39,7 +39,12 @@ public class DetailClient {
     @SerializedName("worker")
     @Expose
     private List<Worker> worker;
-
+    @SerializedName("created_at")
+    @Expose
+    private String createdAt;
+    @SerializedName("updated_at")
+    @Expose
+    private String updatedAt;
     @SerializedName("client")
     @Expose
     private List<Client> client;
@@ -99,4 +104,20 @@ public class DetailClient {
     public void setValue(Integer value) {
         this.value = value;
     }
+    public String getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public String getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(String updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
 }

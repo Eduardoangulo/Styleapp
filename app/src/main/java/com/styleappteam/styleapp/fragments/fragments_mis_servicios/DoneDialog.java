@@ -21,19 +21,19 @@ public class DoneDialog extends DialogFragment {
 
     public interface DoneDialogListener {
         public void onDialogPositiveClick(DialogFragment dialog);
-        public void onDialogNegativeClick(DialogFragment dialog);
+        //public void onDialogNegativeClick(DialogFragment dialog);
     }
     private DoneDialogListener listener;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         LayoutInflater inflater = getActivity().getLayoutInflater();
-        final View view= inflater.inflate(R.layout.coupon_dialog, null);
+        final View view= inflater.inflate(R.layout.done_dialog, null);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
         builder.setView(view)
-                .setMessage("Ingresar Codigo Promocional")
+                .setMessage("Marcar como realizado?")
                 .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         listener.onDialogPositiveClick(DoneDialog.this);
@@ -41,7 +41,7 @@ public class DoneDialog extends DialogFragment {
                 })
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        listener.onDialogNegativeClick(DoneDialog.this);
+                        //listener.onDialogNegativeClick(DoneDialog.this);
                     }
                 });
 

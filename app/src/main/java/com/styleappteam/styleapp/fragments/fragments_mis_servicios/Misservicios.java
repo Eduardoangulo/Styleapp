@@ -22,6 +22,8 @@ import com.styleappteam.styleapp.connection_service.DetailClient;
 import com.styleappteam.styleapp.connection_service.clientDetailPost;
 import com.styleappteam.styleapp.connection_service.detail_creation.RatingPost;
 import com.styleappteam.styleapp.connection_service.detail_creation.RatingResult;
+import com.styleappteam.styleapp.connection_service.status.StatusPost;
+import com.styleappteam.styleapp.connection_service.status.StatusResponse;
 import com.styleappteam.styleapp.connection_service.styleapp_API;
 
 import java.util.ArrayList;
@@ -77,6 +79,9 @@ public class Misservicios extends Fragment {
                     case 1:
                         rateDetail(detailClients.get(position).getId());
                         break;
+                    case 2:
+                        doneDetail(detailClients.get(position).getId());
+                        break;
                     default:
                         break;
                 }
@@ -125,6 +130,38 @@ public class Misservicios extends Fragment {
             }
         });
         dialog.show(getFragmentManager() , "RatingDialog");
+
+    }
+    private void doneDetail(final int id){
+        DoneDialog dialog= new DoneDialog();
+        dialog.setDoneDialogListener(new DoneDialog.DoneDialogListener(){
+            @Override
+            public void onDialogPositiveClick(DialogFragment dialog) {
+                conexion.retrofitLoad();
+                if(conexion.getRetrofit()!=null){
+                    Log.i(TAG, "Principal: Hay internet");
+                    styleapp_API service = conexion.getRetrofit().create(styleapp_API.class);
+                    Call<StatusResponse> Call = service.doneService(new StatusPost(id));
+                    Call.enqueue(new Callback<StatusResponse>() {
+                        @Override
+                        public void onResponse(Call<StatusResponse> call, Response<StatusResponse> response) {
+                            refreshContent();
+                            Log.i(TAG, "Se marco como realizado exitosamente");
+                        }
+                        @Override
+                        public void onFailure(Call<StatusResponse> call, Throwable t) {
+                            Log.e(TAG,"NO se pudo marcar");
+                            Toast.makeText(getContext(), "Error de conexión", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
+                }else {
+                    Log.e(TAG, "Principal: se fue el internet");
+                }
+
+            }
+        });
+        dialog.show(getFragmentManager() , "DoneDialog");
 
     }
     private void refreshContent(){
