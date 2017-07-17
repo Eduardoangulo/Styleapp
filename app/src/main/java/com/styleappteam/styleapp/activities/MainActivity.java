@@ -283,13 +283,20 @@ public class MainActivity extends AppCompatActivity {
             List<String> providers = locationManager.getProviders(true);
             Location location = null;
             for (int i=providers.size()-1; i>=0; i--) {
+                Log.i(TAG, "provider "+i+": "+providers.get(i));
                 location = locationManager.getLastKnownLocation(providers.get(i));
                 if (location != null) {
                     provider=i;
                     break;
                 }
             }
-            Log.i(TAG, "provider: "+providers.get(provider));
+            if(provider!=-1){
+                Log.i(TAG, "provider: "+providers.get(provider));
+            }
+            else{
+                Log.i(TAG, "No hay provider");
+            }
+
             //Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
             if(location != null && location.getTime() > Calendar.getInstance().getTimeInMillis() - 2 * 60 * 1000) {
                 Log.i(TAG, "Ultima ubicacion: " + location.getLongitude() + " " + location.getLatitude());
@@ -299,7 +306,13 @@ public class MainActivity extends AppCompatActivity {
             else {
                 String p;
                 if(provider==-1){
-                    p=LocationManager.NETWORK_PROVIDER;
+                    if(locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)){
+                        p= LocationManager.NETWORK_PROVIDER;
+                    }
+                    else{
+                        //if(locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER))
+                        p= LocationManager.GPS_PROVIDER;
+                    }
                 }
                 else{
                     p=providers.get(provider);

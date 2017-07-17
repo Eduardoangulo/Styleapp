@@ -11,9 +11,9 @@ public class DetailPostResponse {
     @SerializedName("message")
     @Expose
     private String message;
-    @SerializedName("message2")
+    @SerializedName("success")
     @Expose
-    private String message2;
+    private boolean success;
 
     public String getMessage() {
         return message;
@@ -23,11 +23,11 @@ public class DetailPostResponse {
         this.message = message;
     }
 
-    public String getMessage2() {
-        return message2;
+    public boolean isSuccess() {
+        return success;
     }
 
-    public void setMessage2(String message2) {
-        this.message2 = message2;
+    public void setSuccess(boolean success) {
+        this.success = success;
     }
 }

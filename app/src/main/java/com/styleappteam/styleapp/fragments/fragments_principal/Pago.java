@@ -45,6 +45,7 @@ import static com.styleappteam.styleapp.VariablesGlobales.conexion;
 import static com.styleappteam.styleapp.VariablesGlobales.currentClient;
 import static com.styleappteam.styleapp.VariablesGlobales.currentService;
 import static com.styleappteam.styleapp.VariablesGlobales.currentWorker;
+import static com.styleappteam.styleapp.VariablesGlobales.infoWorker;
 
 /**
  * Created by eduardo on 6/25/17.
@@ -267,7 +268,7 @@ public class Pago extends Fragment {
 
     private void crearDetalle(Retrofit retrofit) {
         Log.i(TAG, currentWorker.getId()+" "+ currentClient.getId()+" "+currentService.getId());
-        DetailPost detallePots= new DetailPost(currentWorker.getId(), currentClient.getId(), currentService.getId());
+        DetailPost detallePots= new DetailPost(currentWorker.getId(), currentClient.getId(), currentService.getId(), infoWorker.getLatitude(), infoWorker.getLongitude());
         styleapp_API service = retrofit.create(styleapp_API.class);
         Call<DetailPostResponse> Call = service.creatDetalle(detallePots);
         Call.enqueue(new Callback<DetailPostResponse>() {
