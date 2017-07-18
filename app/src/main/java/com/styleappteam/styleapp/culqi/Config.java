@@ -1,8 +1,4 @@
-package com.styleappteam.styleapp.Culqi;
-
-/**
- * Created by culqi on 1/19/17.
- */
+package com.styleappteam.styleapp.culqi;
 
 public class Config {
 

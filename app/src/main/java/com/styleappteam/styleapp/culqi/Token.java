@@ -1,25 +1,15 @@
-package com.styleappteam.styleapp.Culqi;
+package com.styleappteam.styleapp.culqi;
 
 import android.content.Context;
 import android.util.Log;
-
-import com.android.volley.AuthFailureError;
-import com.android.volley.DefaultRetryPolicy;
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
+import com.android.volley.*;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-
 import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Created by culqi on 1/19/17.
- */
 
 public class Token {
 
@@ -80,7 +70,7 @@ public class Token {
         };
 
         jsonObjectRequest.setRetryPolicy(new DefaultRetryPolicy(
-                30000,
+                60000,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
 
