@@ -15,9 +15,6 @@ import com.styleappteam.styleapp.R;
 import com.styleappteam.styleapp.connection_service.DetailClient;
 
 
- /* Created by Luis on 05/05/2017.
- */
-
 public class misservicios_Adapter extends ArrayAdapter<DetailClient> {
     private int r;
     public misservicios_Adapter(Activity context, int resource){
