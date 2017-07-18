@@ -1,8 +1,5 @@
-package com.styleappteam.styleapp.Culqi;
+package com.styleappteam.styleapp.culqi;
 
-/**
- * Created by culqi on 2/7/17.
- */
 
 public class Card {
 

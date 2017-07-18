@@ -7,7 +7,9 @@
     <string name="share">¡Síguenos en nuestras redes sociales!</string>
     <string name="usuario">usuario</string>
     <string name="password">contraseña</string>
-    <string name="OlvContra"><u>¿No recuerda su contraseña?</u></string>
+    <string name="OlvContra">
+        <u>¿No recuerda su contraseña?</u>
+    </string>
     <string name="iniciarSesion">ingresar</string>
 
     <string name="loading">Cargando</string>
@@ -53,10 +55,10 @@
     <string name="llave_publica">llave_publica_culqi</string>
     <string name="llave_privada">llave_privada_culqi</string>
 
-    <string name="selected_place">Último lugar elegido: </string>
+    <string name="selected_place">Último lugar elegido:</string>
     <string name="google_maps_key">googleapikey</string>
     <string name="place_details">
-    <![CDATA[
+        <![CDATA[
         <b>%1$s</b>
         <br/>
         <i>Place Id: %2$s</i>

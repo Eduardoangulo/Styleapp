@@ -1,6 +1,7 @@
 package com.styleappteam.styleapp.fragments.fragments_principal;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
@@ -12,14 +13,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.styleappteam.styleapp.Culqi.Card;
-import com.styleappteam.styleapp.Culqi.Token;
-import com.styleappteam.styleapp.Culqi.TokenCallback;
-import com.styleappteam.styleapp.Culqi.Validation;
+import com.android.volley.*;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+import com.braintreepayments.cardform.view.CardForm;
 import com.styleappteam.styleapp.R;
+import com.styleappteam.styleapp.activities.PaymentConfirmed;
 import com.styleappteam.styleapp.connection_service.API_Connection;
 import com.styleappteam.styleapp.connection_service.TokenToServer;
 import com.styleappteam.styleapp.connection_service.detail_creation.DetailPost;
@@ -30,14 +33,21 @@ import com.styleappteam.styleapp.connection_service.notifications.NotificationPo
 import com.styleappteam.styleapp.connection_service.notifications.NotificationResponse;
 import com.styleappteam.styleapp.connection_service.notifications_API;
 import com.styleappteam.styleapp.connection_service.styleapp_API;
+import com.styleappteam.styleapp.culqi.Card;
+import com.styleappteam.styleapp.culqi.Token;
+import com.styleappteam.styleapp.culqi.TokenCallback;
 import com.styleappteam.styleapp.model.Worker;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import static com.facebook.FacebookSdk.getApplicationContext;
 import static com.styleappteam.styleapp.VariablesGlobales.TAG;
@@ -52,164 +62,80 @@ import static com.styleappteam.styleapp.VariablesGlobales.infoWorker;
  */
 
 public class Pago extends Fragment {
-    Validation validation;
+    //Validation validation;
 
     ProgressDialog progress;
 
     TextView txtcardnumber, txtcvv, txtmonth, txtyear, txtemail, kind_card, result;
     Button btnPay;
 
+    private CardForm cardForm;
+    private EditText emailEditText;
+    private String email;
+
+    private Integer cvv = null, m_exp = null, a_exp = null, productQuantity, convertedCulqiInt, publish_id, user_id, address_id;
+    private Long numero = null;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.payment, container, false);
 
-        validation = new Validation();
+        cardForm = (CardForm) view.findViewById(R.id.card_form);
+        cardForm.cardRequired(true)
+                .expirationRequired(true)
+                .cvvRequired(true)
+                .setup(getActivity());
 
-        progress = new ProgressDialog(getActivity());
-        progress.setMessage("Validando informacion de la tarjeta");
-        progress.setCancelable(false);
-        progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        emailEditText = (EditText) view.findViewById(R.id.email_editTextView);
 
-        txtcardnumber = (TextView) view.findViewById(R.id.txt_cardnumber);
+        cardForm.validate();
 
-        txtcvv = (TextView) view.findViewById(R.id.txt_cvv);
-
-        txtmonth = (TextView) view.findViewById(R.id.txt_month);
-
-        txtyear = (TextView) view.findViewById(R.id.txt_year);
-
-        txtemail = (TextView) view.findViewById(R.id.txt_email);
-
-        kind_card = (TextView) view.findViewById(R.id.kind_card);
-
-        result = (TextView) view.findViewById(R.id.token_id);
+        //validation = new Validation();
 
         btnPay = (Button) view.findViewById(R.id.btn_pay);
 
-        txtcvv.setEnabled(false);
-
-        txtcardnumber.setTransformationMethod(new NumericKeyBoardTransformationMethod());
-        txtcvv.setTransformationMethod(new NumericKeyBoardTransformationMethod());
-        txtmonth.setTransformationMethod(new NumericKeyBoardTransformationMethod());
-        txtyear.setTransformationMethod(new NumericKeyBoardTransformationMethod());
-        txtemail.setTransformationMethod(new NumericKeyBoardTransformationMethod());
-        final API_Connection noti= new API_Connection(getContext(), TAG, "https://fcm.googleapis.com/");
-
-        txtcardnumber.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if(s.length() == 0){
-                    txtcvv.setEnabled(true);
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                String text = txtcardnumber.getText().toString();
-                if(s.length() == 0) {
-                    txtcardnumber.setBackgroundResource(R.drawable.border_error);
-                }
-
-                if(validation.luhn(text)) {
-                    txtcardnumber.setBackgroundResource(R.drawable.border_sucess);
-                } else {
-                    txtcardnumber.setBackgroundResource(R.drawable.border_error);
-                }
-
-                int cvv = validation.bin(text, kind_card);
-                if(cvv > 0) {
-                    txtcvv.setFilters(new InputFilter[]{new InputFilter.LengthFilter(cvv)});
-                    txtcvv.setEnabled(true);
-                } else {
-                    txtcvv.setEnabled(false);
-                    txtcvv.setText("");
-                }
-            }
-        });
-
-        txtyear.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                String text = txtyear.getText().toString();
-                if(validation.year(text)){
-                    txtyear.setBackgroundResource(R.drawable.border_error);
-                } else {
-                    txtyear.setBackgroundResource(R.drawable.border_sucess);
-                }
-            }
-        });
-
-        txtmonth.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                String text = txtmonth.getText().toString();
-                if(validation.month(text)){
-                    txtmonth.setBackgroundResource(R.drawable.border_error);
-                } else {
-                    txtmonth.setBackgroundResource(R.drawable.border_sucess);
-                }
-            }
-        });
-
         btnPay.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
-                progress.show();
-                noti.retrofitLoad();
-                if(noti.getRetrofit()!=null){
-                    Log.i(TAG, "Notificaciones: Hay internet");
-                    enviarNotificacion(noti.getRetrofit(), currentWorker);
-                }else
-                {
-                    Log.e(TAG, "Principal: se fue el internet");
-                    progress.dismiss();
-                }
+                //progress.show();
 
+                numero = Long.parseLong(cardForm.getCardNumber());
+                cvv = Integer.parseInt(cardForm.getCvv());
+                m_exp = Integer.parseInt(cardForm.getExpirationMonth());
+                a_exp = Integer.parseInt(cardForm.getExpirationYear());
+                email = emailEditText.getText().toString().trim();
 
-               //CULQUI TARJETA DE CREDITO
-               /* progress.show();
+                Card card = new Card(cardForm.getCardNumber(),
+                        cardForm.getCvv(), m_exp,
+                        a_exp, email);
 
-                Card card = new Card(txtcardnumber.getText().toString(), txtcvv.getText().toString(), Integer.parseInt(txtmonth.getText().toString()), Integer.parseInt(txtyear.getText().toString()), txtemail.getText().toString());
+                Log.d("culqi", "numero: " +
+                "cvv: " + cvv + "\nm_exp" + m_exp + "\na_exp: " + a_exp
+                + "\nemail: " + email);
 
-                Token token = new Token(getResources().getString(R.string.llave_publica));
+                //create token for a Culqi Charge
+                Token token = new Token("llave_publica_culqi");
 
-                token.createToken(getApplicationContext(), card, new TokenCallback() {
+                token.createToken(getActivity(), card, new TokenCallback() {
+
                     @Override
-                    public void onSuccess(JSONObject token) {
-                        try {
-                            result.setText(token.get("id").toString());
-                        } catch (Exception ex){
-                            progress.hide();
-                        }
-                        progress.hide();
+                    public void onSuccess(JSONObject token) throws JSONException {
+
+                        String object = token.getString("object");
+                        String token_id = token.getString("id");
+                        JSONObject clientObject = token.getJSONObject("client");
+
+                        Log.d("culqi", "id: " + token_id);
+
+                        createCharge(token_id, email);
+
                     }
 
                     @Override
                     public void onError(Exception error) {
-                        progress.hide();
+                        Log.d("Pago", "Culqi Token Error is: " + error);
                     }
-                });*/
-
+                });
             }
         });
 
@@ -217,9 +143,60 @@ public class Pago extends Fragment {
         return view;
     }
 
+    private void createCharge(String token_id, String email) throws JSONException {
+
+        String url = "https://api.culqi.com/v2/charges";
+
+        JSONObject payObj = new JSONObject();
+        payObj.put("amount", 1000);
+        payObj.put("currency_code", "PEN");
+        payObj.put("email", email);
+        payObj.put("source_id", token_id);
+
+        JsonObjectRequest chargeRequest = new JsonObjectRequest(Request.Method.POST,
+                url, payObj, new com.android.volley.Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+
+                Log.d("culqi", "success response is: " + response.toString());
+
+                enviarNotificacion(conexion.getRetrofit(), currentWorker);
+
+                startActivity(new Intent(getActivity(), PaymentConfirmed.class));
+
+            }
+        }, new com.android.volley.Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("culqi", "error response is: " + error.toString());
+
+            }
+        }){
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                HashMap<String, String> headers = new HashMap<>();
+                headers.put("Authorization", "Bearer " + "sk_test_DHNtQHnQQwxtdMGq");
+                return headers;
+            }
+
+        };
+
+        chargeRequest.setRetryPolicy(new DefaultRetryPolicy(
+                30000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
+        RequestQueue queue = Volley.newRequestQueue(getActivity());
+        queue.add(chargeRequest);
+
+    }
+
     private void enviarNotificacion(Retrofit retrofit, Worker worker) {
         Log.i(TAG, "Enviar Notificacion");
-        String clientName=currentClient.getUser().getFirstName()+" "+currentClient.getUser().getLastName();
+//        String clientName=currentClient.getUser().getFirstName()+" "+currentClient.getUser().getLastName();
+        String clientName="Luis";
+
         String token;
         if(worker.getToken()==null){
             token="gg";
