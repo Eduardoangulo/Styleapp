@@ -80,6 +80,10 @@ public class Pago extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.payment, container, false);
+        progress = new ProgressDialog(getActivity());
+        progress.setMessage(getResources().getString(R.string.loading));
+        progress.setCancelable(false);
+        progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
 
         cardForm = (CardForm) view.findViewById(R.id.card_form);
         cardForm.cardRequired(true)
@@ -159,10 +163,20 @@ public class Pago extends Fragment {
             public void onResponse(JSONObject response) {
 
                 Log.d("culqi", "success response is: " + response.toString());
+                final API_Connection noti= new API_Connection(getContext(), TAG, "https://fcm.googleapis.com/");
 
-                enviarNotificacion(conexion.getRetrofit(), currentWorker);
 
-                startActivity(new Intent(getActivity(), PaymentConfirmed.class));
+                noti.retrofitLoad();
+                if(noti.getRetrofit()!=null){
+                    Log.i(TAG, "Notificaciones: Hay internet");
+                    enviarNotificacion(noti.getRetrofit(), currentWorker);
+                }else
+                {
+                    Log.e(TAG, "Principal: se fue el internet");
+                }
+
+
+                //startActivity(new Intent(getActivity(), PaymentConfirmed.class));
 
             }
         }, new com.android.volley.Response.ErrorListener() {
@@ -194,8 +208,8 @@ public class Pago extends Fragment {
 
     private void enviarNotificacion(Retrofit retrofit, Worker worker) {
         Log.i(TAG, "Enviar Notificacion");
-//        String clientName=currentClient.getUser().getFirstName()+" "+currentClient.getUser().getLastName();
-        String clientName="Luis";
+        String clientName=currentClient.getUser().getFirstName()+" "+currentClient.getUser().getLastName();
+        //String clientName="Luis";
 
         String token;
         if(worker.getToken()==null){
@@ -204,6 +218,7 @@ public class Pago extends Fragment {
         else{
             token=worker.getToken();
         }
+        Log.i(TAG, token);
         NotificationPost nPost= new NotificationPost(token, new Notificacion("Nueva solicitud de servicio!",clientName+" solicito tus servicios!"), new Datos("Enviado deade app","Enviado deade app"));
         notifications_API service= retrofit.create(notifications_API.class);
         Call<NotificationResponse> Call= service.enviarNotificacion(nPost);
@@ -231,7 +246,9 @@ public class Pago extends Fragment {
 
                 }
                 else{
-                    Log.e(TAG, " Notificacion-onResponse: " + response.errorBody());
+
+                    Log.e(TAG, " Notificacion-onResponse1: " + response.raw());
+                    Log.e(TAG, " Notificacion-onResponse: " + response.errorBody().toString());
                     Toast.makeText(getApplicationContext(), "Error al enviar solicitud", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -253,6 +270,10 @@ public class Pago extends Fragment {
             public void onResponse(Call<DetailPostResponse> call, Response<DetailPostResponse> response) {
                 if(response.isSuccessful()){
                     Toast.makeText(getApplicationContext(), "Se envio su solicitud", Toast.LENGTH_SHORT).show();
+
+                    Intent intent= new Intent(getApplicationContext(), PaymentConfirmed.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
                 }
                 else{
                     Log.e(TAG, " CrearDetalle-onResponse: " + response.errorBody());

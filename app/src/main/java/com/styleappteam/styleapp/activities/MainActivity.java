@@ -75,6 +75,10 @@ public class MainActivity extends AppCompatActivity {
             finish();
             goLoginScreen();
         }
+        else{
+            Log.i(TAG, currentClient.getUser().getFirstName());
+        }
+
 
         conexion= new API_Connection(getApplicationContext(), TAG, URL_desarrollo);
 

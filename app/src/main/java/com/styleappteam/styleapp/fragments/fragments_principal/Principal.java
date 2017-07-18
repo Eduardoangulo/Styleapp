@@ -50,7 +50,7 @@ public class Principal extends Fragment {
         progress.setMessage(getResources().getString(R.string.loading));
         progress.setCancelable(false);
         progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        progress.show();
+        //progress.show();
 
         adapter1=new Type_Adapter(getActivity(), R.layout.basic_list);
 
@@ -88,9 +88,9 @@ public class Principal extends Fragment {
                 if (response.isSuccessful()) {
                     tipos = response.body();
                     adapter1.addAll(tipos);
-                    progress.dismiss();
+                    //progress.dismiss();
                 } else {
-                    progress.dismiss();
+                    //progress.dismiss();
                     Toast.makeText(getContext(), "Error de Conexión", Toast.LENGTH_SHORT).show();
                 }
             }

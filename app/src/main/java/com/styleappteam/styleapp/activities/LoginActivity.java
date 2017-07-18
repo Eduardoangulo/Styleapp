@@ -165,6 +165,7 @@ public class LoginActivity extends AppCompatActivity {
                     }
                     else{
                         Toast.makeText(getApplicationContext(), getResources().getString(R.string.connection_error), Toast.LENGTH_LONG).show();
+                        Log.e(TAG, " Verificar onResponse: " + response.raw());
                         Log.e(TAG, " Verificar onResponse: " + response.errorBody());
                     }
 
