@@ -118,7 +118,7 @@ public class Pago extends Fragment {
                 + "\nemail: " + email);
 
                 //create token for a Culqi Charge
-                Token token = new Token("llave_publica_culqi");
+                Token token = new Token("pk_test_7vFDTc8xvscgbcKw");
 
                 token.createToken(getActivity(), card, new TokenCallback() {
 

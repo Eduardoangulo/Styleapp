@@ -56,7 +56,7 @@
     <string name="llave_privada">llave_privada_culqi</string>
 
     <string name="selected_place">Último lugar elegido:</string>
-    <string name="google_maps_key">googleapikey</string>
+    <string name="google_maps_key">google_maps_key</string>
     <string name="place_details">
         <![CDATA[
         <b>%1$s</b>
